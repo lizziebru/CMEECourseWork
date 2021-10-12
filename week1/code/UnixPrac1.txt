@@ -1,1 +1,25 @@
-# this should have the 5 solutions (single-line commands you came up with)
+# Author: Lizzie Bru eab21@ic.ac.uk
+# Script: UnixPrac1.txt
+# Description: contains UNIX shell commands that carry out tasks analysing sequence data from FASTA files provided
+# Arguments: none
+# Date: October 2021
+
+# Count how many lines are in each file
+
+cd ../data/fasta ; wc -l 407228326.fasta ; wc -l 407228412.fasta ; wc -l E.coli.fasta #make it work from the directory the fasta files are in (use this for all the rest of the exercises too), then wc -l counts and prints the number of lines for each one
+
+# Print everything starting from the second line for the E. coli genome
+
+cd ../data/fasta ; tail -n +2 E.coli.fasta #outputs the last part of the file, starting from line 2 (described by argument -n +2)
+
+# Count the sequence length of this genome
+
+cd ../data/fasta ; wc -m E.coli.fasta #wc -m prints and counts the number of characters (number of characters = the number of bases = the sequence length :))
+
+# Count the matches of a particular sequence, "ATCG", in the genome of E. coli
+
+cd ../data/fasta ; grep -o ATCG E.coli.fasta | wc -l #use grep -o to search for matches of "ATCG" and print each in a separate line, then wc -l to count and print the number of lines of that output
+
+# Compute the AT/GC ratio
+cd ../data/fasta ; a=$(grep -o A E.coli.fasta | wc -l) ; t=$(grep -o T E.coli.fasta | wc -l) ; at=$(($a + $b)) ; c=$(grep -o C E.coli.fasta | wc -l) ; g=$(grep -o G E.coli.fasta | wc -l) ; cg=$(($c + $g)) ; echo "$at/$cg" | bc -l #count the number of each letter, add A+T and C+G, then use floating point division to divide (A+T)/(C+G)
+
