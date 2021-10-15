@@ -27,7 +27,7 @@ If you would like to run the scripts in this project, you should clone this repo
 
 ### **Usage**
 
-1. [UNIX and Linux](https://mhasoba.github.io/TheMulQuaBio/notebooks/01-Unix.html#)
+1. [**UNIX and Linux**](https://mhasoba.github.io/TheMulQuaBio/notebooks/01-Unix.html#)
 
 [**UnixPrac1.txt**](code/UnixPrac1.txt)
 
@@ -35,7 +35,7 @@ This file contains five standalone lines of UNIX shell commands that carry out  
 
  Each line should be run separately to generate their desired output, detailed in the accompanying comments.
 
-2. [Shell scripting](https://mhasoba.github.io/TheMulQuaBio/notebooks/02-ShellScripting.html)
+2. [**Shell scripting**](https://mhasoba.github.io/TheMulQuaBio/notebooks/02-ShellScripting.html)
 
 [**boilerplate.sh**](code/boilerplate.sh)
 
@@ -67,11 +67,11 @@ This script concatenates the contents of two files. It should be run with two fi
 
 This script should convert a .tif file to a .png file. It should be run with one .tif file as an argument. If a file is not provided it should throw and error message and exit.
 
-3. [Version control with Git](https://mhasoba.github.io/TheMulQuaBio/notebooks/03-Git.html)
+3. [**Version control with Git**](https://mhasoba.github.io/TheMulQuaBio/notebooks/03-Git.html)
 
 This practical is about how to push my repository to Github. No code files were made in this practical.
 
-4. [Scientific documents with LaTeX](https://mhasoba.github.io/TheMulQuaBio/notebooks/04-LaTeX.html)
+4. [**Scientific documents with LaTeX**](https://mhasoba.github.io/TheMulQuaBio/notebooks/04-LaTeX.html)
 
 [**CompileLaTeX.sh**](code/CompileLaTeX.sh)
 
