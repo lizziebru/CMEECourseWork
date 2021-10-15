@@ -1,19 +1,27 @@
-# note on this practical: what he wants:
-# need to have a compiled LateX script that'll generate this document - and embellish it as much as you like
-
-# need to make sure that CompileLaTeX.sh ill work if someone else ran it from their computer using FirstExample.tex as an input
-
-# this script compiles LaTeX with Bibtex
-
 #!/bin/bash
-pdflatex $1.tex
-bibtex $1
-pdflatex $1.tex
-pdflatex $1.tex
-evince $1.pdf &
+# Author: Lizzie Bru eab21@imperial.ac.uk
+# Script: CompileLaTeX.sh
+# Desc: compiles LaTeX with Bibtex
+# Arguments: 1 -> .tex file
+# Date: Oct 2021
 
-## Cleanup
-rm *.aux
-rm *.log
-rm *.bbl
-rm *.blg
+# need to make sure it works on files both with and without .tex extension
+
+# check if extension is "tex"
+# if not, print something to terminal
+notex=$(basename -- "$1")
+extension="${notex##*.}"
+filename="${notex%.*}"
+
+# compile LaTeX wth Bibtex
+pdflatex $notex.tex
+bibtex $notex
+pdflatex $notex.tex
+pdflatex $notex.tex
+evince $notex.pdf &
+
+## Cleanup - could be nice to check if they're there first before deleting them (cause doesn't throw an error if you try to delete things that aren't there)
+[ -e *.aux ] && rm *.aux
+[ -e *.aux ] && rm *.log
+[ -e *.aux ] && rm *.bbl
+[ -e *.aux ] && rm *.blg

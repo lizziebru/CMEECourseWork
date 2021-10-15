@@ -1,7 +1,7 @@
 #!/bin/bash
 # Author: Lizzie Bru eab21@imperial.ac.uk
 # Script: MyExampleScript.sh
-# Desc: demonstrating how values can be assigned using explicit declaration
+# Desc: demonstrate how values can be assigned using explicit declaration
 # Arguments: none
 # Date: Oct 2021
 

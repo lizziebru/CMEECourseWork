@@ -1,31 +1,26 @@
-#**My CMEE Coursework Repository**
+## **My CMEE Coursework Repository**
 
-This contains all coursework materials from practical work in the CMEE course, which is guided by the [**The Multilingual Quantitative Biologist**](https://mhasoba.github.io/TheMulQuaBio/intro.html) online book.
+This contains all coursework materials from practical work in the Computational Methods in Ecology and Evolution course at Imperial College London Silwood Park, which is guided by the [**The Multilingual Quantitative Biologist**](https://mhasoba.github.io/TheMulQuaBio/intro.html) online book.
 
-##**Languages**
+### **Languages**
 
 BASH version 5.0.17(1)[^1].
 [^1]: GNU, P. (2007). *Free Software Foundation. Bash (5.0.17)[Unix shell program]*.
 
+### **Contents** 
 
-##**Dependencies** (what special packages (which are not part of standard libraries of the languages used) might be needed for a new user to run this project)
+[**Week 1**](week1)
+- this directory contains coursework materials from week 1 of practical work, covering the following topics:
+1. [UNIX and Linux](https://mhasoba.github.io/TheMulQuaBio/notebooks/01-Unix.html#)
+2. [Shell scripting](https://mhasoba.github.io/TheMulQuaBio/notebooks/02-ShellScripting.html)
+3. [Version control with Git](https://mhasoba.github.io/TheMulQuaBio/notebooks/03-Git.html)
+4. [Scientific documents with LaTeX](https://mhasoba.github.io/TheMulQuaBio/notebooks/04-LaTeX.html)
 
+### **Usage** (for each file: how to use it and what it does)
 
-##**Installation** (guidelines for installing the project & dependencies (if applicable))
+Instructions for usage of specific files in this repository can be found in the week-specific README files.
 
-
-##**Usage** (for each file: how to use it and what it does)
-
-
-##**Author name and contact**
+### **Author name and contact**
 
 Lizzie Bru
 eab21@ic.ac.uk
-
-# License
-
-# --> see https://en.wikipedia.org/wiki/Software_license for more info
-
-# Acknowledgements
-
-# Instructions for contributing
