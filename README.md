@@ -4,8 +4,7 @@ This contains all coursework materials from practical work in the Computational 
 
 ### **Languages**
 
-BASH version 5.0.17(1)[^1].
-[^1]: GNU, P. (2007). *Free Software Foundation. Bash (5.0.17)[Unix shell program]*.
+BASH version 5.0.17(1)
 
 TeX 3.14159265 (TeX Live 2019/Debian)
 
