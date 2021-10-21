@@ -1,0 +1,786 @@
+Starting code feedback for Lizzie, Week1
+
+Current Points = 100
+
+Note that: 
+(1) Major sections begin with a double "====" line 
+(2) Subsections begin with a single "====" line 
+(3) Code output or text file content are printed within single "*****" lines 
+
+======================================================================
+======================================================================
+Your Git repo size this week is about 1.53 MiB on disk 
+
+PART 1: Checking project workflow...
+
+Found the following directories in parent directory: .git, Feedback, week1
+
+Found the following files in parent directory: README.md, .gitignore
+
+Checking for key files in parent directory...
+
+Found .gitignore in parent directory, great! 
+
+Printing contents of .gitignore:
+
+**********************************************************************
+*.pdf
+*.aux
+*.bbl
+*.log
+*.blg
+**********************************************************************
+
+Found README in parent directory, named: README.md
+
+Printing contents of README.md:
+
+**********************************************************************
+## **My CMEE Coursework Repository**
+
+This contains all coursework materials from practical work in the Computational Methods in Ecology and Evolution course at Imperial College London Silwood Park, which is guided by the [**The Multilingual Quantitative Biologist**](https://mhasoba.github.io/TheMulQuaBio/intro.html) online book.
+
+### **Languages**
+
+BASH version 5.0.17(1)
+
+TeX 3.14159265 (TeX Live 2019/Debian)
+
+### **Dependencies**
+
+imagemagick
+
+bc
+
+### **Contents** 
+
+[**Week 1**](week1)
+- this directory contains coursework materials from week 1 of practical work, covering the following topics:
+1. [UNIX and Linux](https://mhasoba.github.io/TheMulQuaBio/notebooks/01-Unix.html#)
+2. [Shell scripting](https://mhasoba.github.io/TheMulQuaBio/notebooks/02-ShellScripting.html)
+3. [Version control with Git](https://mhasoba.github.io/TheMulQuaBio/notebooks/03-Git.html)
+4. [Scientific documents with LaTeX](https://mhasoba.github.io/TheMulQuaBio/notebooks/04-LaTeX.html)
+
+### **Usage**
+
+Instructions for usage of specific files in this repository can be found in the week-specific README files.
+
+### **Author name and contact**
+
+Lizzie Bru
+eab21@ic.ac.uk
+
+**********************************************************************
+
+======================================================================
+Looking for the weekly directories...
+
+Found 1 weekly directories: week1
+
+The Week1 directory will be assessed 
+
+======================================================================
+======================================================================
+PART 2: Checking weekly code and workflow...
+
+======================================================================
+Assessing WEEK1...
+
+Found the following directories: code, sandbox, results, data
+
+Found the following files: README.md
+
+Checking for readme file in weekly directory...
+
+Found README in parent directory, named: README.md
+
+Printing contents of README.md:
+
+**********************************************************************
+## **Week 1 Repository**
+
+This repository contains all coursework materials from week 1 of practical work in the CMEE course.
+
+Specifically, this includes the first four topics in the Computing module of the  [**The Multilingual Quantitative Biologist**](https://mhasoba.github.io/TheMulQuaBio/intro.html) online book:
+1. [UNIX and Linux](https://mhasoba.github.io/TheMulQuaBio/notebooks/01-Unix.html#)
+2. [Shell scripting](https://mhasoba.github.io/TheMulQuaBio/notebooks/02-ShellScripting.html)
+3. [Version control with Git](https://mhasoba.github.io/TheMulQuaBio/notebooks/03-Git.html)
+4. [Scientific documents with LaTeX](https://mhasoba.github.io/TheMulQuaBio/notebooks/04-LaTeX.html)
+
+### **Languages**
+
+BASH version 5.0.17(1)
+
+TeX 3.14159265 (TeX Live 2019/Debian)
+
+### **Dependencies**
+
+imagemagick
+
+bc
+
+### **Dependencies** 
+
+No special packages are required to run this project.
+
+
+### **Installation**
+
+If you would like to run the scripts in this project, you should clone this repository.
+
+
+### **Usage**
+
+1. [**UNIX and Linux**](https://mhasoba.github.io/TheMulQuaBio/notebooks/01-Unix.html#)
+
+[**UnixPrac1.txt**](code/UnixPrac1.txt)
+
+This file contains five standalone lines of UNIX shell commands that carry out  analysing sequence data from FASTA files provided in [**The Multilingual Quantitative Biologist Github repository**](https://github.com/mhasoba/TheMulQuaBio).
+
+ Each line should be run separately to generate their desired output, detailed in the accompanying comments.
+
+2. [**Shell scripting**](https://mhasoba.github.io/TheMulQuaBio/notebooks/02-ShellScripting.html)
+
+[**boilerplate.sh**](code/boilerplate.sh)
+
+This script should be run altogether and print 'This is a shell script!'. It acts as a simple boilerplate for shell scripts.
+
+[**tabtocsv.sh**](code/tabtocsv.sh)
+
+This script substitutes the tabs in the file with commas and saves the output as a comma separated values file. It should be run with a tab delimited file as an argument. If a file is not provided it should throw and error message and exit.
+
+[**variables.sh**](code/variables.sh)
+
+This script illustrates the use of variables. It does not initially require arguments to run but asks for strings and numerical arguments once it is run.
+
+[**MyExampleScript.sh**](code/MyExampleScript.sh)
+
+This script demonstrates how values can be assigned using explicit declaration. It should be run as a full script with no arguments and output 
+'Hello <user>
+Hello <user>'.
+
+[**CountLines.sh**](code/CountLines.sh)
+
+This script counts the number of lines in a file. It should be run with one file as an argument and output the number of lines in it. If a file is not provided it should throw and error message and exit.
+
+[**ConcatenateTwoFiles.sh**](code/ConcatenateTwoFiles.sh)
+
+This script concatenates the contents of two files. It should be run with two files as arguments and output a concatenated file into the results directory. If two files are not provided it should throw and error message and exit.
+
+[**tiff2png.sh**](code/tiff2png.sh)
+
+This script should convert a .tif file to a .png file. It should be run with one .tif file as an argument. If a file is not provided it should throw and error message and exit.
+
+3. [**Version control with Git**](https://mhasoba.github.io/TheMulQuaBio/notebooks/03-Git.html)
+
+This practical is about how to push my repository to Github. No code files were made in this practical.
+
+4. [**Scientific documents with LaTeX**](https://mhasoba.github.io/TheMulQuaBio/notebooks/04-LaTeX.html)
+
+[**CompileLaTeX.sh**](code/CompileLaTeX.sh)
+
+This script should compile LaTeX with Bibtex. It should be run with one LaTeX file as an argument. 
+
+
+### **Author name and contact**
+
+Lizzie Bru
+eab21@ic.ac.uk
+
+**********************************************************************
+
+Results directory is empty - good! 
+
+Found 13 code files: tiff2png.sh, CountLines.sh, FirstBiblio.bib, tabtocsv.sh, variables.sh, FirstExample.tex, boilerplate.sh, csvtospace.sh, ConcatenateTwoFiles.sh, UnixPrac1.txt, CompileLaTeX.sh, MyExampleScript.sh, NewEnvironsandCommands.tex
+
+======================================================================
+Testing script/code files...
+
+======================================================================
+Inspecting script file tiff2png.sh...
+
+File contents are:
+
+**********************************************************************
+#!/bin/bash
+# Author: Lizzie Bru eab21@imperial.ac.uk
+# Script: tiff2png.sh
+# Desc: demonstrating how to convert tiff to png
+# Arguments: 1 -> tiff file
+# Date: Oct 2021
+
+echo "Converting tiff file $1 to png..."
+
+# if there's no file provided, print an error message and exit
+if [ "$1" == "" ]
+then 
+echo 'Error: no input file provided. Exiting...'
+exit
+fi
+
+# if anything else (i.e. if there is a file provided), carry out the following commands:
+for f in *.tif; 
+    do  
+        echo "Converting $f"; 
+        convert "$f"  "$(basename "$f" .tif).png"; 
+    done
+
+exit
+**********************************************************************
+
+Testing tiff2png.sh...
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+Converting tiff file  to png...
+Error: no input file provided. Exiting...
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.00249s
+
+======================================================================
+Inspecting script file CountLines.sh...
+
+File contents are:
+
+**********************************************************************
+#!/bin/bash
+# Author: Lizzie Bru eab21@imperial.ac.uk
+# Script: CountLines.sh
+# Desc: count the number of lines in a file
+# Arguments: 1 -> file containing lines
+# Date: Oct 2021
+
+# need it to give feedback to the user and exit if the right inputs aren't provided
+
+echo "Counting the number of lines in $1..."
+
+# if there's no file provided, print an error message and exit
+if [ "$1" == "" ]
+then 
+echo 'Error: no input file provided. Exiting...'
+exit
+fi
+
+# if anything else (i.e. if there is a file provided), carry out the following commands:
+NumLines=`wc -l < $1` # the > changes the way that $1 is put through the command: when it's present, the contents of $1 are taken and put through the command, whereas without it the command just addresses $1 directly (means that the filename comes out in the output)
+echo "The file $1 has $NumLines lines"
+exit
+**********************************************************************
+
+Testing CountLines.sh...
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+Counting the number of lines in ...
+Error: no input file provided. Exiting...
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.00383s
+
+======================================================================
+Inspecting script file FirstBiblio.bib...
+
+File contents are:
+
+**********************************************************************
+@article{verhulst1838notice,
+  title={Notice sur la loi que la population suit dans son accroissement},
+  author={Verhulst, Pierre-Fran{\c{c}}ois},
+  journal={Corresp. Math. Phys.},
+  volume={10},
+  pages={113--126},
+  year={1838}
+}
+
+**********************************************************************
+
+Testing FirstBiblio.bib...
+
+======================================================================
+Inspecting script file tabtocsv.sh...
+
+File contents are:
+
+**********************************************************************
+#!/bin/bash
+# Author: Lizzie Bru eab21@imperial.ac.uk
+# Script: tabtocsv.sh
+# Description: substitute the tabs in the files with commas and save the output as a .csv file
+# Arguments: 1 -> tab delimited file
+# Date: Oct 2021
+
+# need it to give feedback to the user and exit if the right inputs aren't provided
+
+echo "Creating a comma delimited version of $1..."
+
+# if there's no file provided, print an error message and exit
+if [ "$1" == "" ]
+then 
+echo 'Error: no input file provided. Exiting...'
+exit
+fi
+
+# then for anything else (i.e. if there is a file provided), substitute the tabs in the files with commas
+cat $1 | tr -s "\t" "," >> ../results/$1.csv #output to the results directory
+echo "Done!"
+
+exit
+**********************************************************************
+
+Testing tabtocsv.sh...
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+Creating a comma delimited version of ...
+Error: no input file provided. Exiting...
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.00391s
+
+======================================================================
+Inspecting script file variables.sh...
+
+File contents are:
+
+**********************************************************************
+#!/bin/sh
+# Author: Lizzie Bru eab21@imperial.ac.uk
+# Script: variables.sh
+# Desc: illustrates the use of variables
+# Arguments: none
+# Date: Oct 2021
+
+# Special variables
+
+echo "This script was called with $# parameters"
+echo "The script's name is $0"
+echo "The arguments are $@"
+echo "The first argument is $1"
+echo "The second argument is $2"
+
+# Assigned Variables; Explicit declaration:
+MY_VAR='some string' 
+echo 'the current value of the variable is:' $MY_VAR
+echo
+echo 'Please enter a new string'
+read MY_VAR
+echo
+echo 'the current value of the variable is:' $MY_VAR
+echo
+
+## Assigned Variables; Reading (multiple values) from user input:
+echo 'Enter two numbers separated by space(s)'
+read a b
+echo
+echo 'you entered' $a 'and' $b '; Their sum is:'
+
+## Assigned Variables; Command substitution
+MY_SUM=$(expr $a + $b)
+echo $MY_SUM
+**********************************************************************
+
+Testing variables.sh...
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+This script was called with 0 parameters
+The script's name is variables.sh
+The arguments are 
+The first argument is 
+The second argument is 
+the current value of the variable is: some string
+
+Please enter a new string
+
+the current value of the variable is:
+
+Enter two numbers separated by space(s)
+
+you entered and ; Their sum is:
+
+
+**********************************************************************
+
+Encountered error (or warning):
+expr: syntax error: missing argument after ‘+’
+
+======================================================================
+Inspecting script file FirstExample.tex...
+
+File contents are:
+
+**********************************************************************
+\documentclass[12pt]{article}
+
+\title{A Simple Document}
+
+\author{Lizzie Bru}
+
+\date{October 2021}
+
+\begin{document}
+    \maketitle
+
+    \begin{abstract}
+    This paper analyzes a seminal equation in population biology.
+    \end{abstract}
+
+    \section{Introduction}
+    Blah Blah
+
+    \section{Materials \& Methods}
+    
+    A foundational equation of population biology is:
+
+    \begin{equation}
+        \frac{dN}{dt} = r N (1 - \frac{N}{K})
+    \end{equation}
+
+    It was first proposed by Verhulst in 1838 \cite{verhulst1838notice}
+
+    \bibliographystyle{plain}
+
+    \bibliography{FirstBiblio}
+
+\end{document}
+
+**********************************************************************
+
+Testing FirstExample.tex...
+
+======================================================================
+Inspecting script file boilerplate.sh...
+
+File contents are:
+
+**********************************************************************
+#!/bin/bash
+# Author: Lizzie Bru eab21@imperial.ac.uk
+# Script: boilerplate.sh
+# Desc: simple boilerplate for shell scripts
+# Arguments: none
+# Date: Oct 2021
+
+echo "\nThis is a shell script! \n" #e enables interpretation of backslash escapes: here '\n' is the escape for a new line (default is to not interpret backslashes as anything special)
+
+# exit
+**********************************************************************
+
+Testing boilerplate.sh...
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+\nThis is a shell script! \n
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.00297s
+
+======================================================================
+Inspecting script file csvtospace.sh...
+
+File contents are:
+
+**********************************************************************
+#!/bin/bash
+# Author: Lizzie Bru eab21@imperial.ac.uk
+# Script: csvtospace.sh
+# Desc: takes a comma separated values file and converts it to space separated values file
+# Arguments: 1 -> comma separated values file
+# Date: Oct 2021
+
+# needs to not change the input file - shoudl save it as a differently named file
+# should be able to handle wrong/missing inputs like for the others
+
+echo "Converting comma separated values file $1 to space separated values file..."
+
+# if there's no file provided, print an error message and exit
+if [ "$1" == "" ]
+then 
+echo 'Error: no input file provided. Exiting...'
+exit
+fi
+
+# if anything else (i.e. if there is a file provided), replace commas with spaces
+sed -e 's/,/ /g' $1 >> ../results/`basename -s .csv $1`.txt #output to the results directory
+
+exit
+
+
+# USE PARAMETER EXPANSION? - READ THE PAGES HE PUT IN THE HINT!
+**********************************************************************
+
+Testing csvtospace.sh...
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+Converting comma separated values file  to space separated values file...
+Error: no input file provided. Exiting...
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.00349s
+
+======================================================================
+Inspecting script file ConcatenateTwoFiles.sh...
+
+File contents are:
+
+**********************************************************************
+#!/bin/bash
+# Author: Lizzie Bru eab21@imperial.ac.uk
+# Script: ConcatenateTwoFiles.sh
+# Desc: demonstrating how to concatenate the contents of two files
+# Arguments: 2 -> 2 files to concatenate together
+# Date: Oct 2021
+
+# need it to give feedback to the user and exit if the right inputs aren't provided
+
+echo "Concatenating the contents of $1 and $2..."
+
+# if there are not two files provided, print an error message and exit
+if [[ $# != 2 ]]
+then 
+echo 'Error: incorrect number of files provided (needs two). Exiting...'
+exit
+fi
+
+# then for anything else (i.e. if there are two files provided), concatenate their two contents
+cat $1 > mergedfile.sh # redirects the output from 'cat $1' to new file called 'mergedfile.sh' (overwrites it if already exists)
+cat $2 >> mergedfile.sh # appends the output from 'cat $2' to file 'mergedfile.sh'
+echo "Merged File is"
+cat mergedfile.sh >> ../results/$3 #output to the results directory
+
+exit
+**********************************************************************
+
+Testing ConcatenateTwoFiles.sh...
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+Concatenating the contents of  and ...
+Error: incorrect number of files provided (needs two). Exiting...
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.00330s
+
+======================================================================
+Inspecting script file UnixPrac1.txt...
+
+File contents are:
+
+**********************************************************************
+# Author: Lizzie Bru eab21@ic.ac.uk
+# Script: UnixPrac1.txt
+# Description: contains UNIX shell commands that carry out tasks analysing sequence data from FASTA files provided
+# Arguments: none
+# Date: October 2021
+
+# Count how many lines are in each file
+
+cd ../data/fasta ; wc -l 407228326.fasta ; wc -l 407228412.fasta ; wc -l E.coli.fasta #make it work from the directory the fasta files are in (use this for all the rest of the exercises too), then wc -l counts and prints the number of lines for each one
+
+# Print everything starting from the second line for the E. coli genome
+
+cd ../data/fasta ; tail -n +2 E.coli.fasta #outputs the last part of the file, starting from line 2 (described by argument -n +2)
+
+# Count the sequence length of this genome
+
+cd ../data/fasta ; wc -m E.coli.fasta #wc -m prints and counts the number of characters (number of characters = the number of bases = the sequence length :))
+
+# Count the matches of a particular sequence, "ATCG", in the genome of E. coli
+
+cd ../data/fasta ; grep -o ATCG E.coli.fasta | wc -l #use grep -o to search for matches of "ATCG" and print each in a separate line, then wc -l to count and print the number of lines of that output
+
+# Compute the AT/GC ratio
+cd ../data/fasta ; a=$(grep -o A E.coli.fasta | wc -l) ; t=$(grep -o T E.coli.fasta | wc -l) ; at=$(($a + $b)) ; c=$(grep -o C E.coli.fasta | wc -l) ; g=$(grep -o G E.coli.fasta | wc -l) ; cg=$(($c + $g)) ; echo "$at/$cg" | bc -l #count the number of each letter, add A+T and C+G, then use floating point division to divide (A+T)/(C+G)
+
+
+**********************************************************************
+
+Testing UnixPrac1.txt...
+
+======================================================================
+Inspecting script file CompileLaTeX.sh...
+
+File contents are:
+
+**********************************************************************
+#!/bin/bash
+# Author: Lizzie Bru eab21@imperial.ac.uk
+# Script: CompileLaTeX.sh
+# Desc: compiles LaTeX with Bibtex
+# Arguments: 1 -> .tex file
+# Date: Oct 2021
+
+# need to make sure it works on files both with and without .tex extension
+
+# check if extension is "tex"
+# if not, print something to terminal
+notex=$(basename -- "$1")
+extension="${notex##*.}"
+filename="${notex%.*}"
+
+# compile LaTeX wth Bibtex
+pdflatex $notex.tex
+bibtex $notex
+pdflatex $notex.tex
+pdflatex $notex.tex
+evince $notex.pdf &
+
+## Cleanup - could be nice to check if they're there first before deleting them (cause doesn't throw an error if you try to delete things that aren't there)
+[ -e *.aux ] && rm *.aux
+[ -e *.aux ] && rm *.log
+[ -e *.aux ] && rm *.bbl
+[ -e *.aux ] && rm *.blg
+**********************************************************************
+
+Testing CompileLaTeX.sh...
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(/usr/share/texlive/texmf-dist/tex/latex/tools/.tex
+LaTeX2e <2020-02-02> patch level 2
+L3 programming layer <2020-02-14> File ignored)
+*
+! Emergency stop.
+<*> .tex
+        
+!  ==> Fatal error occurred, no output PDF file produced!
+Transcript written on .log.
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdf
+**********************************************************************
+
+Encountered error (or warning):
+bibtex: Need exactly one file argument.
+Try `bibtex --help' for more information.
+
+** (evince:95347): WARNING **: 14:02:36.565: Error when getting information for file “/home/mhasoba/Documents/Teaching/IC_CMEE/2021-22/Coursework/StudentRepos/LizzieBru_eab21/week1/code/.pdf”: No such file or directory
+
+** (evince:95347): WARNING **: 14:02:36.566: set_filenames: Error when getting information for file “/home/mhasoba/Documents/Teaching/IC_CMEE/2021-22/Coursework/StudentRepos/LizzieBru_eab21/week1/code/.pdf”: No such file or directory
+
+** (evince:95347): WARNING **: 14:02:36.580: Error setting file metadata: No such file or directory
+
+** (evince:95347): WARNING **: 14:02:36.580: Error setting file metadata: No such file or directory
+
+** (evince:95347): WARNING **: 14:02:36.580: Error setting file metadata: No such file or directory
+
+** (evince:95347): WARNING **: 14:02:36.580: Error setting file metadata: No such file or directory
+
+** (evince:95347): WARNING **: 14:02:36.580: Error setting file metadata: No such file or directory
+
+** (evince:95347): WARNING **: 14:02:36.580: Error setting file metadata: No such file or directory
+
+** (evince:95347): WARNING **: 14:02:36.580: Error setting file metadata: No such file or directory
+
+** (evince:95347): WARNING **: 14:02:36.580: Error setting file metadata: No such file or directory
+
+** (evince:95347): WARNING **: 14:02:36.580: Error setting file metadata: No such file or directory
+
+** (evince:95347): WARNING **: 14:02:36.580: Error setting file metadata: No such file or directory
+
+** (evince:95347): WARNING **: 14:02:36.580: Error setting file metadata: No such file or directory
+
+** (evince:95347): WARNING **: 14:02:36.580: Error setting file metadata: No such file or directory
+
+** (evince:95347): WARNING **: 14:02:36.583: Error setting file metadata: No such file or directory
+
+======================================================================
+Inspecting script file MyExampleScript.sh...
+
+File contents are:
+
+**********************************************************************
+#!/bin/bash
+# Author: Lizzie Bru eab21@imperial.ac.uk
+# Script: MyExampleScript.sh
+# Desc: demonstrate how values can be assigned using explicit declaration
+# Arguments: none
+# Date: Oct 2021
+
+msg1="Hello"
+msg2=$USER
+echo "$msg1 $msg2"
+echo "Hello $USER"
+echo
+**********************************************************************
+
+Testing MyExampleScript.sh...
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+Hello mhasoba
+Hello mhasoba
+
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.00640s
+
+======================================================================
+Inspecting script file NewEnvironsandCommands.tex...
+
+File contents are:
+
+**********************************************************************
+# can make new environments and commands here
+
+# then can insert them into scripts using the \input{} command
+**********************************************************************
+
+Testing NewEnvironsandCommands.tex...
+
+======================================================================
+======================================================================
+Finished running scripts
+
+Ran into 2 errors
+
+======================================================================
+======================================================================
+
+FINISHED WEEKLY ASSESSMENT
+
+Current Points for the Week = 100
+
+NOTE THAT THESE ARE POINTS, NOT MARKS FOR THE WEEK!
