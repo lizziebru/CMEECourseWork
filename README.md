@@ -4,8 +4,15 @@ This contains all coursework materials from practical work in the Computational 
 
 ### **Languages**
 
-BASH version 5.0.17(1)[^1].
-[^1]: GNU, P. (2007). *Free Software Foundation. Bash (5.0.17)[Unix shell program]*.
+BASH version 5.0.17(1)
+
+TeX 3.14159265 (TeX Live 2019/Debian)
+
+### **Dependencies**
+
+imagemagick
+
+bc
 
 ### **Contents** 
 
@@ -16,7 +23,7 @@ BASH version 5.0.17(1)[^1].
 3. [Version control with Git](https://mhasoba.github.io/TheMulQuaBio/notebooks/03-Git.html)
 4. [Scientific documents with LaTeX](https://mhasoba.github.io/TheMulQuaBio/notebooks/04-LaTeX.html)
 
-### **Usage** (for each file: how to use it and what it does)
+### **Usage**
 
 Instructions for usage of specific files in this repository can be found in the week-specific README files.
 

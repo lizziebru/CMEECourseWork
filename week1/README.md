@@ -8,12 +8,17 @@ Specifically, this includes the first four topics in the Computing module of the
 3. [Version control with Git](https://mhasoba.github.io/TheMulQuaBio/notebooks/03-Git.html)
 4. [Scientific documents with LaTeX](https://mhasoba.github.io/TheMulQuaBio/notebooks/04-LaTeX.html)
 
-
 ### **Languages**
 
-BASH version 5.0.17(1)[^1].
-[^1]: GNU, P. (2007). *Free Software Foundation. Bash (5.0.17)[Unix shell program]*.
+BASH version 5.0.17(1)
 
+TeX 3.14159265 (TeX Live 2019/Debian)
+
+### **Dependencies**
+
+imagemagick
+
+bc
 
 ### **Dependencies** 
 
@@ -78,7 +83,7 @@ This practical is about how to push my repository to Github. No code files were 
 This script should compile LaTeX with Bibtex. It should be run with one LaTeX file as an argument. 
 
 
-### Author name and contact
+### **Author name and contact**
 
 Lizzie Bru
 eab21@ic.ac.uk
