@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 """Making a dictionary derived from tuples"""
+__author__ = 'Lizzie Bru (eab21@ic.ac.uk)'
 
 taxa = [ ('Myotis lucifugus','Chiroptera'),
          ('Gerbillus henleyi','Rodentia',),

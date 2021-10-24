@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 """This script aligns two DNA sequences such that they are as similar as possible"""
+__author__ = 'Lizzie Bru (eab21@ic.ac.uk)'
 
 # Two example sequences to match
 #seq2 = "ATCGCCGGATTACGGG"
@@ -85,22 +86,18 @@ print(my_best_align)
 print(s1)
 print("Best score:", my_best_score)
 
-## make empty file to put the results in
+## Save the best alignemt and its corresponding score in a single text file to results directory:
 
 # import module
 import os
 
-# make empty code file (the a+ means append and read (file can be read and written in, and data is inserted at the end, after existing data)
+# make empty code file and write data to it (the 'w' allows this)
 # use a with loop for this (do this whenever you're interacting with files in this way!) so that it automatically closes the file if it encounters any errors along the way
 
 with open("../results/dna_align_output.txt", "w") as dna_output:
     # write outputs to it
-    dna_output.write(my_best_align +"\n" + str(s1) + "\n" + "Best score: " + str(my_best_score))
-    #dna_output.write(str(print(s1))) # arguments to 'write' have to be strings
-    #dna_output.write("Best score:")
-    #dna_output.write(str(print(my_best_score)))
+    dna_output.write("Best alignment:" + "\n" + my_best_align +"\n" + str(s1) + "\n" + "Score: " + str(my_best_score))
 
-##--> to do: fix how this final text file looks!
 
 
 

@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 """Script demonstrating how to separate a tuple of tuples into separate lines"""
+__author__ = 'Lizzie Bru (eab21@ic.ac.uk)'
 
 from typing import Pattern
-
 
 birds = ( ('Passerculus sandwichensis','Savannah sparrow',18.7),
           ('Delichon urbica','House martin',19),

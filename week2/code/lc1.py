@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 """Exercises on list comprehensions and loops"""
+__author__ = 'Lizzie Bru (eab21@ic.ac.uk)'
 
 birds = ( ('Passerculus sandwichensis','Savannah sparrow',18.7),
           ('Delichon urbica','House martin',19),

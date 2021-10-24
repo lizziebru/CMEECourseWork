@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 """Exercises on list comprehensions and loops"""
+__author__ = 'Lizzie Bru (eab21@ic.ac.uk)'
 
 # Average UK Rainfall (mm) for 1910 by month
 # http://www.metoffice.gov.uk/climate/uk/datasets
