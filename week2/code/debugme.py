@@ -1,3 +1,8 @@
+#!/usr/bin/env python3
+
+"""Script to demonstrate debugging in Python"""
+__author__ = 'Lizzie Bru (eab21@ic.ac.uk)'
+
 def buggyfunc(x):
     y = x
     for i in range(x):

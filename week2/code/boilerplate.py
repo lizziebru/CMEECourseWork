@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-"""Description of this program or application.
-You can use several lines""" # doc strings - interprets it as being documentation for the code - so if you type help for this function this is what you get
+"""Boilerplate for Python programs""" # doc strings - interprets it as being documentation for the code - so if you type help for this function this is what you get
 # --> makes it easy for you to document what your program is
 
 __appname__ = '[application name here]'

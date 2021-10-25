@@ -1,3 +1,8 @@
+#!/usr/bin/env python3
+
+"""Script to demonstrate how to handle csv's in Python"""
+__author__ = 'Lizzie Bru (eab21@ic.ac.uk)'
+
 import csv
 
 # Read a file containing:

@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+
+"""Script to demonstrate how to store files in Python"""
+__author__ = 'Lizzie Bru (eab21@ic.ac.uk)'
+
+
 #############################
 # STORING OBJECTS
 #############################

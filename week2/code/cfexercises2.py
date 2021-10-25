@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+
+"""Examples of loops and conditionals combined"""
+__author__ = 'Lizzie Bru (eab21@ic.ac.uk)'
+
+
 for j in range(12):
     if j % 3 == 0:
         print('hello')

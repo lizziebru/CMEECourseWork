@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+
+"""Worked example of using loops and list comprehensions"""
+__author__ = 'Lizzie Bru (eab21@ic.ac.uk)'
+
+
 ## Finds just those taxa that are oak trees from a list of species
 
 taxa = [ 'Quercus robur',
