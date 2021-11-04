@@ -1,12 +1,11 @@
 # Author: Lizzie Bru eab21@imperial.ac.uk
-# Script: 
-# Desc: 
+# Script: Ricker.R
+# Desc: contains the Ricker model
 # Arguments: none
 # Date: Oct 2021
 
 # it's a difference model - looking at the diff timesteps
 # 
-
 
 
 # basically filling the vector with values
