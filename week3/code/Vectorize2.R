@@ -1,7 +1,6 @@
 # Author: Lizzie Bru eab21@imperial.ac.uk
 # Script: Vectorize2.R
 # Desc: contains the stochastic Ricker model in a form which is more vectorized than was originally provided
-# Arguments: none
 # Date: Oct 2021
 
 # Runs the stochastic Ricker equation with gaussian fluctuations

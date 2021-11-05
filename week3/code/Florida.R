@@ -1,7 +1,6 @@
 # Author: Lizzie Bru eab21@imperial.ac.uk
 # Script: Florida.R
 # Desc: Script that helps answer the question: Is Florida getting warmer?
-# Arguments: none
 # Date: Oct 2021
 
 # need to calculate the correlation coefficients between temperature and time

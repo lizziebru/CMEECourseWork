@@ -1,0 +1,51 @@
+## MINIPROJECT
+
+- focus mostly only readings on Population Growth
+- but also find your own papers
+
+
+## LECTURE ON FITING MODELS TO DATA IN ECOLOGY AND EVOLUTION
+
+# what is modelling?
+- aims to explain processes/mechanisms underlying patterns/phenomena in empirical data 
+- they have a theoretical basis - we know roughly how things should behave - based on physical principles
+- models vs theory: theory = much more general (it's independent of specific phenomena)
+- models establish the existence of statistically significant, non-random patterns or phenomena in empirical data
+- they make no assumptions about the processes/mechanisms that generate the patterns (i.e. they lack a theoretical basis)
+
+
+# mechanistic vs phenomenological models
+- both play key role in bio
+- phenomenological models reveal patterns in data that generate hypotheses
+    - these can be tested using further model fitting
+    - e.g. whether climatic temp affects the lynx-hare cycle]
+- mechanistic: looks to validate a mechanistic model that can explain the pattern
+    - i.e. generate more accurate, mechanistic hypotheses
+- ultimately , successful epirically-grounded mechanistic models are the best path towards a theory in any scientfiic discipline
+
+# roadmap:
+- he likes to go bottom-up:
+- mechanisms of indivs --> mechanisms of interactions --> mechanisms of communities
+
+
+# most ecologcial studies perform phenomenological modelling 
+-- bc need to forecast rather than explain
+-- but big question: CAN WE FORECAST WITHOUT EXPLAINING??
+
+
+# how to do it
+- if possible use biological knowledge to construct models
+- see if models agree well with data
+- whicever one agrees best is likely to have teh right mechanisms
+- that's the one thats best for predictions
+- phenomological/statistical models often perform better than mechanistic oes - bc they often have less restrictive assumptions
+
+# for miniproject:
+
+- use least squares
+- basically model selection is key
+
+
+--> read levins 1966 the strategy of model building in popn biology!!
+
+(see github for slides)

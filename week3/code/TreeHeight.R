@@ -1,7 +1,6 @@
 # Author: Lizzie Bru eab21@imperial.ac.uk
 # Script: TreeHeight.R
-# Desc: an example utility function
-# Arguments: none
+# Desc: calculates tree heights
 # Date: Oct 2021
 
 # This function calculates heights of trees given distance of each tree 

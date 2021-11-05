@@ -1,7 +1,6 @@
 # Author: Lizzie Bru eab21@imperial.ac.uk
 # Script: DataWrangTidy.R
 # Desc: Script that uses tidyverse to do some data wrangling
-# Arguments: none
 # Date: Oct 2021
 
 require(dplyr)

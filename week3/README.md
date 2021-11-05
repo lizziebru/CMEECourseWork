@@ -2,17 +2,24 @@
 
 This repository contains all coursework materials from week 3 of practical work in the CMEE course.
 
-Specifically, this includes the [**Biological Computing in Python I**](https://mhasoba.github.io/TheMulQuaBio/notebooks/05-Python_I.html#) chapter in the Computing module of the  [**The Multilingual Quantitative Biologist**](https://mhasoba.github.io/TheMulQuaBio/intro.html) online book.
+Specifically, this includes the [**Biological Computing in R**](https://mhasoba.github.io/TheMulQuaBio/notebooks/07-R.html#) and [**Data Management and Visualization**](https://mhasoba.github.io/TheMulQuaBio/notebooks/08-Data_R.html#id3) chapters in the Computing module of the  [**The Multilingual Quantitative Biologist**](https://mhasoba.github.io/TheMulQuaBio/intro.html) online book.
 
 
 ### **Languages**
 
-R - version??
+R version 3.6.3 (2020-02-29)
 
 
 ### **Dependencies** 
 
-No special packages are required to run this project.
+ggplot2
+ggpubr
+tidyr
+dplyr
+plyr
+broom
+base
+maps
 
 
 ### **Installation**
@@ -22,31 +29,45 @@ If you would like to run the scripts in this project, you should clone this repo
 
 ### **Usage**
 
-[**lc1.py**](code/lc1.py)
+[**TreeHeight.R**](code/TreeHeight.R)
 
-This script contains two exercises on practicing list comprehensions and loops. It should be run altogether and print the latin names, common names, and mean body masses for each bird species two times.
+This script calculates tree heights for trees provided. It should be run altogether and output the tree heights in a csv file. 
 
-[**lc2.py**](code/lc2.py)
 
-This script contains three more exercises on practicing list comprehensions and loops. It should be run altogether and print the following lists two times:
-- a list of month/rainfall tuples where the amount of rain was greater than 100mm
-- a list of just month names where the amount of rain was less than 50mm
+[**Vectorize2.R**](code/Vectorize2.R)
 
-[**dictionary.py**](code/dictionary.py)
+This script demonstrates vectorization in R. It should be run altogether and output the Ricker model in a vectorized way.
 
-This script makes a dictionary from tuples. It should be run altogether and return a dictionary which maps order names to sets of taxa.
 
-[**tuple.py**](code/tuple.py)
+[**Florida.R**](code/Florida.R)
 
-Thsi script demonstrates how to separate a tuple of tuples into separate lines. It should be run altogether and print each species' latin name, common name, and mass on separate lines.
+This script demonstrates how to carry out correlation coefficient analysis in R. It should be run altogether and output two PDF graphs of the results.
 
-[**cfexercises1.py**](code/cfexercises.py)
 
-This script contains some functions exemplifying the use of conditionals. It should be run altogether, writing the six functions and printing the results of the test argument for each function.
+[**Florida_writeup.tex**](code/Florida.tex)
 
-[**align_seqs.py**](code/align_seqs.py)
+LaTeX write-up of the results of the analysis carried out in Florida.R.
 
-This script aligns two DNA sequences such that they are as similar as possible. It should be run altogether, taking an input from the [data](data) directory and outputting a text file with the best alignment and corresponding score into the [results](results) directory.
+
+[**DataWrangTidy.R**](code/DataWrangTidy.R)
+
+This script demonstrates how to wrangle data in R using tidyr ad dplyr. It should be run altogether and wrangle the data it imports from the 'data' directory.
+
+
+[**PP_Dists.R**](code/PP_Dists.R)
+
+This script demonstrates how to visualize data in R. It should be run altogether and ouput three PDF files of plots as well as a CSV results file.
+
+
+[**PP_Regress.R**](code/PP_Regress.R)
+
+This script demonstrates how to visualize regression analyses in R. It should be run altogether and output a PDF file of a multi-faceted graph of the regressions and a CSV file containing the results of the regression analyses.
+
+
+[**GPDD_Data.R**](code/GPDD_Data.R)
+
+This script demonstrates how to map in R using the 'maps' package. It should be run altogether ad print a world map with locations from the provided GPDD dataframe superimposed onto it.
+
 
 
 ### **Author name and contact**
