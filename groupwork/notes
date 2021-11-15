@@ -1,0 +1,58 @@
+## GROUPWORK NOTES ##
+
+# PYTHON I: Align DNA sequences I
+
+Chalita has done this
+
+The script should take 2 fasta sequences to align them
+should also run a default sequence if you don't give it any inputs
+
+
+
+
+# PYTHON I: Align DNA sequences II
+
+Eamonn, Chalita & Emma have done this too
+
+want to save all of the best alignments
+
+make a dictionary and loop through both things
+
+would be better to have less stuff in the main
+
+
+TO DO:
+
+add docstrings to all the functions
+make everything generally more readable
+look at both Chalita and Emma's solutions and see which one is better etc
+Eamonn's soln to the second one: could try to figure out how to do it using a list instead --> cause he didn't end up using pickle (which necessitates using dictionaries)
+basically just try refine Chalita & Eamonn and Emma's scripts
+
+
+
+# PYTHON I: Missing oaks problem (to do at end of next week)
+
+
+
+# R: Tree Heights I
+
+
+
+# R: Tree Heights II
+
+
+
+# R: Autocorrelation practical
+
+wanna compare pairs of consecutive years
+
+create one dataset: first year to the 99th year, then 2nd to the 100th year
+--> then compare those
+
+
+
+invest time in python ones!!
+
+
+

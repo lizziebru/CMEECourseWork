@@ -4,7 +4,7 @@
 - but also find your own papers
 
 
-## LECTURE ON FITING MODELS TO DATA IN ECOLOGY AND EVOLUTION
+## LECTURE ON FITING MODELS TO DATA IN ECOLOGY AND EVOLUTION (see github for slides)
 
 # what is modelling?
 - aims to explain processes/mechanisms underlying patterns/phenomena in empirical data 
@@ -36,7 +36,7 @@
 # how to do it
 - if possible use biological knowledge to construct models
 - see if models agree well with data
-- whicever one agrees best is likely to have teh right mechanisms
+- whichever one agrees best is likely to have the right mechanisms
 - that's the one thats best for predictions
 - phenomological/statistical models often perform better than mechanistic oes - bc they often have less restrictive assumptions
 
@@ -46,6 +46,285 @@
 - basically model selection is key
 
 
---> read levins 1966 the strategy of model building in popn biology!!
 
-(see github for slides)
+
+## RECOMMENDED READING: Levins 1966 The strategy of model building in population biology
+
+biology is super complex - it's impossible to model absolutely every variable
+- some various approaches:
+    - sacrifice generality to realism and precision (Holling, Watt, many fishery biologists)
+        - just focus on what's relevant to the short-term behaviour of the organism
+    - scarifice realism to generality and precision (Kerner, Leigh, most physicists who enter popn bio)
+        - but equations are often pretty unrealistic
+    - sacrifice precision to realism and generality (MacArthr, Levins)
+        - bc we're concerned in the long run with qualitative rather than quantitative results (only important in testing hypotheses)
+        - so can go for v flexible models (often graphical) that generally assume that functions are increasing or decreasing, greater or less than some value etc instead of specifying the mathematical form of an equations
+        - means that the predictions we can make are also expressed as inequalities e.g. between tropical & temperate spp
+
+BUT: even the most flexible models have artificial assumptions
+- so can be hard to know whether the result depends on the essentials of a model or on the details of the simplifying assumptions
+--> therefore we should attempt to treat the same problem with several alternative models each with diff simplifications but a common biological assumptions
+--> so if these models lead to similar results then we have robust theorem which is relatively free of the details of the model
+(i.e. truth is the intersection of independent lies)
+
+see examples of a robust and a non-robust theorem
+
+mathematical models are neither hypotheses nor theories
+- not verifiable directly by experiment
+- can be both true and false
+- almost any plausible relation among aspects of nature is likely to be true in the sense that it occurs (no matter how little)
+- but all models leave out a lot of info so ae also false/incomplete
+--> good model = generates good testable hypotheses relevant to important problems
+(i.e. usually discard it in favour of a more powerful one or or just outgrow the model when the problems it addresses are no longer currently important)
+
+usually a satisfactory theory = a cluster of models
+- bc models are restricted by technical considerations to a few components at a time
+- good to have a few models related to each other in various ways 
+- can cope with diff aspects of the same problem & give complementary + overlapping results
+- hierarchically arranged "nested" models: each provides an interpretation of the sufficient parameters of the next higher level where they're taken as given
+
+
+
+## RECOMMENDED READING: MODEL SELECTION IN ECOLOGY AND EVOLUTION (Johnson & Omland 2004)
+
+model selection = replacing the traditional null hypothesis testing approach (ask whether a hypothesis can be rejected in light of observed data)
+
+model selection:
+- grounded in likelihood theory
+- means you're not restricted to evaluating a single model where significance is measured against some arbitrary probability threshold
+- models can be ranked & weighted --> so can get a quantitative measure of relatiev support for each competing hypothesis
+- where models haev similar levels of support from data: can use model averaging to make robust parameter estimates and predictions
+
+
+steps of model selection:
+
+1. generate biological hypotheses as candidate models
+- bc model fitting is underpinned by view that the best way to understand something is to simultaneously weigh evidence for multiple working hypotheses
+- so need to articulate a reasonable set of competing hypotheses
+- to translate hypotheses to models: identify variables and select mathematical functions that depict the biological processes through which those variables are related
+
+2. fit models to data
+- at an early stage of the analysis: can examine the goodness-of-fit of the most heavily parameterized model in the candidate set
+    - can use conventional statistical tests e.g. chi-squared or a parametric bootstrap procedure
+- if the global model provides a reasonable fit to the data:
+    - fit each of the models in the candidate set to the observed data using maximum likelihood/least squares method
+
+
+3. select the best model/set of models
+- 2 diff approaches:
+    - use series of null hypothesis tests e.g. likelihood ratio tests in phylogenetic analyses or F-tests in multiple regression analysis
+        - but: 
+            - this is typically restricted to nested models (i.e. the simpler model = special case of the more complex model)
+            - and so soemtimes leads to subptimal models that are dependent on the hierarchical order in which the models are compared
+            - can't use these tests to quantify the relative support for the various models
+    - model selection criteria:
+        - use maximum likelihood scores as a measure of fit (more precisely, negative log-likelihood scores as a measure of lack of fit)
+        - also use a term that penalizes models for greater complexity
+        - 2 criteria commonly used: AIC, Scharwz Criterion (SC; aka the Bayesian information criterion)
+
+4. parameter estimation and model averaging
+- often the point for model selection is to estimate model parameters of biological interest (e.g. survival rate in mark-recapture studies)
+- when there's clear support for one model: can use max likelihood parameter estimates/predictions from that model
+- when there's support from the observed data for multiple models:
+    - use model averaging!
+    - parameter estimates obtained by model averaging = robust bc they reduce model selection bias and account for model selection uncertainty
+
+
+examples of uses of models:
+- relating survival rates to physiological and environmental factors (using mark-recapture data)
+    - used to estimate parameters (survival rates, recapture rates etc) based on recovery of marked individuals
+    - model type: multinomial probability models
+    - set of candidate models:
+        - parameter families
+        - survival probability
+        - detection probability
+        - transition probability
+        - model variations: parameter constant, parameter varying freely over time, parameter differing by patch, linear trend in parameter value, parameter a function of a covariate
+    - goodness of fit test: commonly used - applied to the most complex model before the model selection step
+    - model fitting algorithm: maximum likelihood
+    - model selection criterion: usually AIC
+    - model averaging? - usually uncommon
+    - software commonly used: MARK
+- detecting spatial heterogenety in population regulation
+- discerning how animals allocate risk in response to predation
+- measuring effects of fire on community organisation
+
+
+when should you use model selection?
+- good for making inferences from observational data, esp when data are collected from complex systems/when inferring historical scenarios where several diff competing hypotheses can be put forward
+- unfortunately most ppl still use null hypothesis testing even when model selection would be better suited
+    - e.g. ecosystem science: unraveling complex trophic relationships among taxa:
+        - currently usually just advance a simple hypothesis, acquire some observational data to test it then use to show where model assumptions have failed + refine hypothesis then further testing
+        - would be better to weigh empirical sypport for a set of models simultaneously using model selection
+
+
+caveats & future directions of model selection
+- inferences derived from model selection ultimately depend on the models included in the candidate set
+    - could lead to misguided inference if fail to include models that might best approximate the underlying biological processes
+    - so need to think critically about alternative hypotheses before collect & analyse data!
+- for a model to carry biological meaning rather than just statistical significance: need its predictions and parameter estimates to be biologically plausible
+    - i.e. it's logically inconsistent to accept empirical support for a model and its associated hypothesis whilst discarding its parameter estimates and predictions
+- need to decide when it's most appropriate to use model selection and when it's most appropriate to use designed experiments and inferences based on significance tests
+    - it's clear for some: e.g. evolutionary diversification of a lineage: can't have controlled experiments - so can only use model selection 
+    - less clear for others: e.g. popn cycling: can use observational time series data or manipulative experimentation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## LINEAR MODELS LECTURE
+
+diff types of variables in a linear model:
+- response variable
+- explanatory variables
+- coefficients
+- residuals
+
+the response variable is always continuous
+
+continuous terms always have one coefficient
+
+categorical factors have N-1 coefficients, where N is the number of levels (e.g. sex has 2 levels: male and female)
+
+linear models == just a sum of terms that are linear in the coefficients
+
+NB: linear models can include curved relationships!
+
+ANOVA
+- asking whether 2 diff levels are an appropriate way to think of your data
+
+ANCOVA
+- analysis of covariance
+
+
+in reality: it's usually like this:
+- data always shows variation from a perfect model (deviations)
+    - e.g. missing variables, measurement error, stochastic variation
+
+fitting a linear model: use least squares solution:
+- minimize the sum of the squared residuals
+- the maths that happens under the surface in this is basically just solving loads of simultaneous equations
+- given these, find the set of these that minimise the sum of the squared residuals
+
+
+assumptions in fitting a linear model:
+- no measurement error in explanatory variables
+- the explanatory variables are not very highly inter-correlated
+- the model has constant normal variance
+
+--> if these assumptions are not met, the model can be very wrong!
+--> you should consider the first 2 before even fitting a linear model 
+--> you need to test the last one after fitting the model
+
+testing for the model having constant normal variance:
+- this means the data having a similar spread around any predicted point in the model
+- overall the residuals are normally distributed around 0: mostly small but a few large values 
+- points should be spaced so as to best capture the normal (gaussian) curve
+- how to check that the linear model is appropriate:
+    - basically asking whether the model is appropriate for the data and the assumptions are satisfied
+    - good sign if teh spread of the real data around the fitted line is about the same across the x-axis
+    - but are the residuals normally distributed??
+    - need to check diagnostic plots: 
+        - if the residuals vs fitted values plot has nice even spread of points throughout - suggests the data are normally distributed (can be kinda bunched up if the bunches themselves are nicely spread out)
+            - the three numbered points in this plot are the most badly behaved points
+        - normal Q-Q plot:
+            - checking if the distribution of residuals is normal: need to be nicely lined up on the 1-1 line - although it's acceptable to have some deviation ofc
+
+--> therefore: to check for normality: need to plot the data and plot the residuals
+
+
+how explanatory is the fitted linear model??
+- the role of F and t tests in linear model fitting:
+    - F test: to test for significance of terms: whether the model explains enough variation compared to an alternative and whether each term explains enough variation
+        - need: 
+            - total sum of squares (tells you how much variability there is in the dataset)
+            - explained sum of squares (tells you how much of the variation in the dependent variable our model was able to explain)
+            - residual sum of squares (tels us how much of teh variaton in the depedent variable our model could not explain)
+            - large ESS is good 
+            - fewer coefficients is better
+            - small RSS is good
+            - residual degrees of freedom: larger sample size is better
+            - if there were nothing going on in the model: you would get the null distribution of F: this has a particular shape: if our f value lies in the range where 95% of teh random dataset would have an F value in that range then your result is probs not significant
+    - t test: testing for significance of coefficients: might not have great confidence for some - basically just need to ask whether the coefficients are different from 0
+        - we wanna know if the coefficient would have been generated by chance
+        - t = effect size / precision = coefficient value / standard error --> want large numerator and small denominator
+        - the value of a coefficient in a model = its effect size (how much does changing that predictor variable change the response variable) 
+        - when there's nothing going on: t has near zero typically but can be super big or small by chance
+        - 95% of the random datasets have t less than or equal to plus or minus 2.09
+
+    
+every alternative model = new alternative hypothesis
+- the goal is to identify the best, most parsimonious model/hypothesis for the data
+
+SUMMARY ON LMs:
+- predict a continuous response variable
+- is the sum of terms that are linear in the coefficients capturing the effect sizes of explanatory variables
+- they're fitted using (ordinary) least squares - minimizes the sum of squared residuals
+- need to check if the fitted LM is appropriate
+- then check if the LM is explanatory
+- fitting alternative LMs = testing alternative hypotheses
+
+
+
+## NLLS LECTURE: Fitting mathematical models to biological data using non-linear least-squares (NLLS)
+
+--> basically just least squares fitting method but for non-linear relationships
+
+Why NLLS?
+- many observations in biology are just not well-fitted by a linear model e.g. population growth, responses of metabolic rates to changing temperature, time-series data
+- when you can't find an exact, simple solution to the least-squares problem for non-linear models
+
+The NLLS fitting method
+- can use a computer to find an approximate but close-to-optimal least-squares solution as follows:
+    - choose starting initial values for the parameters we want to estimate
+    - then adjust the parameters iteratively (using a specific algorithm that's better than searching randomly) such that the RSS is gradually decreased
+        - 2 main algorithms are generally used:
+            - the Gauss-Newton algorithm: often used, but doesn't work v well if the model to be fitted is mathematically complicated (the parameter search "landscape" is difficult) and the starting values for parameters are far-off optimal
+            - the Levenberg-Marquardt algorithm: switches between Gauss-Newton and "gradient descent" and is more robust against starting values that are far-off-optimal and is more reliable in most scenarios
+    - eventually, a combination of parameters that is v close to the desired solution (where the RSS is approximately minimized) can be found
+- once fitting is done: need to get the goodness of fit measures:
+    - first examine the fits visually
+    - report the goodness-of-fit results:
+        - sums of deviations of the data points from the final model fit (final RSS)
+        - estimated coefficients
+        - for each coefficient, standard error (can be used for CI's), t-statistic and corresponding (two-tailed) p-value
+    - might also want to compare and select between multiple competing models
+    - unlike linear models, R^2 values should not be used to interpret the quality of the fit of the NLLS fit
+
+NLLS as all the assumptions of the OLS-regression:
+- no measurement error in explanatory variable (x-axis variable)
+- data have constant normal variance - errors in the y-axis are homogeneously distributed over the x-axis range]
+- the measurement/observation errors are normally distributed (Gaussian)
+    --> what if the errors are not normal? - interpret results cautiously, and use Maximum Likelihood or Bayesian fitting methods instead
+
+
+
+Practicals overview
+- use R
+- use nls function in R for fitting simple non-linear models:
+    - it uses teh Gauss-Newton algorithm by default
+    - command: nls()
+    - it's part of the stats base package
+- use nlsLM() (= the Levenberg-Marquardt algorithm) for fitting complex non-linear models
+    - command: nlsLM()
+    - available through minpack.lm package
+    - offers additional features like the ability to 'bound' parameters to realistic values
+
+
+
+
+
+
+
