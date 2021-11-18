@@ -25,3 +25,9 @@ evince $notex.pdf &
 [ -e *.aux ] && rm *.log
 [ -e *.aux ] && rm *.bbl
 [ -e *.aux ] && rm *.blg
+
+
+# how to run this: type into terminal:
+    # bash CompileLaTeX.sh FirstExample
+    ##--> don't include the .tex ending for the file name
+    ##--> if you're doing it for a .tex file in a different directory, just use the relative path to CompileLateX.sh

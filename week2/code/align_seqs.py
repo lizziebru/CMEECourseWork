@@ -98,7 +98,3 @@ with open("../results/dna_align_output.txt", "w") as dna_output:
     # write outputs to it
     dna_output.write("Best alignment:" + "\n" + my_best_align +"\n" + str(s1) + "\n" + "Score: " + str(my_best_score))
 
-
-
-
-

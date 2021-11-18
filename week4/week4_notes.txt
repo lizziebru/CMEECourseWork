@@ -328,3 +328,12 @@ Practicals overview
 
 
 
+## Q&A 15Nov21
+
+read Johnson & Olmland paper in TREE
+
+CIs:
+- just an overlap or non-overlap of CIs = not the best way to test for whether statistically significantly similar or not
+
+could ask whether Rmax value in my dataset is signficaintly different from Rmax of another group
+--> these kinds of questions are v advanced - would be good to reach that point in miniproject
