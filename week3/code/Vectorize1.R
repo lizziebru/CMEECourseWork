@@ -1,6 +1,6 @@
 # Author: Lizzie Bru eab21@imperial.ac.uk
 # Script: Vectorize1.R
-# Desc: 
+# Desc: this script illustrates vectorization in R
 # Arguments: none
 # Date: Oct 2021
 

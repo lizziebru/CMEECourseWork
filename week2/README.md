@@ -49,6 +49,12 @@ This script contains some functions exemplifying the use of conditionals. It sho
 This script aligns two DNA sequences such that they are as similar as possible. It should be run altogether, taking an input from the [data](data) directory and outputting a text file with the best alignment and corresponding score into the [results](results) directory.
 
 
+[**basic_csv.py**](code/basic_csv.py)
+
+
+## TO DO: FINISH ADDING ALL THE REST OF CODE STUFF
+
+
 ### **Author name and contact**
 
 Lizzie Bru

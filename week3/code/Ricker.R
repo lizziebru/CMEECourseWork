@@ -5,7 +5,6 @@
 # Date: Oct 2021
 
 # it's a difference model - looking at the diff timesteps
-# 
 
 
 # basically filling the vector with values

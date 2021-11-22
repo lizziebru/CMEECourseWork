@@ -20,6 +20,7 @@ plyr
 broom
 base
 maps
+sqldf
 
 
 ### **Installation**
@@ -44,9 +45,14 @@ This script demonstrates vectorization in R. It should be run altogether and out
 This script demonstrates how to carry out correlation coefficient analysis in R. It should be run altogether and output two PDF graphs of the results.
 
 
-[**Florida_writeup.tex**](code/Florida.tex)
+[**Florida_writeup.tex**](code/Florida_writeup.tex)
 
 LaTeX write-up of the results of the analysis carried out in Florida.R.
+
+
+[**Florida_biblio.bib**](code/Florida_biblio.bib)
+
+This is the bibliography for Florida_writeup.tex.
 
 
 [**DataWrangTidy.R**](code/DataWrangTidy.R)
@@ -68,6 +74,105 @@ This script demonstrates how to visualize regression analyses in R. It should be
 
 This script demonstrates how to map in R using the 'maps' package. It should be run altogether ad print a world map with locations from the provided GPDD dataframe superimposed onto it.
 
+
+[**apply1.R**](code/apply1.R)
+
+Script containing examples of use of 'apply' to vectorize.
+
+
+[**apply2.R**](code/apply2.R)
+
+Script containing examples of use of 'apply' to vectorize.
+
+
+[**basic_io.R**](code/basic_io.R)
+
+A simple script to illustrate R input-output. 
+
+
+[**boilerplate.R**](code/boilerplate.R)
+
+A boilerplate script to illustrate how to write functions in R.
+
+
+[**break.R**](code/break.R)
+
+A script to illustrate how to break out of loops.
+
+
+[**browse.R**](code/browse.R)
+
+This script demonstrates how to debug using the browser() function.
+
+
+[**control_flow.R**](code/control_flow.R)
+
+A script to illustrate the use of control flows in R.
+
+
+[**data_visual.R**](code/data_visual.R)
+
+A script demonstrating examples of how to visualize data.
+
+
+[**DataWrang.R**](code/DataWrang.R)
+
+A script to illustrate how to wrangle data in R.
+
+
+[**Girko.R**](code/Girko.R)
+
+A script plotting Girko's law simulation.
+
+
+[**MyBars.R**](code/MyBars.R)
+
+A script demonstrating how to annotate plots.
+
+
+[**next.R**](code/next.R)
+
+A script to illustrate how use next in loops.
+
+
+[**plotLin.R**](code/plotLin.R)
+
+A script demonstrating how to annotate a linear regression plot.
+
+
+[**preallocate.R**](code/preallocate.R)
+
+A script containing examples of using pre-allocation.
+
+
+[**R_conditionals.R**](code/R_conditionals.R)
+
+A script demonstrating the use of functions with conditionals.
+
+
+[**Ricker.R**](code/Ricker.R)
+
+This script contains the Ricker model.
+
+
+[**sample.R**](code/sample.R)
+
+This script illustrates how sampling random numbers and using lapply and sapply works.
+
+
+[**SQLinR.R**](code/SQLinR.R)
+
+This script demonstrates how to use SQLite to build, manipulate, and access databases easily.
+
+
+[**try.R**](code/try.R)
+
+This script illustrates the use of 'try' to catch errors.
+
+
+[**Vectorize1.R**](code/Vectorize1.R)
+
+This script illustrates vectorization in R.
 
 
 ### **Author name and contact**

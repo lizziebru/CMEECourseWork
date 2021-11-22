@@ -1,6 +1,6 @@
 # Author: Lizzie Bru eab21@imperial.ac.uk
 # Script: apply1.R
-# Desc: examples of use of 'apply' to vectorise
+# Desc: examples of use of 'apply' to vectorize
 # Arguments: none
 # Date: Oct 2021
 

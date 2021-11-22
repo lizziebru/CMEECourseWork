@@ -295,13 +295,6 @@ nlsLM(BodyWeight ~ powMod(TotalLength,a,b), data = Data2Fit, start = list(a = 0,
 
 
 
-# 
-
-
-
-
-
-
 
 
 
