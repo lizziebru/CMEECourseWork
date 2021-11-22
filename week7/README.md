@@ -20,6 +20,9 @@ Python:
 - matplotlib.pylab
 - subprocess
 - timeit
+- doctest
+- difflib
+- SequenceMatcher
 
 
 ### **Installation**
@@ -29,13 +32,14 @@ If you would like to run the scripts in this project, you should clone this repo
 
 ### **Usage**
 
-[**WHATEVER THE MISSING OAKS ONE IS CALLED**](code/...)
+[**oaks_debugme.py**](code/oaks_debugme.py)
 
+This script served as a debugging exercise. It is now fixed and should take the input data TestOaksData.csv and write an output of oak names to JustOaksData.csv.
 
 
 [**LV1.py**](code/LV1.py)
 
-This practical illustrates numerical integration and plotting in Python. It should be run in one go and output two figures as PDFs into the results folder. 
+This script illustrates numerical integration and plotting in Python. It should be run in one go and output two figures as PDFs into the results folder. 
 
 
 [**MyFirstJupyterNb.ipynb**](code/MyFirstJupyterNb.ipynb)

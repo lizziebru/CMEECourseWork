@@ -9,6 +9,8 @@ import sys
 import doctest
 from difflib import SequenceMatcher
 
+# NOTE: I am taking the instruction of making this script able to 'handle cases where there is a typo etc' to mean: allow for leeway to include names which could be oaks but just have a typo in them
+
 #Define function
 def is_an_oak(name):
     """ Returns a measure of how similar a name is to 'Quercus' (i.e. how close it is to being an oak)
