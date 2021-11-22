@@ -2,7 +2,7 @@
 
 This repository contains all coursework materials from week 7 of practical work in the CMEE course.
 
-Specifically, this includes the [**Biological Computing in Python I**](https://mhasoba.github.io/TheMulQuaBio/notebooks/05-Python_I.html), [**Biological Computing in Python II**](https://mhasoba.github.io/TheMulQuaBio/notebooks/06-Python_II.html)), [**Introduction to Jupyter**](https://mhasoba.github.io/TheMulQuaBio/notebooks/Appendix-JupyIntro.html), [**Data Analyses with Python and Jupyter**](https://mhasoba.github.io/TheMulQuaBio/notebooks/Appendix-Data-Python.html), and [**Mathematical models with Jupyter**](https://mhasoba.github.io/TheMulQuaBio/notebooks/Appendix-Data-Python.html) chapters in [**The Multilingual Quantitative Biologist**](https://mhasoba.github.io/TheMulQuaBio/intro.html) online book.
+Specifically, this includes the [**Biological Computing in Python I**](https://mhasoba.github.io/TheMulQuaBio/notebooks/05-Python_I.html), [**Biological Computing in Python II**](https://mhasoba.github.io/TheMulQuaBio/notebooks/06-Python_II.html), [**Introduction to Jupyter**](https://mhasoba.github.io/TheMulQuaBio/notebooks/Appendix-JupyIntro.html), [**Data Analyses with Python and Jupyter**](https://mhasoba.github.io/TheMulQuaBio/notebooks/Appendix-Data-Python.html), and [**Mathematical models with Jupyter**](https://mhasoba.github.io/TheMulQuaBio/notebooks/Appendix-Data-Python.html) chapters in [**The Multilingual Quantitative Biologist**](https://mhasoba.github.io/TheMulQuaBio/intro.html) online book.
 
 
 ### **Languages**
