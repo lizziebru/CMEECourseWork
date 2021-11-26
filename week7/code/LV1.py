@@ -52,7 +52,7 @@ infodict['message'] # it worked!
 # visualize the results:
 import matplotlib.pylab as p
 
-# plot population densty against time:
+# plot population density against time:
 f1 = p.figure()
 p.plot(t, pops[:,0], 'g-', label='Resource density') # Plot
 p.plot(t, pops[:,1]  , 'b-', label='Consumer density')
