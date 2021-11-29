@@ -55,7 +55,181 @@ data[is.na(data) | data == "Inf" | data == "-Inf"] <- NA  # Replace NaN & Inf wi
 # just use starting values for mechanistic ones (not for the phenomenological linear ones) -- probs use linear models to do that
 
 
-# TO DO: it's good to repeat things multiple times: so need to look into that and starting values too
+
+# FINAL BIG LOOP:
+
+cubic_AICs <- data.frame(Subset = c(1:285),
+                         AIC = rep(0, 285))
+
+quadratic_AICs <- data.frame(Subset = c(1:285),
+                             AIC = rep(0, 285))
+
+logistic_AICs <- data.frame(Subset = c(1:285),
+                            AIC = rep(0, 285))
+
+gompertz_AICs <- data.frame(Subset = c(1:285),
+                            AIC = rep(0, 285))
+
+logistic_model <- function(t, r_max, K, N_0){ # The classic logistic equation
+  return(N_0 * K * exp(r_max * t)/(K + N_0 * (exp(r_max * t) - 1)))
+}
+
+gompertz_model <- function(t, r_max, K, N_0, t_lag){ # Modified gompertz growth model (Zwietering 1990)
+  return(N_0 + (K - N_0) * exp(-exp(r_max * exp(1) * (t_lag - t)/((K - N_0) * log(10)) + 1)))
+}   
+
+
+for (i in 1:285) {
+  d <- data[which(data$ID == i),]
+  if (nrow(d) < 4) { # if there are fewer datapoints than the number of parameters: terminate the loop
+    next
+  }
+  else {
+    # cubic:
+    try(
+      cubic_fit <- lm(d$log_PopBio ~ poly(d$Time, 3, raw = TRUE), silent = TRUE))
+      
+    try(
+      cubic_AICs[i, "AIC"] <- AIC(lm(d$log_PopBio ~ poly(d$Time, 3, raw = TRUE))
+      ), silent = TRUE)
+    
+    # quadratic:
+    try(
+      quadratic_AICs[i, "AIC"] <- AIC(lm(d$log_PopBio ~ poly(d$Time, 2, raw = TRUE))
+      ), silent = TRUE)
+    
+    # logistic:
+    N_0_start <- min(d$PopBio)
+    K_start <- 2*max(d$PopBio)
+    r_max_start <- 0.00000001
+    try(
+      logistic_AICs[i, "AIC"] <- AIC(nlsLM(PopBio ~ logistic_model(t = Time, r_max, K, N_0), d,
+                                           list(r_max=r_max_start, N_0 = N_0_start, K = K_start))
+      ), silent = TRUE)
+    
+    # gompertz:
+    AIC_reps <- as.numeric(replicate(100, {
+      N_0_start <- rnorm(1, m = min(d$log_PopBio), sd = 3*min(d$log_PopBio)) # use normal - higher confidence in mean
+      K_start <- rnorm(1, m = 2*max(d$log_PopBio), sd = 3*2*max(d$log_PopBio)) # use normal - higher confidence in mean
+      r_max_start <- runif(1, min = 10^-10, max = 10^-2) # use a uniform distribution (lower confiendece in mean) - NB: changing these bounds doesn't change the number of models which it manages to fit so just keep it as it is and don't worry too much about it
+      # need to choose lower & upper bounds: usually good to set bound to be 5-10% of the parameter's (mean) starting value
+      t_lag_start <- rnorm(1, m = d$Time[which.max(diff(diff(d$log_PopBio)))], sd = 3*d$Time[which.max(diff(diff(d$log_PopBio)))])  # normal distribution with mean calculated using diff (the last timepoint of lag phase) and sd as 3 times that
+      try(
+        AIC(nlsLM(log_PopBio ~ gompertz_model(t = Time, r_max, K, N_0, t_lag), d,
+                  list(t_lag=t_lag_start, r_max=r_max_start, N_0 = N_0_start, K = K_start))
+        ), silent = TRUE)
+    }))
+    try(
+      gompertz_AICs[i, "AIC"] <- min(AIC_reps, na.rm = T), silent = TRUE) # take the lowest AIC for each subset and put it in the AIC column of gompertz_AICs
+    
+    
+    
+    # plotting:
+    
+    # fran's test = my d
+    # fran's model1 = my cubic_fit <- would be good to define this for each one
+    
+    # then you can have one plot per subset with all of the models on each one - would be good to get colours & legends going for this
+    
+    
+  }
+}
+
+
+# PLOTS:
+
+# logistic
+
+for (i in 1:285) {
+  d <- data[which(data$ID == i),]
+  if (nrow(d) < 4) { # if there are fewer datapoints than the number of parameters: terminate the loop
+    next
+  }
+  else {
+    N_0_start <- min(d$PopBio)
+    K_start <- 2*max(d$PopBio)
+    r_max_start <- 0.00000001
+    fit_logistic <- try(
+    nlsLM(PopBio ~ logistic_model(t = Time, r_max, K, N_0), d,
+                                       list(r_max=r_max_start, N_0 = N_0_start, K = K_start))
+    , silent = TRUE)
+
+    timepoints <- seq(0, max(d$Time), 0.1)
+
+    logistic_points <- logistic_model(t = timepoints, 
+                                  r_max = coef(fit_logistic)["r_max"], 
+                                  K = coef(fit_logistic)["K"], 
+                                  N_0 = coef(fit_logistic)["N_0"])
+    df1 <- data.frame(timepoints, logistic_points)
+    df1$model <- "Logistic equation"
+    names(df1) <- c("Time", "PopBio", "model")
+
+    log_plot <- ggplot(d, aes(x = Time, y = PopBio)) +
+      geom_point(size = 3) +
+      geom_line(data = df1, aes(x = Time, y = PopBio, col = model), size = 1) +
+      theme(aspect.ratio=1, legend.position = "bottom")+ # make the plot square 
+      labs(x = "Time", y = "PopBio")
+
+    ggsave(log_plot, file = paste0("../results/plot_", i, ".png"))
+    
+  }
+}
+
+
+# they're not a super nice size but can fix this later
+
+
+# gompertz:
+
+for (i in 1:285) {
+  d <- data[which(data$ID == i),]
+  if (nrow(d) < 4) { # if there are fewer datapoints than the number of parameters: terminate the loop
+    next
+  }
+  else {
+    N_0_start <- min(d$PopBio)
+    K_start <- 2*max(d$PopBio)
+    r_max_start <- 0.00000001
+    fit_gompertz <- try(
+      nlsLM(PopBio ~ logistic_model(t = Time, r_max, K, N_0), d,
+            list(r_max=r_max_start, N_0 = N_0_start, K = K_start))
+      , silent = TRUE)
+    
+    timepoints <- seq(0, max(d$Time), 0.1)
+    
+    logistic_points <- logistic_model(t = timepoints, 
+                                      r_max = coef(fit_logistic)["r_max"], 
+                                      K = coef(fit_logistic)["K"], 
+                                      N_0 = coef(fit_logistic)["N_0"])
+    df1 <- data.frame(timepoints, logistic_points)
+    df1$model <- "Logistic equation"
+    names(df1) <- c("Time", "PopBio", "model")
+    
+    log_plot <- ggplot(d, aes(x = Time, y = PopBio)) +
+      geom_point(size = 3) +
+      geom_line(data = df1, aes(x = Time, y = PopBio, col = model), size = 1) +
+      theme(aspect.ratio=1, legend.position = "bottom")+ # make the plot square 
+      labs(x = "Time", y = "PopBio")
+    
+    ggsave(log_plot, file = paste0("../results/plot_", i, ".png"))
+    
+  }
+}
+
+
+
+
+
+
+
+
+
+
+# Previous loops for model fitting ----------------------------------------
+
+
+
+
 
 
 ### CUBIC POLYNOMIAL
@@ -76,7 +250,7 @@ for (i in 1:285) {
 }
 
 
-# instead: make list of models so that can use built-in model comparisons:
+# also: make list of models so that can use built-in model comparisons:
 
 # make an empty list
 cubic <- vector(mode = "list", length = 285)
@@ -115,7 +289,7 @@ for (i in 1:285) {
 }
 
 
-# instead: make list of models
+# also: make list of models
 
 # make an empty list
 quadratic <- vector(mode = "list", length = 285)
@@ -290,7 +464,7 @@ for (i in 1:285) {
     next
   }
   else {
-    best_model <- matrix(unlist(replicate(100, {
+    best_model <- replicate(100, {
       N_0_start <- rnorm(1, m = min(d$log_PopBio), sd = 3*min(d$log_PopBio)) # use normal - higher confidence in mean
       K_start <- rnorm(1, m = 2*max(d$log_PopBio), sd = 3*2*max(d$log_PopBio)) # use normal - higher confidence in mean
       r_max_start <- runif(1, min = 10^-10, max = 10^-2) # use a uniform distribution (lower confiendece in mean)
@@ -299,10 +473,10 @@ for (i in 1:285) {
         nlsLM(log_PopBio ~ gompertz_model(t = Time, r_max, K, N_0, t_lag), d,
                   list(t_lag=t_lag_start, r_max=r_max_start, N_0 = N_0_start, K = K_start))
         , silent = TRUE)
-    })))
+    })
     # loop through every thing in best_model 
     AICs <- for (i in 100) {
-      AIC(best_model[[i]])
+      try(AIC(best_model[i]), silent = TRUE)
     }
     everything <- data.frame(model = c(best_model),
                              AIC = c(AICs)) # make df with model in one column and AIC in other
@@ -312,34 +486,18 @@ for (i in 1:285) {
   }
 }
 
+# --> problems with this loop... - need to fix
 
-best_model <- replicate(100, {
-  N_0_start <- rnorm(1, m = min(d$log_PopBio), sd = 3*min(d$log_PopBio)) # use normal - higher confidence in mean
-  K_start <- rnorm(1, m = 2*max(d$log_PopBio), sd = 3*2*max(d$log_PopBio)) # use normal - higher confidence in mean
-  r_max_start <- runif(1, min = 10^-10, max = 10^-2) # use a uniform distribution (lower confiendece in mean)
-  t_lag_start <- rnorm(1, m = d$Time[which.max(diff(diff(d$log_PopBio)))], sd = 3*d$Time[which.max(diff(diff(d$log_PopBio)))])  # normal distribution with mean calculated using diff (the last timepoint of lag phase) and sd as 3 times that
-  try(
-    nlsLM(log_PopBio ~ gompertz_model(t = Time, r_max, K, N_0, t_lag), d,
-          list(t_lag=t_lag_start, r_max=r_max_start, N_0 = N_0_start, K = K_start))
-    , silent = TRUE)
-})
 
 
 
 # Comparing models --------------------------------------------------------
 
-# use weighted AIC - make sure to justify in write-up why weighted AIC is better than normal AIC
-
-# use function akaike.weights
-
-# or just as a basic start: compare AICs for each one (just pick the model with the best AIC)
-
-
 # make big table:
 
-models_all <- data.frame(subset = rep(1:285, 3),
-                         model = c(rep('quadratic', 285), rep('cubic', 285), rep('logistic', 285)),
-                         AIC = c(quadratic_AICs$AIC, cubic_AICs$AIC, logistic_AICs$AIC))
+models_all <- data.frame(subset = rep(1:285, 4),
+                         model = c(rep('quadratic', 285), rep('cubic', 285), rep('logistic', 285), rep('gompertz', 285)),
+                         AIC = c(quadratic_AICs$AIC, cubic_AICs$AIC, logistic_AICs$AIC, gompertz_AICs$AIC))
 
 
 # work out best model for each by just comparing AIC values to begin with:
@@ -347,6 +505,46 @@ models_all <- data.frame(subset = rep(1:285, 3),
 models_best <- data.frame(subset = c(1:285),
                           best_model = rep(0, 285),
                           AIC = rep(0,285))
+
+
+for (i in 1:285) {
+  # subset out by ID:
+  d <- models_all[which(models_all$subset == i),] 
+  
+  # rank AICs in order of lowest to highest:
+  a <- order(d$AIC)
+  ordered <- d$AIC[a]
+  
+  # if the diff between smallest and middle is < 2, terminate:
+  if (isTRUE((ordered[2] - ordered[1]) < 2)) { 
+    next
+  }
+  
+  # otherwise, select the row with the lowest AIC
+  else { 
+    
+    d_m <- d[which(d$AIC == ordered[1]),]
+  
+    # fill column in models_best with the details of this best model
+    try(models_best[i, "AIC"] <- d_m$AIC, silent = TRUE) 
+    try(models_best[i, "best_model"] <- as.character(d_m$model), silent = TRUE)
+  }
+  
+}
+
+
+
+# where models have similar levels of support: use model averaging to make robust parameter estimates & predictions?
+
+
+
+
+
+# Previous loops for comparing models -------------------------------------
+
+
+
+# PREVIOUS LOOPS: not needed
 
 for (i in 1:285) {
   d <- models_all[which(models_all$subset == i),] # subset out by ID
@@ -366,14 +564,30 @@ for (i in 1:285) {
 d <- models_all[which(models_all$subset == 1),] 
 
 # 2. rank AICs in order of lowest to highest
-AICs <- c(min(d$AIC), median(d$AIC), max(d$AIC))
+a <- order(d$AIC)
+ordered <- d$AIC[a]
 
 # 3. if the diff between smallest and middle is < 2, terminate
-
+if ((ordered[2] - ordered[1]) < 2) { 
+  next
+}
 
 # 4. otherwise, select the row with the lowest AIC
+d_m <- d[which(d$AIC == ordered[1]),]
 
 
+# fill column in models_best with the details of this best model
+try(models_best[i, "AIC"] <- d_m$AIC, silent = TRUE) 
+try(models_best[i, "best_model"] <- as.character(d_m$model), silent = TRUE)
+
+
+
+
+
+
+
+
+# DON'T NEED THIS FOR NOW:
 
 # --> don't need to do this by hand! - R has built-in functions:
 
@@ -404,9 +618,6 @@ aictab(cand.set = models_list, modnames = model_names)
 # purpose of this: to work out parameter values
 
 
-
-
-# where models have similar levels of support: use model averaging to make robust parameter estimates & predictions
 
 
 
