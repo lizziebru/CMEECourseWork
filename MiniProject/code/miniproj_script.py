@@ -4,9 +4,6 @@
 __author__ = 'Lizzie Bru eab21@ic.ac.uk'
 
 import pandas as pd
-import scipy as sc
-import matplotlib.pylab as pl
-import seaborn as sns
 import numpy as np
 
 """
@@ -87,18 +84,9 @@ data['log_PopBio'] = np.log(data['PopBio'])
 ##-> this is important for helping to properly visualize the data/model fits etc bc of the way logarithms work:
 
 
-
-
-
-
 ## save the modified data
 data.to_csv('../data/LogisticGrowthData2.csv')
 
-
-
-"""
-MODEL FITTING
-"""
 
 
 
