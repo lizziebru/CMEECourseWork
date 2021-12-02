@@ -284,36 +284,73 @@ repeat {
 
 # make plot using these models:
 
-pred_c <- predict(d1c, data.frame(x = d1$Time), intervals = 'confidence', level = 0.99)
+# make timepoints so that can apply the models to these to make smooth curves
+timepoints <- seq(0, max(d1$Time), 0.1)
 
-pred_q <- predict(d1q, data.frame(x = d1$Time), intervals = 'confidence', level = 0.99)
+cub_points <- poly(timepoints, 3, raw = TRUE, coefs = c(dfc$X1, dfc$X2, dfc$X3))
 
-pred_l <- predict(d1l, data.frame(x = d1$Time), intervals = 'confidence', level = 0.99)
+quad_points <- poly(timepoints, 2, raw = TRUE, coefs = c(dfq$X1, dfq$X2, dfq$X3))
 
-pred_g <- predict(d1g, data.frame(x = d1$Time), intervals = 'confidence', level = 0.99)
+log_points <- log(logistic_model(t = timepoints, 
+                                      r_max = coef(d1l)["r_max"], 
+                                      K = coef(d1l)["K"], 
+                                      N_0 = coef(d1l)["N_0"]))
 
-models_plot <- ggplot(d1, aes(x = Time, y = log_PopBio))+
-  geom_point(size = 3)+
-  geom_line(aes(x = Time, y = pred_c), colour = 1)+
-  geom_line(aes(x = Time, y = pred_q), colour = 2)+
-  geom_line(aes(x = Time, y = pred_l), colour= 3)+
-  geom_line(aes(x = Time, y = pred_g), colour= 4)
-# # need to make legends - generally make these plots nicer
+gomp_points <- gompertz_model(t = timepoints, 
+                                  r_max = coef(d1g)["r_max"], 
+                                  K = coef(d1g)["K"], 
+                                  N_0 = coef(d1g)["N_0"], 
+                                  t_lag = coef(d1g)["t_lag"])
 
-#--> could probs make this into a loop so could make all the plots!
+dfc <- data.frame(timepoints, cub_points)
+dfc$model <- "Cubic model"
+names(dfc) <- c("Time", "Log_PopBio", "model")
+
+dfq <- data.frame(timepoints, quad_points)
+dfq$model <- "Quadratic model"
+names(dfq) <- c("Time", "Log_PopBio", "model")
+
+dfl <- data.frame(timepoints, log_points)
+dfl$model <- "Logistic model"
+names(dfl) <- c("Time", "Log_PopBio", "model")
+
+dfg <- data.frame(timepoints, gomp_points)
+dfg$model <- "Gompertz model"
+names(dfg) <- c("Time", "Log_PopBio", "model")
+
+# log_points and gomp_points are shorter bc of the models fit, so only take the first 5000 of each
+df_all <- rbind(dfl, dfg)
+
+ggplot(d1, aes(x = Time, y = log_PopBio)) +
+  geom_point(size = 3) +
+  geom_line(data = df_all, aes(x = Time, y = Log_PopBio, col = model), size = 1) +
+  theme_bw() + # make the background white
+  theme(aspect.ratio=1)+ # make the plot square 
+  labs(x = "Time", y = "log(population density)")
 
 
+timepoints <- seq(0, max(d1$Time), 0.1)
+pred_df <- data.frame(timepoints = timepoints,
+                      log_vals = log(logistic_model(r_max=coef(d1l)[1], N_0 = coef(d1l)[2], K = coef(d1l)[3], t = timepoints)),
+                      gom_vals = gompertz_model(t_lag = coef(d1g)[1], r_max=coef(d1g)[2], N_0 = coef(d1g)[3], K = coef(d1g)[4], t = timepoints))
+
+models_plot <- ggplot(d1, aes(Time, log_PopBio)) + geom_point() +
+  geom_smooth(method = "lm", formula = y ~ poly(x, degree = 2, raw = TRUE), se = FALSE, aes(colour = "#CC79A7")) + #add aes colours to tell them apart
+  geom_smooth(method = "lm", formula = y ~ poly(x, degree = 3, raw = TRUE), se = FALSE, aes(colour = "#D55E00")) +
+  geom_smooth(method = "loess", data = pred_df, formula = y ~ x, aes(timepoints, log_vals, colour = "#0072B2")) +
+  geom_smooth(method = "loess", data = pred_df, formula = y ~ x, aes(timepoints, gom_vals, colour = "#F0E442"))+
+  scale_color_manual(name = NULL, values = c("#CC79A7", "#D55E00", "#0072B2", "#F0E442"), labels = c("Quadratic", "Cubic", "Logistic", "Gompertz"))+
+  guides(col = guide_legend("Model"))+
+  ylab("Population density")+
+  theme_bw()+
+  ylim(0, 8)
+
+ggsave(models_plot, filename = "../results/models_plot.png")
 
 
+# --> maybe loop through all of them and make these plots if have time
 
-
-
-
-
-
-
-
-
+#--> TO DO: make tables now!!
 
 
 

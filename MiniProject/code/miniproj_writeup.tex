@@ -1,0 +1,427 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{setspace}
+\usepackage{lineno}
+\usepackage{authblk}
+\usepackage{natbib}
+\bibliographystyle{unsrtnat}
+\usepackage{graphicx}
+\graphicspath{ {./results/} }
+
+
+\title{\textbf{Modelling bacterial population growth for different species in varying temperatures and media}}
+\author[1]{Lizzie Bru}
+\affil[1]{School of Life Sciences, Imperial College London, Silwood Park Campus, Ascot SL5 7PY, UK}
+\date{}
+
+\onehalfspacing
+\linenumbers
+
+\begin{document}
+	
+	\maketitle
+	
+	\newpage
+	
+	\section{Introduction}
+	
+	POTENTIAL EXTRA THINGS TO DO:
+	
+	- COMPARE WITH BIC TOO!! THEN ONLY USE MODELS WHICH ARE AGREED TO BE THE BEST BY BOTH AIC AND BIC (JUST MAKES IT EXTRA ROBUST)
+	
+	- fix plotting in the big loop
+	
+	- make plots needed for write-up
+	
+	- diagnostics
+	
+	
+	
+	
+	
+	Objectives of the study.
+	
+	
+	How well do different mathematical models, e.g., based upon population growth (mechanistic) theory vs. phenomenological ones, fit to functional responses data across species?
+	
+	focus on microbial (specifically, bacterial) growth rates
+	
+	
+	citation for gompertz model: \cite{gompertz1825xxiv}
+	
+	
+	1. importance of studying growth rates
+	- fluctuations in popn density = important for shapring ecosystem dynamics, emergent functional characteristics (e.g. rate of C fixation and disease transmission etc) etc
+	
+	2. how popn growth rates work - what affects them
+	- if abundance is low and resources not limited --> popn grows exponentially
+	- as resources become limiting: growth slows and eventually stops
+	- can also get a time lag before popn growth takes off at the start
+	
+	3. more info on bacterial growth rates
+	- in batch culture: follows distinct set of phases:
+	- lag phase: bacteria prepare for growth: suite of transcriptional machinery is activated, incl genes involved in nutrient updake and metabolic changes
+	- exponential growth phase: bacteria divide at constant rate (popn doubles at each generation)
+	- stationary phase: begins when carrying capacity of the media is reached: growth slows and number of cells stabilises
+	
+	4. how bacterial growth rates used to be measured
+	- traditionally measured by plotting cell numbers/culture density against time on a semi-log graph and fitting a straight line through the exponential growth phase (slope of line = max growth rate)
+	
+	5. better: we've since developed models which we can use to describe the whole sigmoidal bacterial growth curve
+	
+	6. theory of modelling
+	
+	
+	what is modelling?
+	- aims to explain processes/mechanisms underlying patterns/phenomena in empirical data 
+	- they have a theoretical basis - we know roughly how things should behave - based on physical principles
+	- models vs theory: theory = much more general (it's independent of specific phenomena)
+	- models establish the existence of statistically significant, non-random patterns or phenomena in empirical data
+	- they make no assumptions about the processes/mechanisms that generate the patterns (i.e. they lack a theoretical basis)
+	
+	
+	mechanistic vs phenomenological models
+	- both play key role in bio
+	- phenomenological models reveal patterns in data that generate hypotheses
+	- these can be tested using further model fitting
+	- e.g. whether climatic temp affects the lynx-hare cycle]
+	- mechanistic: looks to validate a mechanistic model that can explain the pattern
+	- i.e. generate more accurate, mechanistic hypotheses
+	- ultimately , successful epirically-grounded mechanistic models are the best path towards a theory in any scientfiic discipline
+	
+	roadmap:
+	- he likes to go bottom-up:
+	- mechanisms of indivs --> mechanisms of interactions --> mechanisms of communities
+	
+	
+	most ecologcial studies perform phenomenological modelling 
+	-- bc need to forecast rather than explain
+	-- but big question: CAN WE FORECAST WITHOUT EXPLAINING??
+	
+	
+	how to do it
+	- if possible use biological knowledge to construct models
+	- see if models agree well with data
+	- whichever one agrees best is likely to have the right mechanisms
+	- that's the one thats best for predictions
+	- phenomological/statistical models often perform better than mechanistic oes - bc they often have less restrictive assumptions
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	Levins 1966 The strategy of model building in population biology \cite{levins1966strategy}
+	
+	biology is super complex - it's impossible to model absolutely every variable
+	- some various approaches:
+	- sacrifice generality to realism and precision (Holling, Watt, many fishery biologists)
+	- just focus on what's relevant to the short-term behaviour of the organism
+	- scarifice realism to generality and precision (Kerner, Leigh, most physicists who enter popn bio)
+	- but equations are often pretty unrealistic
+	- sacrifice precision to realism and generality (MacArthr, Levins)
+	- bc we're concerned in the long run with qualitative rather than quantitative results (only important in testing hypotheses)
+	- so can go for v flexible models (often graphical) that generally assume that functions are increasing or decreasing, greater or less than some value etc instead of specifying the mathematical form of an equations
+	- means that the predictions we can make are also expressed as inequalities e.g. between tropical and temperate spp
+	
+	BUT: even the most flexible models have artificial assumptions
+	- so can be hard to know whether the result depends on the essentials of a model or on the details of the simplifying assumptions
+	--> therefore we should attempt to treat the same problem with several alternative models each with diff simplifications but a common biological assumptions
+	--> so if these models lead to similar results then we have robust theorem which is relatively free of the details of the model
+	(i.e. truth is the intersection of independent lies)
+	
+	see examples of a robust and a non-robust theorem
+	
+	mathematical models are neither hypotheses nor theories
+	- not verifiable directly by experiment
+	- can be both true and false
+	- almost any plausible relation among aspects of nature is likely to be true in the sense that it occurs (no matter how little)
+	- but all models leave out a lot of info so ae also false/incomplete
+	--> good model = generates good testable hypotheses relevant to important problems
+	(i.e. usually discard it in favour of a more powerful one or or just outgrow the model when the problems it addresses are no longer currently important)
+	
+	usually a satisfactory theory = a cluster of models
+	- bc models are restricted by technical considerations to a few components at a time
+	- good to have a few models related to each other in various ways 
+	- can cope with diff aspects of the same problem and give complementary + overlapping results
+	- hierarchically arranged "nested" models: each provides an interpretation of the sufficient parameters of the next higher level where they're taken as given
+	
+	
+	
+	MODEL SELECTION IN ECOLOGY AND EVOLUTION (Johnson and Omland 2004)
+	
+	model selection = replacing the traditional null hypothesis testing approach (ask whether a hypothesis can be rejected in light of observed data)
+	
+	model selection:
+	- grounded in likelihood theory
+	- means you're not restricted to evaluating a single model where significance is measured against some arbitrary probability threshold
+	- models can be ranked and weighted -- so can get a quantitative measure of relative support for each competing hypothesis
+	- where models have similar levels of support from data: can use model averaging to make robust parameter estimates and predictions
+	
+	when should you use model selection?
+	- good for making inferences from observational data, esp when data are collected from complex systems/when inferring historical scenarios where several diff competing hypotheses can be put forward
+	- unfortunately most ppl still use null hypothesis testing even when model selection would be better suited
+	- e.g. ecosystem science: unraveling complex trophic relationships among taxa:
+	- currently usually just advance a simple hypothesis, acquire some observational data to test it then use to show where model assumptions have failed + refine hypothesis then further testing
+	- would be better to weigh empirical sypport for a set of models simultaneously using model selection
+	
+	
+	Usually 2 models used to describe popn growth:
+	- exponential growth model
+	- popn increase only depends on no of reproducing indivs 
+	- don't care about resource limits
+	- dN/dt = rN
+	- N: no of indivs
+	- r: rate of increase
+	- t: time
+	- logistic growth model
+	- more realistic
+	- shows popn increasing exponentially until reaches carrying capacity of environ
+	- dN/dt = rN(1 - N/K)
+	- includes a way to factor in -ve feedback effect of a larger popn relying on teh same resources as a smaller popn     - i.e. as popns approach carrying capacity: some indivs       die off bc insufficient resources
+	
+	3 major types of popn models:
+	- continuous-time models
+	- discrete-time models
+	- stochastic models
+	
+	Can formulate mathematical models of ecological theory in 2 diff ways:
+	- as deterministic models
+	- i.e. using difference/differential equations
+	- e.g. Lotka-Volterra model of interspecific comp
+	- as stochastic models
+	- where occurrence of events is considered to be probabilistic even though underlying rates remain constant
+	
+	
+	
+	--> 2 important concepts underlying both models:
+	- carrying capacity (K) (no of indivs that the environ resources available can support)
+	- limiting resource (resource animals must have to survive and that's available in only limited quantity in their environ e.g. food/water)
+	
+	
+	
+	
+	
+	
+	
+	potential hypotheses:
+	- mechanistic vs phenomenological?
+	- BUT need to bear in mind that phenomenological models tend to fit better
+	
+	
+	
+	
+	
+	STEPS OF MODEL SELECTION (from Johnson and Omland 2004)
+	
+	steps of model selection:
+	
+	1. generate biological hypotheses as candidate models
+	- bc model fitting is underpinned by view that the best way to understand something is to simultaneously weigh evidence for multiple working hypotheses
+	- so need to articulate a reasonable set of competing hypotheses
+	- to translate hypotheses to models: identify variables and select mathematical functions that depict the biological processes through which those variables are related
+	
+	2. fit models to data
+	- at an early stage of the analysis: can examine the goodness-of-fit of the most heavily parameterized model in the candidate set
+	- can use conventional statistical tests e.g. chi-squared or a parametric bootstrap procedure
+	- if the global model provides a reasonable fit to the data:
+	- fit each of the models in the candidate set to the observed data using maximum likelihood/least squares method
+	
+	
+	3. select the best model/set of models
+	- 2 diff approaches:
+	- use series of null hypothesis tests e.g. likelihood ratio tests in phylogenetic analyses or F-tests in multiple regression analysis
+	- but: 
+	- this is typically restricted to nested models (i.e. the simpler model = special case of the more complex model)
+	- and so soemtimes leads to subptimal models that are dependent on the hierarchical order in which the models are compared
+	- can't use these tests to quantify the relative support for the various models
+	- model selection criteria:
+	- use maximum likelihood scores as a measure of fit (more precisely, negative log-likelihood scores as a measure of lack of fit)
+	- also use a term that penalizes models for greater complexity
+	- 2 criteria commonly used: AIC, Scharwz Criterion (SC; aka the Bayesian information criterion)
+	
+	4. parameter estimation and model averaging
+	- often the point for model selection is to estimate model parameters of biological interest (e.g. survival rate in mark-recapture studies)
+	- when there's clear support for one model: can use max likelihood parameter estimates/predictions from that model
+	- when there's support from the observed data for multiple models:
+	- use model averaging!
+	- parameter estimates obtained by model averaging = robust bc they reduce model selection bias and account for model selection uncertainty
+	
+	
+	
+	\section{Methods}
+	
+	\subsection{Data}
+	
+	I used data from ten different studies which investigated bacterial population growth \cite{bae2014growth, bernhardt2018metabolic, galarz2016predicting, gill1991growth, phillips1987relation, roth1962continuity, silva2018modelling, sivonen1990effects, stannard1985temperature, zwietering1994modeling}. These data include population or biomass measurements at corresponding time intervals and the temperature, species, and medium used for the population growth in the experiment.
+	
+	I subsetted the data into groups of individual growth curves based on species of the bacterial population, the temperature and medium at which populations were grown, and the citation of the study which collected the data. This yielded 285 subsets, each with one bacterial growth curve. I performed all subsequent model fitting and analyses using these subsets.
+	
+	\subsection{Computing tools}
+	
+	I used Python version 3.8.10 \cite{10.5555/1593511}, specifically using the packages Pandas \cite{mckinney2010data} and NumPy \cite{harris2020array} for data wrangling since Pandas data frames are easy to manipulate.
+	
+	I used R version 3.6.3 \cite{R_citation}, specifically using the packages ggplot2 \cite{ggplot2_citation}, broom \cite{robinson2014broom}, minpack.lm \cite{elzhov2010r}, qpcR \cite{Ahmed2018-ni}, viridis \cite{viridis_citation}, ggpubr \cite{kassambara2020package}, nlstools \cite{nlstools_citation}, and olsrr \cite{hebbali2017package}, for model fitting, plotting, comparisons, and statistical analyses. I did this because R has numerous packages such as these for data processing and visualising, notably those such as ggplot2 which permit excellent graphing and visualisation. 
+	
+	For writing up the report, I used \LaTeX since it produces well-formatted documents with easy-to-embed images.
+	
+	Finally, I compiled the project into a reproducible workflow, including converting the report from \LaTeX to pdf, using bash version 5.0.17 \cite{gnu2007free} since this language provides a simple way to automate the compilation of multiple scripts.
+	
+	
+	\subsection{Model fitting}
+	
+	I used Ordinary Least Squares (OLS) to fit the quadratic (Eq. (1)) and cubic (Eq. (2)) models to each growth curve and Non-Linear Least Squares (NLLS) to fit the logistic (Eq. (3)) and Gompertz (Eq. (4)) (\cite{gompertz1825xxiv}) models.
+	
+	\begin{equation}
+		N_t = at^2 + bt + c
+	\end{equation}
+	
+	\begin{equation}
+		N_t = at^3 + bt^2 + ct + d
+	\end{equation}
+	
+	\begin{equation}
+		N_t = \frac{N_0Ke^{rt}}{K + N_0(e^{rt} - 1)}
+	\end{equation}
+	
+	\begin{equation}
+		log(N_t) = N_0 + (N_{max} - N_0)e^{-e^{r_{max}exp(1)\frac{t_{lag}-t}{(N_{max}-N_0)log(10)}+1}}
+	\end{equation}
+	
+	Where population density at time \emph{t} depends on the various parameters in each equation: initial population density ($N_0$), carrying capacity ($K$), growth rate ($r$), maximum population density ($N_{max}$), the duration of the delay before the population starts growing exponentially ($t_{lag}$), and maximum growth rate ($r_{max}$).
+	
+	I only fitted models to subsets which contained four or more data points so that this was greater than the number of parameters in the most complex model (Gompertz). 
+	
+	For the logistic model, I assigned the smallest population size as the starting value for population size ($N_0$), the highest population size multiplied by two as the carrying capacity ($K$) starting value (multiplying it by two increased the proportion of model convergence), and set the starting value for $r_{max}$ as an arbitrary low value of $10^{-8}$ since this lead to better model fitting than my original attempt of setting the $r_{max}$ starting value as the maximum population in the curve divided by the time-step.
+	
+	To satisfactorily fit the Gompertz model to as many datasets as possible, I sampled each of the starting values randomly simultaneously. Since I had reasonably high confidence in the means, I sampled the starting values for $N_0$, $K$, and $t_{lag}$ from a normal distribution with the mean for $N_0$ as the smallest population size, that for $K$ as two times the largest population size, and the mean for $t_lag$ as the last timepoint of the lag phase, with a standard deviation of three times this for both. Since I used an arbitrarily small mean for $r_{max}$ similarly to for the logistic model since this maximised the number of datasets which this model fit to. I therefore had lower confidence in the mean, so sampled the starting values for $r_{max}$ from a uniform distribution. I arbitrarily set lower and upper bounds to be $10^-10$ and $10^-2$ since these maximised the number of datasets which the model successfully fit to.
+	
+	
+	\subsection{Model comparison}
+	
+	For each model, I calculated Akaike's information criterion (AIC, Eq. (5)) as the fit statistic. 
+	
+	\begin{equation}
+		AIC = -2.ln(L) + 2p
+	\end{equation}
+	
+	For each subset, I selected the best model out of the four fitted based on AIC: the best model is the lowest model which differs from the second lowest model by more than two AIC units.
+	
+	To examine relative abilities of each of these models to fit to the growth data, I calculated the proportions of which model was selected as the best model across all the subsets for which there was a best model. 
+	
+	
+	\subsection{Statistical analysis of predictors of best models}
+	
+	Using the dataset of each subset with its corresponding best model, I tested for the effects of genus of the bacteria concerned, and temperature and medium under which it was grown, on which model was the best for this subset using an intrinsic, two-sample Chi-square tests.
+	
+	
+	
+	\section{Results}
+	
+	\subsection{Data}
+	
+	I discarded anomalous or unexplained datapoints such as those associated with negative population density and time values. The final dataset contained 285 subsets of bacterial growth curve.
+	
+	
+	\subsection{Model fitting}
+	
+	I fitted as many of the four models (quadratic, cubic, logistic, and Gompertz) as possible to each individual growth curve, with an example of one growth curve and the fitted models shown in Figure 1. Quadratic, cubic, and logistic models fitted satisfactorily to all 285 growth curves, and the Gompertz model fitted to 283 of the 285 curves.  
+	
+	(+ MAYBE INSERT STUFF ON DIAGNOSTIC TESTS OF RESIDUAL NORMALITY IF HAVE TIME AND CAN FIX IT)
+	
+	--> TO DO: MAKE FIGURE 1
+	
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[scale=0.4]{models_plot.png}
+		\caption{Population growth curves fitted by quadratic, cubic, logistic, and Gompertz models for the growth of *spp name* under *temp* in *medium*, measured by *citation*.}
+		\label{fig.test1}
+	\end{figure}
+	
+	
+	\subsection{Model comparison}
+	
+	For 231 of the growth curves, comparisons of AIC values indicated that one of the four models provided a significantly better fit than the others, with the best model and its corresponding AIC shown in Table 1. For the remaining 54 growth curves, there was no model which provided a significantly best fit. I used only the 231 growth curves for which there was a clearly best model in subsequent analyses. 
+	
+	--> TO DO: MAKE AND INSERT TABLE 1
+	
+	Gompertz was the best model for the largest proportion of curves, followed by logistic, cubic, and quadratic, which was not the best model for any of the curves (Table 2).
+	
+	--> TO DO: MAKE AND INSERT TABLE 2
+	column 1: model 
+	column 2: number of curves for which it was the best model
+	column 3: proportion of curves (out of the 231 which had best models)
+	
+	\subsection{Predictors of the best model}
+	
+	Certain genera (χ² (88, N = 231) = 278.35, p < 0.001), media (χ² (34, N = 231) = 284.21, p < 0.001), and temperatures (χ² (32, N = 231) = 207.27, p < 0.001) were significantly associated with particular models fitting better to the growth curve (Figure 2). 
+	
+	(+ DETAILS ABOUT HOW EXACTLY EACH ONE PREDICTED IT)
+	
+	--> TO DO: MAKE FIGURE 2 (INCL COLOUR-BLIND FRIENDLY) AND INSERT
+	
+	
+	
+	
+	\section{Discussion}
+	
+	only used the subsets for which there was one model that was clearly better bc the aim is to examine how growth conditions affect our results of modelling bacterial population growth
+	
+	
+	
+	interesting stuff to say esp for logistic vs gompertz:
+	- logistic can show deviations from the data: bc assumes that the popn is growing right from the start whereas in reality the popn takes a while to grow truly exponentially
+	- bc bacteria take a while to acclimate to fresh growth media/new resource/environ they encounter (= lag phase)
+	--> gompertz model: captures the lag phase (unlike logistic model)
+	
+	
+	
+	
+	FUTURE DIRECTIONS
+	
+	- other factors which could affect which model is fitted
+	
+	- other models we could've fit
+	- Alonso et al. 2014 \cite{alonso2014modeling}: fit stochastic differential equation model (SDE) to explain bacterial popn growth from stochastic single-cell dynamics -- evidence that it explains well the observed distribution of times to division incl lag time due to adaptation to the environ for both small and large microbial popns -- this work was driven by the fact that standard deterministic models fail at low cell concs bc heterogeneity between indivs becomes relevant
+	- Monod's model \cite{lobry1992monod} - differs from classical growth models e.g. gompertz bc introduces concept of a limiting nutrient
+	
+	mechanistic:
+	- baranyi
+	- buchanan
+	- von bertalanffy's growth model
+	- logistic
+	
+	mechanistic/phenomenological
+	- grompetz
+	
+	phenomenological
+	- quadratic polynomial
+	- cubic polynomial
+	
+	--> maybe could also discuss the fact that gompertz can be either mechanistic or phenomenological --> debated
+	
+	- other ways I could've selected the best model:
+	- BIC
+	- Free Energy - according to this paper the Free Energy is a better model comparison criterion than BIC and AIC for Dynamic Causal Models \cite{penny2012comparing}
+	
+	- caveats and future directions of model selection (from Johnson & Omland 2004): \cite{johnson2004model}
+	- inferences derived from model selection ultimately depend on the models included in the candidate set
+	- could lead to misguided inference if fail to include models that might best approximate the underlying biological processes
+	- so need to think critically about alternative hypotheses before collect & analyse data!
+	- for a model to carry biological meaning rather than just statistical significance: need its predictions and parameter estimates to be biologically plausible
+	- i.e. it's logically inconsistent to accept empirical support for a model and its associated hypothesis whilst discarding its parameter estimates and predictions
+	- need to decide when it's most appropriate to use model selection and when it's most appropriate to use designed experiments and inferences based on significance tests
+	- it's clear for some: e.g. evolutionary diversification of a lineage: can't have controlled experiments - so can only use model selection 
+	- less clear for others: e.g. popn cycling: can use observational time series data or manipulative experimentation
+	
+	
+	
+	\section{Acknowledgements}
+	
+	\bibliography{miniproj_biblio}
+	
+\end{document}
