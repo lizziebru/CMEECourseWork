@@ -19,6 +19,8 @@ install.packages("nlstools")
 library(nlstools)
 install.packages("olsrr")
 library(olsrr)
+install.packages("dplyr")
+library(dplyr)
 
 data <- read.csv("../data/LogisticGrowthData2.csv")
 data[is.na(data) | data == "Inf" | data == "-Inf"] <- NA  # Replace NaN & Inf with NA otherwise models don't run
@@ -132,68 +134,6 @@ length(which(gompertz_AICs2$AIC != Inf))
 
 # --> TO DO: TRY AND FIX THIS IF HAVE TIME
 
-# trying again with repeat instead of replicate for gompertz:
-for (i in 1:285) {
-  d <- data[which(data$ID == i),]
-  if (nrow(d) < 4) { # if there are fewer  datapoints than 4 (average no. of parameters in models), terminate loop
-    next
-  }
-  else {
-    # cubic:
-    try(
-      cubic_fit <- lm(d$log_PopBio ~ poly(d$Time, 3, raw = TRUE), silent = TRUE))
-    #cub_shap <- ols_test_normality(cubic_fit) 
-    #try(residuals_normality[i, "p_lm_cub"] <- tidy(cub_shap$shapiro)[2], silent = TRUE)
-    try(
-      cubic_AICs[i, "AIC"] <- AIC(lm(d$log_PopBio ~ poly(d$Time, 3, raw = TRUE))
-      ), silent = TRUE)
-    
-    # quadratic:
-    try(
-      quadratic_fit <- lm(d$log_PopBio ~ poly(d$Time, 2, raw = TRUE), silent = TRUE))
-    #quad_shap <- ols_test_normality(quadratic_fit) 
-    #try(residuals_normality[i, "p_lm_quad"] <- tidy(quad_shap$shapiro)[2], silent = TRUE)
-    try(
-      quadratic_AICs[i, "AIC"] <- AIC(lm(d$log_PopBio ~ poly(d$Time, 2, raw = TRUE))
-      ), silent = TRUE)
-    
-    # logistic:
-    N_0_start <- min(d$PopBio)
-    K_start <- 2*max(d$PopBio)
-    r_max_start <- 0.00000001
-    try(
-      logistic_fit <- nlsLM(PopBio ~ logistic_model(t = Time, r_max, K, N_0), d,
-                            list(r_max=r_max_start, N_0 = N_0_start, K = K_start))
-      , silent = TRUE)
-    #log_shap <- test.nlsResiduals(nlsResiduals(logistic_fit))
-    #try(residuals_normality[i, "p_lm_log"] <- log_shap$p.value, silent = TRUE)
-    try(
-      logistic_AICs[i, "AIC"] <- AIC(nlsLM(PopBio ~ logistic_model(t = Time, r_max, K, N_0), d,
-                                           list(r_max=r_max_start, N_0 = N_0_start, K = K_start))
-      ), silent = TRUE)
-    
-    # gompertz:
-    repeat {
-        success <- 0
-        N_0_start <- rnorm(1, m = min(d$log_PopBio), sd = abs(3*min(d$log_PopBio)))
-        K_start <- rnorm(1, m = 2*max(d$log_PopBio), sd = abs(3*2*max(d$log_PopBio)))
-        r_max_start <- runif(1, min = 10^-10, max = 10^-2)
-        t_lag_start <- rnorm(1, m = d$Time[which.max(diff(diff(d$log_PopBio)))], sd = abs(3*d$Time[which.max(diff(diff(d$log_PopBio)))])) 
-        try(
-          {gompertz_fit <- nlsLM(log_PopBio ~ gompertz_model(t = Time, r_max, K, N_0, t_lag), d,
-                        list(t_lag=t_lag_start, r_max=r_max_start, N_0 = N_0_start, K = K_start))
-          gompertz_AICs[i, "AIC"] <- AIC(nlsLM(log_PopBio ~ gompertz_model(t = Time, r_max, K, N_0, t_lag), d,
-                                               list(t_lag=t_lag_start, r_max=r_max_start, N_0 = N_0_start, K = K_start))
-          success <- 1}
-        )
-        if (success == 1) {
-          break
-        }
-      }
-  }
-}
-
-
 
 # Diagnostic plots? -------------------------------------------------------
 
@@ -239,7 +179,7 @@ test.nlsResiduals(nlsResiduals(gompertz_fit))
 
 
 
-# Individual plots --------------------------------------------------------
+# Plotting  --------------------------------------------------------
 
 # need: one plot that of one subset with all the curves on it:
 
@@ -345,12 +285,11 @@ models_plot <- ggplot(d1, aes(Time, log_PopBio)) + geom_point() +
   theme_bw()+
   ylim(0, 8)
 
-ggsave(models_plot, filename = "../results/models_plot.png")
+ggsave(models_plot, filename = "../results/fig1.png")
 
 
 # --> maybe loop through all of them and make these plots if have time
 
-#--> TO DO: make tables now!!
 
 
 
@@ -359,7 +298,7 @@ ggsave(models_plot, filename = "../results/models_plot.png")
 # make big table:
 
 models_all <- data.frame(subset = rep(1:285, 4),
-                         model = c(rep('quadratic', 285), rep('cubic', 285), rep('logistic', 285), rep('gompertz', 285)),
+                         model = c(rep('Quadratic', 285), rep('Cubic', 285), rep('Logistic', 285), rep('Gompertz', 285)),
                          AIC = c(quadratic_AICs$AIC, cubic_AICs$AIC, logistic_AICs$AIC, gompertz_AICs$AIC))
 
 # save to results:
@@ -407,6 +346,7 @@ write.csv(models_best, file = "../results/models_best.csv")
 
 
 # where models have similar levels of support: use model averaging to make robust parameter estimates & predictions?
+
 
 
 
@@ -532,55 +472,33 @@ length(which(models_everything$Model != 'NA'))
 #--> a best model was selected for 231 of the subsets
 
 # cubic:
-cubic_no <- length(which(models_everything$Model == 'cubic'))
+cubic_no <- length(which(models_everything$Model == 'Cubic'))
 cubic_prop <- cubic_no / 231
-cubic_prop #--> 0.1341991
 
 # quadratic:
-quadratic_no <- length(which(models_everything$Model == 'quadratic'))
-#--> 0
+quadratic_no <- length(which(models_everything$Model == 'Quadratic'))
+quadratic_prop <- quadratic_no / 231
 
 # logistic:
-logistic_no <- length(which(models_everything$Model == 'logistic'))
+logistic_no <- length(which(models_everything$Model == 'Logistic'))
 logistic_prop <- logistic_no / 231
-logistic_prop #--> 0.3722944
 
 # gompertz:
-gompertz_no <- length(which(models_everything$Model == 'gompertz'))
+gompertz_no <- length(which(models_everything$Model == 'Gompertz'))
 gompertz_prop <- gompertz_no / 231
-gompertz_prop #--> 0.4935065
 
-# --> problem: can't really test for whether we have most gompertz in a statistically significant way bc would need a null hypothesis/distribution
+# make final dataframe with these results rounded to 3sf
+proportions <- data.frame(Model = c("Quadratic", "Cubic", "Logistic", "Gompertz"),
+                          Count = c(signif(quadratic_no, 3), signif(cubic_no, 3), signif(logistic_no, 3), signif(gompertz_no, 3)),
+                          Proportion = c(signif(quadratic_prop, 3), signif(cubic_prop, 3), signif(logistic_prop, 3), signif(gompertz_prop, 3)))
 
-# --> BUT.. there's some variation in which model fits best
-## maybe quote some stat for this? (e.g. which percentage of the subsets is represented by this model)
-
-
-# so need to control for potential confounding factors in the variables delineating the subsets which could be biasing our result
-## e.g. if we find logistic is the most common - is it the most common just bc most of the subsets are of a certain temp which is fitted better by a certain model
-
-
-# potential predictors of which model fits best:
-# species
-# temp
-# medium
-
-#--> these could especially affect whether logistic or gompertz fit best:
-# bc they might affect the time lag which the gompertz model accounts for:
-# see big model fitting notes section - right at the end (Population growth rates >> Using NLLS)
+write.csv(proportions, file = "../results/proportions.csv")
 
 
 
+# test for the effects of predictors on which model is best:
 
-
-
-
-
-# test for the effects of predictors on which model it ends up being:
-
-
-
-# species and medium: intrinsic chisquared test:
+# intrinsic chi-squared test:
 
 genus_test <- chisq.test(table(models_everything$Model, models_everything$Genus))
 genus_test
@@ -593,6 +511,72 @@ temp_test
 
 #--> all significant
 
+# get more detail about how exactly they predict the best model:
+
+#subset by model and visually inspect:
+
+cub <- models_everything[which(models_everything$Model == "Cubic"), ]
+log <- models_everything[which(models_everything$Model == "Logistic"), ]
+gomp <- models_everything[which(models_everything$Model == "Gompertz"), ]
+
+# also make tables to better see what's going on:
+cub_gen <- as.data.frame(table(cub$Genus))
+cub_gen <- cub_gen[which(cub_gen$Freq != 0), ]  # remove rows where count is zero
+cub_gen <- na.omit(cub_gen) # also remove any rows filled with NAs (sometimes does this)
+cub_gen <- cub_gen[order(- cub_gen$Freq),] # order by descending frequency
+
+cub_med <- as.data.frame(table(cub$Medium))
+cub_med <- cub_gen[which(cub_med$Freq != 0), ]  # remove rows where count is zero
+cub_med <- na.omit(cub_med) # also remove any rows filled with NAs (sometimes does this)
+cub_med <- cub_med[order(- cub_med$Freq),] # order by descending frequency
+
+cub_temp <- as.data.frame(table(cub$Temperature))
+cub_temp <- cub_temp[which(cub_temp$Freq != 0), ]  # remove rows where count is zero
+cub_temp <- na.omit(cub_temp) # also remove any rows filled with NAs (sometimes does this)
+cub_temp <- cub_temp[order(- cub_temp$Freq),] # order by descending frequency
+
+
+log_gen <- as.data.frame(table(log$Genus))
+log_gen <- log_gen[which(log_gen$Freq != 0), ]  # remove rows where count is zero
+log_gen <- na.omit(log_gen) # also remove any rows filled with NAs (sometimes does this)
+log_gen <- log_gen[order(- log_gen$Freq),] # order by descending frequency
+
+log_med <- as.data.frame(table(log$Medium))
+log_med <- log_gen[which(log_med$Freq != 0), ]  # remove rows where count is zero
+log_med <- na.omit(log_med) # also remove any rows filled with NAs (sometimes does this)
+log_med <- log_med[order(- log_med$Freq),] # order by descending frequency
+
+log_temp <- as.data.frame(table(log$Temperature))
+log_temp <- log_temp[which(log_temp$Freq != 0), ]  # remove rows where count is zero
+log_temp <- na.omit(log_temp) # also remove any rows filled with NAs (sometimes does this)
+log_temp <- log_temp[order(- log_temp$Freq),] # order by descending frequency
+
+
+gomp_gen <- as.data.frame(table(gomp$Genus))
+gomp_gen <- gomp_gen[which(gomp_gen$Freq != 0), ]  # remove rows where count is zero
+gomp_gen <- na.omit(gomp_gen) # also remove any rows filled with NAs (sometimes does this)
+gomp_gen <- gomp_gen[order(- gomp_gen$Freq),] # order by descending frequency
+
+gomp_med <- as.data.frame(table(gomp$Medium))
+gomp_med <- gomp_gen[which(gomp_med$Freq != 0), ]  # remove rows where count is zero
+gomp_med <- na.omit(gomp_med) # also remove any rows filled with NAs (sometimes does this)
+gomp_med <- gomp_med[order(- gomp_med$Freq),] # order by descending frequency
+
+gomp_temp <- as.data.frame(table(gomp$Temperature))
+gomp_temp <- gomp_temp[which(gomp_temp$Freq != 0), ]  # remove rows where count is zero
+gomp_temp <- na.omit(gomp_temp) # also remove any rows filled with NAs (sometimes does this)
+gomp_temp <- gomp_temp[order(- gomp_temp$Freq),] # order by descending frequency
+
+write.csv(cub_gen, file = "../results/cub_gen.csv")
+write.csv(cub_gen, file = "../results/cub_gen.csv")
+write.csv(cub_gen, file = "../results/cub_gen.csv")
+
+write.csv(cub_gen, file = "../results/cub_gen.csv")
+write.csv(cub_gen, file = "../results/cub_gen.csv")
+write.csv(cub_gen, file = "../results/cub_gen.csv")
+
+
+
 # visualizing it: bar plot:
 
 genus_plot <- ggplot(data = subset(models_everything, !is.na(Model)))+
@@ -602,7 +586,8 @@ genus_plot <- ggplot(data = subset(models_everything, !is.na(Model)))+
   theme_minimal()+
   theme(legend.position = 'bottom')+
   xlab('Model')+
-  ylab('Count')
+  ylab('Count')+
+  coord_flip()
   
 
 
@@ -612,185 +597,23 @@ medium_plot <- ggplot(data = subset(models_everything, !is.na(Model)))+
   scale_fill_viridis(discrete = TRUE)+
   theme_minimal()+
   theme(legend.position = 'bottom')+
-  ylab('Count')
+  ylab('Count')+
+  coord_flip()
 
 temp_plot <- ggplot(data = subset(models_everything, !is.na(Model)))+
-  aes(x = Model, fill = Temperature)+
+  aes(x = Model, fill = as.factor(Temperature))+
   geom_bar()+
   scale_fill_viridis(discrete = TRUE)+
   theme_minimal()+
-  theme(legend.position = 'bottom', legend.title = "Temperature (C)")+
-  ylab('Count')
+  theme(legend.position = 'bottom')+
+  labs(fill = "Temperature (C)")+
+  ylab('Count')+
+  coord_flip
 
-fig2 <- ggarrange(species_plot, medium_plot, temp_plot, labels = c("A", "B", "C"))
+fig2 <- ggarrange(genus_plot, temp_plot, medium_plot, labels = c("A", "B", "C"), nrow = 3)
 
+ggsave(fig2, filename = "../results/fig2.png")
 
-
-# Previous loops for comparing models -------------------------------------
-
-
-
-# PREVIOUS LOOPS: not needed
-
-for (i in 1:285) {
-  d <- models_all[which(models_all$subset == i),] # subset out by ID
-  
-  # rank the AICs in order of lowest to highest
-  d_m <- d[which.min(d$AIC),] # select the row with the lowest AIC
-  try(models_best[i, "AIC"] <- d_m$AIC, silent = TRUE) # fill column in models_best with the details of this best model
-}
-for (i in 1:285) {
-  d <- models_all[which(models_all$subset == i),] # subset out by ID
-  d_m <- d[which.min(d$AIC),] # select the row with the lowest AIC
-  try(models_best[i, "best_model"] <- as.character(d_m$model), silent = TRUE) # fill column in models_best with the details of this best model
-}
-
-
-# 1. subset out by ID
-d <- models_all[which(models_all$subset == 1),] 
-
-# 2. rank AICs in order of lowest to highest
-a <- order(d$AIC)
-ordered <- d$AIC[a]
-
-# 3. if the diff between smallest and middle is < 2, terminate
-if ((ordered[2] - ordered[1]) < 2) { 
-  next
-}
-
-# 4. otherwise, select the row with the lowest AIC
-d_m <- d[which(d$AIC == ordered[1]),]
-
-
-# fill column in models_best with the details of this best model
-try(models_best[i, "AIC"] <- d_m$AIC, silent = TRUE) 
-try(models_best[i, "best_model"] <- as.character(d_m$model), silent = TRUE)
-
-
-
-
-
-
-
-
-# DON'T NEED THIS FOR NOW:
-
-# --> don't need to do this by hand! - R has built-in functions:
-
-# need to loop the following through each ID:
-
-# put the all the models together in a list (starting with quadratic then cubic then logistic)
-models_list <- c(quadratic[1], cubic[1], logistic[1])
-model_names <- c('quadratic', 'cubic', 'logistic')
-
-# run aictab() to do the comparison
-aictab(cand.set = models_list, modnames = model_names)
-
-
-#--> BUT: then again: maybe don't need this bc the main important thing it brings to the table is a way to calculate AIC weights
-#--> but bc the models aren't nested AIC weights aren't that helpful - so might just stick to manually using standard AIC comparison?
-
-
-
-
-
-
-
-
-
-
-
-
-# purpose of this: to work out parameter values
-
-
-
-
-
-
-
-# Plotting ----------------------------------------------------------------
-
-ggplot(data, aes(x = Time, y = PopBio))+
-  geom_point(aes(colour = ID))
-# looks like a bit of a mess
-# most of the data is clustered at time 0-1000 or so
-
-# best to visualize each subset separately
-
-ggplot(subset(data, data$ID=="1"), aes(x = Time, y = PopBio))+
-  geom_point()
-
-# looks like there are broadly 2 types of trends going on: some have an increase in PopBio at around 200h and others stay flat
-
-# would be good to find a way to visualize them all in one go
-
-## probably just plot the ones with the same units on the same graph
-
-
-
-
-
-
-# for logistic model:
-
-timepoints <- seq(0, max(d$Time), 0.1)
-
-logistic_points <- logistic_model(t = timepoints, 
-                                  r_max = coef(fit_logistic)["r_max"], 
-                                  K = coef(fit_logistic)["K"], 
-                                  N_0 = coef(fit_logistic)["N_0"])
-df1 <- data.frame(timepoints, logistic_points)
-df1$model <- "Logistic equation"
-names(df1) <- c("Time", "PopBio", "model")
-
-ggplot(d, aes(x = Time, y = PopBio)) +
-  geom_point(size = 3) +
-  geom_line(data = df1, aes(x = Time, y = PopBio, col = model), size = 1) +
-  theme(aspect.ratio=1)+ # make the plot square 
-  labs(x = "Time", y = "PopBio")
-
-# OR: can also visualise logistic using log-transformed data:
-ggplot(data, aes(x = Time, y = LogN)) +
-  geom_point(size = 3) +
-  geom_line(data = df1, aes(x = Time, y = log(N), col = model), size = 1) +
-  theme(aspect.ratio=1)+ 
-  labs(x = "Time", y = "log(Cell number)")
-#--> potential divergences of model from data might be visible here where they weren't before.. - bc of the way logs work
-
-
-
-# plotting multiple models for comparison:
-
-timepoints <- seq(0, 24, 0.1)
-
-logistic_points <- log(logistic_model(t = timepoints, 
-                                      r_max = coef(fit_logistic)["r_max"], 
-                                      K = coef(fit_logistic)["K"], 
-                                      N_0 = coef(fit_logistic)["N_0"]))
-
-gompertz_points <- gompertz_model(t = timepoints, 
-                                  r_max = coef(fit_gompertz)["r_max"], 
-                                  K = coef(fit_gompertz)["K"], 
-                                  N_0 = coef(fit_gompertz)["N_0"], 
-                                  t_lag = coef(fit_gompertz)["t_lag"])
-
-df1 <- data.frame(timepoints, logistic_points)
-df1$model <- "Logistic model"
-names(df1) <- c("Time", "LogN", "model")
-
-df2 <- data.frame(timepoints, gompertz_points)
-df2$model <- "Gompertz model"
-names(df2) <- c("Time", "LogN", "model")
-
-model_frame <- rbind(df1, df2)
-
-ggplot(data, aes(x = Time, y = LogN)) +
-  geom_point(size = 3) +
-  geom_line(data = model_frame, aes(x = Time, y = LogN, col = model), size = 1) +
-  theme_bw() + # make the background white
-  theme(aspect.ratio=1)+ # make the plot square 
-  labs(x = "Time", y = "log(Abundance)")
 
 
 

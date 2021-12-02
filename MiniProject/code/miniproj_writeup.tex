@@ -6,7 +6,6 @@
 \usepackage{natbib}
 \bibliographystyle{unsrtnat}
 \usepackage{graphicx}
-\graphicspath{ {./results/} }
 
 
 \title{\textbf{Modelling bacterial population growth for different species in varying temperatures and media}}
@@ -333,38 +332,38 @@
 	
 	(+ MAYBE INSERT STUFF ON DIAGNOSTIC TESTS OF RESIDUAL NORMALITY IF HAVE TIME AND CAN FIX IT)
 	
-	--> TO DO: MAKE FIGURE 1
-	
 	\begin{figure}[htbp]
 		\centering
-		\includegraphics[scale=0.4]{models_plot.png}
-		\caption{Population growth curves fitted by quadratic, cubic, logistic, and Gompertz models for the growth of *spp name* under *temp* in *medium*, measured by *citation*.}
-		\label{fig.test1}
+		\includegraphics[scale=10]{../results/fig1.png}
+		\caption{Population growth curves fitted by quadratic, cubic, logistic, and Gompertz models for the growth of \textit{Aerobic Mesophilic} under 4 degrees Celsius in raw chicken breast, measured by \cite{bae2014growth}.}
+		\label{fig1}
 	\end{figure}
 	
 	
 	\subsection{Model comparison}
 	
-	For 231 of the growth curves, comparisons of AIC values indicated that one of the four models provided a significantly better fit than the others, with the best model and its corresponding AIC shown in Table 1. For the remaining 54 growth curves, there was no model which provided a significantly best fit. I used only the 231 growth curves for which there was a clearly best model in subsequent analyses. 
+	For 231 of the growth curves, comparisons of AIC values indicated that one of the four models provided a significantly better fit than the others. For the remaining 54 growth curves, there was no model which provided a significantly best fit. I used only the 231 growth curves for which there was clearly a best model in subsequent analyses. 
 	
-	--> TO DO: MAKE AND INSERT TABLE 1
+	Gompertz was the best model for the largest proportion of curves, followed by logistic, cubic, and quadratic, which was not the best model for any of the curves (Table 1).
 	
-	Gompertz was the best model for the largest proportion of curves, followed by logistic, cubic, and quadratic, which was not the best model for any of the curves (Table 2).
-	
-	--> TO DO: MAKE AND INSERT TABLE 2
-	column 1: model 
-	column 2: number of curves for which it was the best model
-	column 3: proportion of curves (out of the 231 which had best models)
+	--> TO DO: INSERT TABLE 2 (proportions.csv)
+
+
 	
 	\subsection{Predictors of the best model}
 	
-	Certain genera (χ² (88, N = 231) = 278.35, p < 0.001), media (χ² (34, N = 231) = 284.21, p < 0.001), and temperatures (χ² (32, N = 231) = 207.27, p < 0.001) were significantly associated with particular models fitting better to the growth curve (Figure 2). 
+	The genus of the bacteria ($\chi^2$ (42, N = 231) = 188.16, p < 0.001), as well as the medium ($\chi^2$ (34, N = 231) = 196.83, p < 0.001) and temperature ($\chi^2$ (32, N = 231) = 127.84, p < 0.001) they were grown in, significantly affected which model best described the bacterial growth trend (Figure 2). In particular,  
 	
 	(+ DETAILS ABOUT HOW EXACTLY EACH ONE PREDICTED IT)
 	
-	--> TO DO: MAKE FIGURE 2 (INCL COLOUR-BLIND FRIENDLY) AND INSERT
+	--> TO DO: INSERT FIGURE 2 (called fig2.png)
 	
-	
+		\begin{figure}[htbp]
+		\centering
+		\includegraphics{../results/fig2.png}
+		\caption{Bar plots showing how genus, temperature, and medium affect which model fitted the bacterial growth curves the best.}
+		\label{fig2}
+	\end{figure}
 	
 	
 	\section{Discussion}
@@ -372,11 +371,17 @@
 	only used the subsets for which there was one model that was clearly better bc the aim is to examine how growth conditions affect our results of modelling bacterial population growth
 	
 	
+	Discussion of why we asked whether these are predictors of the best model:
+	- need to control for potential confounding factors in the variables delineating the subsets which could be biasing our result
+	- e.g. if we find logistic is the most common - is it the most common just bc most of the subsets are of a certain temp which is fitted better by a certain model
+	
+	
 	
 	interesting stuff to say esp for logistic vs gompertz:
 	- logistic can show deviations from the data: bc assumes that the popn is growing right from the start whereas in reality the popn takes a while to grow truly exponentially
 	- bc bacteria take a while to acclimate to fresh growth media/new resource/environ they encounter (= lag phase)
-	--> gompertz model: captures the lag phase (unlike logistic model)
+	--> gompertz model: captures the time lag phase (unlike logistic model)
+	--> see big model fitting notes section - right at the end (Population growth rates >> Using NLLS)
 	
 	
 	
@@ -408,10 +413,10 @@
 	- BIC
 	- Free Energy - according to this paper the Free Energy is a better model comparison criterion than BIC and AIC for Dynamic Causal Models \cite{penny2012comparing}
 	
-	- caveats and future directions of model selection (from Johnson & Omland 2004): \cite{johnson2004model}
+	- caveats and future directions of model selection (from Johnson and Omland 2004) \cite{johnson2004model}
 	- inferences derived from model selection ultimately depend on the models included in the candidate set
 	- could lead to misguided inference if fail to include models that might best approximate the underlying biological processes
-	- so need to think critically about alternative hypotheses before collect & analyse data!
+	- so need to think critically about alternative hypotheses before collect and analyse data!
 	- for a model to carry biological meaning rather than just statistical significance: need its predictions and parameter estimates to be biologically plausible
 	- i.e. it's logically inconsistent to accept empirical support for a model and its associated hypothesis whilst discarding its parameter estimates and predictions
 	- need to decide when it's most appropriate to use model selection and when it's most appropriate to use designed experiments and inferences based on significance tests
