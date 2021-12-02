@@ -38,7 +38,7 @@ data['ID'].nunique() # there are 285 unique IDs
 # give them numerical IDs 1-285 (much clearer than those long ID names)
 d = {ni: indi for indi, ni in enumerate(set(data.ID))} # assign a number to each unique element and store this as a dictionary d
 data.ID = [d[ni] for ni in data.ID] # do a list comprehension and store the actual numbers in the data.ID column
-# don't want any IDs = 0 so assign them all 285:
+# don't want any IDs = 0 so assign those all 285:
 data['ID'] = data['ID'].replace(0, 285)
 
 ## check for any problematic values
@@ -47,36 +47,26 @@ data['ID'] = data['ID'].replace(0, 285)
 data.isnull().values.any() # no NAs - great!
 
 # deal with negative PopBio and temp values:
-# -ve PopBio values: get rid of entire ID altogether bc can't really trust that data (esp cause the 4 -ve PopBio values there are make up significant proportion of data for that ID)
-
-#--> BUT: have decided not to do this for now
-
+# -ve PopBio values: could get rid of entire ID altogether - bc then some subsets would have too few points?
 # subset the data to cases where PopBio is negative
 #neg_popbio = data.loc[data["PopBio"] < 0]
-
 # list the IDs corresponding to negative PopBio values
 #neg_popbio.ID.unique()
-
 # drop all the rows with those IDs to get rid of them entirely (can't be trusted and those negative PopBio values make up a significant proportion of the data for those IDs toodata.drop(data.index[data['ID'] == 21])
 #data2 = data.drop(data.index[data['ID'] == 21])
 #data3 = data2.drop(data2.index[data2['ID'] == 54])
 #data4 = data3.drop(data3.index[data3['ID'] == 141])
 #data5 = data4.drop(data4.index[data4['ID'] == 187])
+#--> BUT: have decided not to do this - instead will just not run models on subsets that have fewer than 4 points
 
 
-# could also standardise time to make them all start at zero
-# but some of the papers seem to problematically start the experiment a few hours after inoculation
-
-# so for now: just get rid of all of time and PopBio rows which are negative
+# INSTEAD: get rid of all of time and PopBio rows which are negative - bc can't really trust them
 
 data.drop(data[data["Time"] < 0].index, inplace=True)
 data.drop(data[data["PopBio"] < 0].index, inplace=True)
 
-# then have some element of filtering out the IDs which have too few points to run models on
-
 # units of PopBio aren't all the same
 # --> BUT: this won't be problematic bc they're consistent within each subset (bc we subset by citation and they're consistent within each citation)
-
 
 
 ## log transform PopBio (bc popn growth is exponential of some sort)
