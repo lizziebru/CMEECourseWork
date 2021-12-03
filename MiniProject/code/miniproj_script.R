@@ -171,8 +171,6 @@ models_plot <- ggplot(d1, aes(Time, log_PopBio)) + geom_point() +
 ggsave(models_plot, filename = "../results/fig1.png", height = 4, width = 4)
 
 
-# --> maybe loop through all of them and make these plots if have time
-
 # Selecting the best model --------------------------------------------------------
 
 # make big table:
