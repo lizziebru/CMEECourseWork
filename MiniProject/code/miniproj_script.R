@@ -18,7 +18,7 @@ library(olsrr)
 # install.packages("dplyr")
 library(dplyr)
 
-data <- read.csv("~/Documents/CMEECourseWork/MiniProject/data/LogisticGrowthData2.csv")
+data <- read.csv("../data/LogisticGrowthData2.csv")
 data[is.na(data) | data == "Inf" | data == "-Inf"] <- NA  # Replace NaN & Inf with NA otherwise models don't run
 
 
