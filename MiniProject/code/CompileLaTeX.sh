@@ -10,7 +10,6 @@ pdflatex $notex.tex
 bibtex $notex
 pdflatex $notex.tex
 pdflatex $notex.tex
-evince $notex.pdf &
 
 ## Cleanup
 [ -e *.aux ] && rm *.aux

@@ -20,5 +20,8 @@ texcount -1 -sum=1,2 miniprojwriteup.tex > words.sum
 rm *.pdf
 # LaTeX report
 echo "Compiling LaTeX"
-bash CompileLaTeX.sh miniproj_writeup.tex
+pdflatex miniprojwriteup.tex
+bibtex miniprojwriteup.aux
+pdflatex miniprojwriteup.tex
+pdflatex miniprojwriteup.tex
 echo "Compiled LaTeX report"

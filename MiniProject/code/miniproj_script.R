@@ -3,28 +3,23 @@
 # Desc: this script contains the plots for the miniproject
 # Date: Nov 2021
 
-install.packages('ggplot2')
+# install.packages('ggplot2')
 library(ggplot2)
-install.packages('broom')
-library(broom)
-install.packages('minpack.lm')
+# install.packages('minpack.lm')
 library(minpack.lm)
-install.packages('qpcR')
+# install.packages('qpcR')
 library(qpcR)
-install.packages("viridis")
+# install.packages("viridis")
 library(viridis)
-install.packages("ggpubr")
+# install.packages("ggpubr")
 library(ggpubr)
-install.packages("nlstools")
-library(nlstools)
-install.packages("olsrr")
+# install.packages("olsrr")
 library(olsrr)
-install.packages("dplyr")
+# install.packages("dplyr")
 library(dplyr)
 
-data <- read.csv("../data/LogisticGrowthData2.csv")
+data <- read.csv("~/Documents/CMEECourseWork/MiniProject/data/LogisticGrowthData2.csv")
 data[is.na(data) | data == "Inf" | data == "-Inf"] <- NA  # Replace NaN & Inf with NA otherwise models don't run
-
 
 
 # Model fitting -----------------------------------------------------------
@@ -40,16 +35,6 @@ logistic_AICs <- data.frame(Subset = c(1:285),
 
 gompertz_AICs <- data.frame(Subset = c(1:285),
                             AIC = rep(0, 285))
-
-# make table of p-values of results of shapiro-wilk test for residuals' normality
-# null hypothesis: residuals are normally distributed
-# i.e. p<0.05 == residuals are NOT normally distributed
-residuals_normality <- data.frame(Subset = c(1:285),
-                                  p_lm_cub = rep(0, 285), # p-value for shapiro test on lm residuals for cubic
-                                  p_lm_quad = rep(0,285),
-                                  p_nls_log = rep(0,285),
-                                  p_nls_gomp = rep(0,285)) # p-value for shapiro test on nlsLM residuals for gompertz fit
-
 
 
 logistic_model <- function(t, r_max, K, N_0){ # The classic logistic equation
@@ -71,8 +56,6 @@ for (i in 1:285) {
     # cubic:
     try(
       cubic_fit <- lm(d$log_PopBio ~ poly(d$Time, 3, raw = TRUE), silent = TRUE))
-    #cub_shap <- ols_test_normality(cubic_fit) 
-    #try(residuals_normality[i, "p_lm_cub"] <- tidy(cub_shap$shapiro)[2], silent = TRUE)
     try(
       cubic_AICs[i, "AIC"] <- AIC(lm(d$log_PopBio ~ poly(d$Time, 3, raw = TRUE))
       ), silent = TRUE)
@@ -80,8 +63,6 @@ for (i in 1:285) {
     # quadratic:
     try(
       quadratic_fit <- lm(d$log_PopBio ~ poly(d$Time, 2, raw = TRUE), silent = TRUE))
-    #quad_shap <- ols_test_normality(quadratic_fit) 
-    #try(residuals_normality[i, "p_lm_quad"] <- tidy(quad_shap$shapiro)[2], silent = TRUE)
     try(
       quadratic_AICs[i, "AIC"] <- AIC(lm(d$log_PopBio ~ poly(d$Time, 2, raw = TRUE))
       ), silent = TRUE)
@@ -94,8 +75,6 @@ for (i in 1:285) {
       logistic_fit <- nlsLM(PopBio ~ logistic_model(t = Time, r_max, K, N_0), d,
                             list(r_max=r_max_start, N_0 = N_0_start, K = K_start))
       , silent = TRUE)
-    #log_shap <- test.nlsResiduals(nlsResiduals(logistic_fit))
-    #try(residuals_normality[i, "p_lm_log"] <- log_shap$p.value, silent = TRUE)
     try(
       logistic_AICs[i, "AIC"] <- AIC(nlsLM(PopBio ~ logistic_model(t = Time, r_max, K, N_0), d,
                                            list(r_max=r_max_start, N_0 = N_0_start, K = K_start))
@@ -119,8 +98,6 @@ for (i in 1:285) {
                   list(t_lag=t_lag_start, r_max=r_max_start, N_0 = N_0_start, K = K_start))
         ), silent = TRUE)
     }))
-    #try(gomp_shap <- test.nlsResiduals(nlsResiduals(gompertz_fit)), silent = TRUE)
-    #try(residuals_normality[i, "p_lm_gomp"] <- gomp_shap$p.value, silent = TRUE)
     try(
       gompertz_AICs[i, "AIC"] <- min(AIC_reps, na.rm = T), silent = TRUE) # take the lowest AIC for each subset and put it in the AIC column of gompertz_AICs
   
@@ -130,53 +107,6 @@ for (i in 1:285) {
 
 # count how many of the subsets gompertz managed to fit models for:
 length(which(gompertz_AICs2$AIC != Inf))
-
-
-# --> TO DO: TRY AND FIX THIS IF HAVE TIME
-
-
-# Diagnostic plots? -------------------------------------------------------
-
-# DIAGNOSTICS
-
-##-- should probably check diagnostics of the model NLLS fit
-##-- bc it carries 3 assumptions:
-#- no measurement error in the x-variable
-#- data have constant normal variance: errors in y-axis homogeneously distributed over the x-axis range
-#- the measurement/observation errors are normally distributed (gaussian)
-##-- so should at least plot the residuals of a fitted NLLS model
-#--> check they're normally distributed!
-
-# use nlstools
-
-d <- data[which(data$ID == 10),]    
-cubic_fit <- lm(d$log_PopBio ~ poly(d$Time, 3, raw = TRUE))
-cub_shap <- ols_test_normality(cubic_fit) 
-tidy(cub_shap$shapiro)[2]
-
-# --> Shapiro-Wilk test: p > 0.05 
-# --> therefore cannot reject null hypothesis that the errors are not normally distributed
-
-quadratic_fit <- lm(d$log_PopBio ~ poly(d$Time, 3, raw = TRUE))
-ols_test_normality(quadratic_fit)
-
-logistic_fit <- nlsLM(PopBio ~ logistic_model(t = Time, r_max, K, N_0), d,
-                      list(r_max=r_max_start, N_0 = N_0_start, K = K_start))
-log_shap <- test.nlsResiduals(nlsResiduals(logistic_fit))
-log_shap$p.value
-
-gompertz_fit <- nlsLM(log_PopBio ~ gompertz_model(t = Time, r_max, K, N_0, t_lag), d,
-                      list(t_lag=t_lag_start, r_max=r_max_start, N_0 = N_0_start, K = K_start))
-test.nlsResiduals(nlsResiduals(gompertz_fit))
-
-
-
-
-
-
-
-
-
 
 
 # Plotting  --------------------------------------------------------
@@ -204,8 +134,6 @@ d1l <- nlsLM(PopBio ~ logistic_model(t = Time, r_max, K, N_0), d1,
 
 # gompertz:
 # need to sample through starting values to make it fit
-
-# could 
 repeat {
   success <- 0
   N_0_start <- rnorm(1, m = min(d1$log_PopBio), sd = abs(3*min(d1$log_PopBio)))
@@ -217,57 +145,12 @@ repeat {
                                   list(t_lag=t_lag_start, r_max=r_max_start, N_0 = N_0_start, K = K_start))
     success <- 1}
     )
-  if (success == 1) {
+  if (success == 1) { # terminate the loop as soon as it successfully fits one model - because just need one for the sake of visualisation
     break
   }
 }
 
 # make plot using these models:
-
-# make timepoints so that can apply the models to these to make smooth curves
-timepoints <- seq(0, max(d1$Time), 0.1)
-
-cub_points <- poly(timepoints, 3, raw = TRUE, coefs = c(dfc$X1, dfc$X2, dfc$X3))
-
-quad_points <- poly(timepoints, 2, raw = TRUE, coefs = c(dfq$X1, dfq$X2, dfq$X3))
-
-log_points <- log(logistic_model(t = timepoints, 
-                                      r_max = coef(d1l)["r_max"], 
-                                      K = coef(d1l)["K"], 
-                                      N_0 = coef(d1l)["N_0"]))
-
-gomp_points <- gompertz_model(t = timepoints, 
-                                  r_max = coef(d1g)["r_max"], 
-                                  K = coef(d1g)["K"], 
-                                  N_0 = coef(d1g)["N_0"], 
-                                  t_lag = coef(d1g)["t_lag"])
-
-dfc <- data.frame(timepoints, cub_points)
-dfc$model <- "Cubic model"
-names(dfc) <- c("Time", "Log_PopBio", "model")
-
-dfq <- data.frame(timepoints, quad_points)
-dfq$model <- "Quadratic model"
-names(dfq) <- c("Time", "Log_PopBio", "model")
-
-dfl <- data.frame(timepoints, log_points)
-dfl$model <- "Logistic model"
-names(dfl) <- c("Time", "Log_PopBio", "model")
-
-dfg <- data.frame(timepoints, gomp_points)
-dfg$model <- "Gompertz model"
-names(dfg) <- c("Time", "Log_PopBio", "model")
-
-# log_points and gomp_points are shorter bc of the models fit, so only take the first 5000 of each
-df_all <- rbind(dfl, dfg)
-
-ggplot(d1, aes(x = Time, y = log_PopBio)) +
-  geom_point(size = 3) +
-  geom_line(data = df_all, aes(x = Time, y = Log_PopBio, col = model), size = 1) +
-  theme_bw() + # make the background white
-  theme(aspect.ratio=1)+ # make the plot square 
-  labs(x = "Time", y = "log(population density)")
-
 
 timepoints <- seq(0, max(d1$Time), 0.1)
 pred_df <- data.frame(timepoints = timepoints,
@@ -281,19 +164,16 @@ models_plot <- ggplot(d1, aes(Time, log_PopBio)) + geom_point() +
   geom_smooth(method = "loess", data = pred_df, formula = y ~ x, aes(timepoints, gom_vals, colour = "#F0E442"))+
   scale_color_manual(name = NULL, values = c("#CC79A7", "#D55E00", "#0072B2", "#F0E442"), labels = c("Quadratic", "Cubic", "Logistic", "Gompertz"))+
   guides(col = guide_legend("Model"))+
-  ylab("Population density")+
+  ylab("Log(population density)")+
   theme_bw()+
   ylim(0, 8)
 
-ggsave(models_plot, filename = "../results/fig1.png")
+ggsave(models_plot, filename = "../results/fig1.png", height = 4, width = 4)
 
 
 # --> maybe loop through all of them and make these plots if have time
 
-
-
-
-# Comparing models --------------------------------------------------------
+# Selecting the best model --------------------------------------------------------
 
 # make big table:
 
@@ -301,8 +181,6 @@ models_all <- data.frame(subset = rep(1:285, 4),
                          model = c(rep('Quadratic', 285), rep('Cubic', 285), rep('Logistic', 285), rep('Gompertz', 285)),
                          AIC = c(quadratic_AICs$AIC, cubic_AICs$AIC, logistic_AICs$AIC, gompertz_AICs$AIC))
 
-# save to results:
-write.csv(models_all, file = "../results/models_all.csv")
 
 # work out best model for each by just comparing AIC values to begin with:
 
@@ -319,7 +197,7 @@ for (i in 1:285) {
   a <- order(d$AIC)
   ordered <- d$AIC[a]
   
-  # if the diff between smallest and middle is < 2, terminate:
+  # if the difference between smallest and next smallest is < 2, terminate:
   if (isTRUE((ordered[2] - ordered[1]) < 2)) { 
     next
   }
@@ -336,24 +214,11 @@ for (i in 1:285) {
   
 }
 
-# make zeros in model column NAs:
+# make the zeros in the model column into NAs:
 models_best$best_model[models_best$best_model==0] <- NA
 
 
-# save to results:
-write.csv(models_best, file = "../results/models_best.csv")
-
-
-
-# where models have similar levels of support: use model averaging to make robust parameter estimates & predictions?
-
-
-
-
-
-
-# HYPOTHESIS TESTING ------------------------------------------------------
-
+# Analysis ------------------------------------------------------
 
 # make final dataframe used for analysis:
 
@@ -450,26 +315,18 @@ models_everything$Genus[models_everything$species=="Tetraselmis tetrahele"] <- "
 
 models_everything$Genus[models_everything$species=="Weissella viridescens"] <- "Weissella"
 
-# make temp factor for analysis:
+# make temperature a factor for analysis:
 models_everything$Temperature <- as.factor(models_everything$Temperature)
 
-# save as csv:
-write.csv(models_everything, file = "../results/models_everything.csv")
 
 
-# read back in for future use:
-models_everything <- read.csv("../results/models_everything.csv")
+# Q1: hich models more commonly fit best
 
-
-
-# general questions about which models more commonly fit best
-
-# i.e. mechanistic vs phenomenological
 
 # work out number & proportion of each model fitted: (for everywhere where one model was better than others)
 
 length(which(models_everything$Model != 'NA'))
-#--> a best model was selected for 231 of the subsets
+#--> a best model was selected for 232 of the subsets
 
 # cubic:
 cubic_no <- length(which(models_everything$Model == 'Cubic'))
@@ -492,11 +349,9 @@ proportions <- data.frame(Model = c("Quadratic", "Cubic", "Logistic", "Gompertz"
                           Count = c(signif(quadratic_no, 3), signif(cubic_no, 3), signif(logistic_no, 3), signif(gompertz_no, 3)),
                           Proportion = c(signif(quadratic_prop, 3), signif(cubic_prop, 3), signif(logistic_prop, 3), signif(gompertz_prop, 3)))
 
-write.csv(proportions, file = "../results/proportions.csv")
 
 
-
-# test for the effects of predictors on which model is best:
+# Q2: test for the effects of predictors on which model is best:
 
 # intrinsic chi-squared test:
 
@@ -567,19 +422,6 @@ gomp_temp <- gomp_temp[which(gomp_temp$Freq != 0), ]  # remove rows where count 
 gomp_temp <- na.omit(gomp_temp) # also remove any rows filled with NAs (sometimes does this)
 gomp_temp <- gomp_temp[order(- gomp_temp$Freq),] # order by descending frequency
 
-write.csv(cub_gen, file = "../results/cub_gen.csv")
-write.csv(log_gen, file = "../results/log_gen.csv")
-write.csv(gomp_gen, file = "../results/gomp_gen.csv")
-
-write.csv(cub_med, file = "../results/cub_med.csv")
-write.csv(log_med, file = "../results/log_med.csv")
-write.csv(gomp_med, file = "../results/gomp_med.csv")
-
-write.csv(cub_temp, file = "../results/cub_temp.csv")
-write.csv(log_temp, file = "../results/log_temp.csv")
-write.csv(gomp_temp, file = "../results/gomp_temp.csv")
-
-
 
 # examining biases in the data:
 # how many of each genus:
@@ -591,7 +433,7 @@ pseudomonas <- 100*length(which(models_everything$Genus == 'Pseudomonas'))/lengt
 
 
 
-# visualizing it: bar plot:
+# visualizing this: bar plot:
 
 genus_plot <- ggplot(data = subset(models_everything, !is.na(Model)))+
   aes(x = Model, fill = Genus)+
@@ -603,8 +445,6 @@ genus_plot <- ggplot(data = subset(models_everything, !is.na(Model)))+
   ylab('Count')+
   coord_flip()
   
-
-
 medium_plot <- ggplot(data = subset(models_everything, !is.na(Model)))+
   aes(x = Model, fill = Medium)+
   geom_bar()+
@@ -627,34 +467,5 @@ temp_plot <- ggplot(data = subset(models_everything, !is.na(Model)))+
 fig2 <- ggarrange(genus_plot, temp_plot, medium_plot, labels = c("A", "B", "C"), nrow = 3)
 
 ggsave(fig2, filename = "../results/fig2.png", height = 10, width = 10)
-
-
-
-
-
-
-# Testing for whether replicates are an issue -----------------------------
-
-# replicates: run lm to compare diff replicates --> establish that they're not significantly different from each other
-
-# therefore it doesn't matter which one you choose 
-
-# but do need to choose one of them bc they'll be a bit different bc they're diff experiments (so diff popns, probably diff starting points etc)
-
-# so can just choose replicate = 1 for all of them
-
-
-
-lm_reps <- lm(PopBio ~ Time + as.character(Rep), data = data) # need to make it as a character so that 
-summary(lm_reps)
-
-##--> Rep is not a significant predictor of relationship between PopBio and Time therefore don't need to worry about it 
-
-
-
-
-
-
-
 
 
