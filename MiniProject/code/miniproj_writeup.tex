@@ -4,8 +4,21 @@
 \usepackage{lineno}
 \usepackage{authblk}
 \usepackage{natbib}
+\usepackage[margin=2cm]{geometry}
+\usepackage{tabularx}
+\newcommand{\supersc}[1]{\ensuremath{^{\textrm{#1}}}}
+\newcommand{\subsc}[1]{\ensuremath{_{\textrm{#1}}}}
+\usepackage{booktabs}
 \bibliographystyle{unsrtnat}
 \usepackage{graphicx}
+\newcommand{\quickwordcount}[1]{
+
+\immediate\write18{texcount-1 -sum=1, 2 #1.tex > #1-words.sum }
+		\begin{center}
+			{\large Word count:
+	\input{#1-words.sum}}
+		\end{center}
+}
 
 
 \title{\textbf{Modelling bacterial population growth for different species in varying temperatures and media}}
@@ -19,20 +32,31 @@
 \begin{document}
 	
 	\maketitle
+	\quickwordcount{miniproj_writeup}
 	
 	\newpage
 	
 	\section{Introduction}
 	
-	POTENTIAL EXTRA THINGS TO DO:
+	Studying population growth rates is important in many fields in biology. Population demographics, particularly growth rates, help us to understand the size and status of populations and to forecast future population trends \cite{tarsi2012}. Quantifying growth rates is essential in a range of fields such as the conservation of endangered species, population management, and epidemiology, and in industry with the use of microbes for anthropogenic benefits. Fluctuations in population density are important for shaping dynamics and  emergent functional characteristics of ecosystems such as rates of carbon fixation and disease transmission \cite{ewald1976toxicity, gao1992disease}.
 	
-	- COMPARE WITH BIC TOO!! THEN ONLY USE MODELS WHICH ARE AGREED TO BE THE BEST BY BOTH AIC AND BIC (JUST MAKES IT EXTRA ROBUST)
+	Many factors affect population growth rates. When abundance is low and resources are unlimited, theory predicts that populations should grow exponentially. If resources become limited, population growth should slow and eventually stop. There may additionally be a time lag before population growth takes off to begin with. Therefore population growth rates are affected by resource availability. Many other factors also influence growth rates due to the complexity of biological systems with multiple interacting components. Some of these factors include but are not limited to environmental stressors, population density, and survival and birth rates \cite{dinsmore2010assessment, sibly2002population}.
 	
-	- fix plotting in the big loop
+	Studying bacterial growth rates in particular is both important and interesting. It is central in many fields. Studying bacterial virulence and antibiotic susceptibility is important in virology, particularly facilitating our understanding and treatment of bacterial diseases \cite{boulos2005molecular}. 
+	Bacterial population growth is also interesting from a statistical physics perspective, presenting many fascinating phenomena that pose new challenges to modelling \cite{allen2018bacterial}. In batch culture, bacterial population growth generally follows a distinct set of phases. Firstly, the lag phase occurs whereby bacteria prepare for growth. This involves the activation of a suite of transcriptional machinery, including genes involved in nutrient uptake and metabolic changes. The subsequent exponential growth phase involves the division of bacteria at a constant rate, with the population doubling at each generation. Finally, bacterial populations reach a stationary phase when the carrying capacity of the growth medium is reached. During this phase, growth slows, with the number of cells stabilising.
 	
-	- make plots needed for write-up
+
+
+	4. how bacterial growth rates used to be measured
+	- traditionally measured by plotting cell numbers/culture density against time on a semi-log graph and fitting a straight line through the exponential growth phase (slope of line = max growth rate)
 	
-	- diagnostics
+	5. better: we've since developed models which we can use to describe the whole sigmoidal bacterial growth curve
+	
+	6. this study:
+	model bacterial growth rate
+	test for predictors of which models describe the growth best --> can tell us something about the effects of these predictors and also inform general theory of bacterial growth rate modelling
+	
+
 	
 	
 	
@@ -48,27 +72,7 @@
 	
 	citation for gompertz model: \cite{gompertz1825xxiv}
 	
-	
-	1. importance of studying growth rates
-	- fluctuations in popn density = important for shapring ecosystem dynamics, emergent functional characteristics (e.g. rate of C fixation and disease transmission etc) etc
-	
-	2. how popn growth rates work - what affects them
-	- if abundance is low and resources not limited --> popn grows exponentially
-	- as resources become limiting: growth slows and eventually stops
-	- can also get a time lag before popn growth takes off at the start
-	
-	3. more info on bacterial growth rates
-	- in batch culture: follows distinct set of phases:
-	- lag phase: bacteria prepare for growth: suite of transcriptional machinery is activated, incl genes involved in nutrient updake and metabolic changes
-	- exponential growth phase: bacteria divide at constant rate (popn doubles at each generation)
-	- stationary phase: begins when carrying capacity of the media is reached: growth slows and number of cells stabilises
-	
-	4. how bacterial growth rates used to be measured
-	- traditionally measured by plotting cell numbers/culture density against time on a semi-log graph and fitting a straight line through the exponential growth phase (slope of line = max growth rate)
-	
-	5. better: we've since developed models which we can use to describe the whole sigmoidal bacterial growth curve
-	
-	6. theory of modelling
+
 	
 	
 	what is modelling?
@@ -334,8 +338,8 @@
 	
 	\begin{figure}[htbp]
 		\centering
-		\includegraphics[scale=10]{../results/fig1.png}
-		\caption{Population growth curves fitted by quadratic, cubic, logistic, and Gompertz models for the growth of \textit{Aerobic Mesophilic} under 4 degrees Celsius in raw chicken breast, measured by \cite{bae2014growth}.}
+		\includegraphics[scale=1.3]{../results/fig1.png}
+		\caption{Population growth curves fitted by quadratic, cubic, logistic, and Gompertz models for the growth of \textit{Aerobic Mesophilic} under 4\supersc{o} Celsius in raw chicken breast, measured by \cite{bae2014growth}.}
 		\label{fig1}
 	\end{figure}
 	
@@ -345,26 +349,230 @@
 	For 231 of the growth curves, comparisons of AIC values indicated that one of the four models provided a significantly better fit than the others. For the remaining 54 growth curves, there was no model which provided a significantly best fit. I used only the 231 growth curves for which there was clearly a best model in subsequent analyses. 
 	
 	Gompertz was the best model for the largest proportion of curves, followed by logistic, cubic, and quadratic, which was not the best model for any of the curves (Table 1).
-	
-	--> TO DO: INSERT TABLE 2 (proportions.csv)
 
+	\begin{table}[htbp] 
+		\caption{Count and proportions of each model being the best fit for bacterial populations.}
+		\centering      % center table 
+		\begin{tabular}{c c c}  % center columns (3 columns) 
+			\hline                        %horizontal line
+			Model & Count & Proportion \\ [0.5ex] % adds vertical space
+			\hline                    % inserts single horizontal line 
+			Gompertz & 145 & 0.628  \\
+			Logistic & 63 & 0.273 \\ 
+			Cubic & 24 & 0.104 \\ 
+			Quadratic & 0 & 0.000 \\ 
+			 [0.5ex]
+			\hline     %inserts single line 
+		\end{tabular} 
+		\label{table1}  % is used to refer this table in the text 
+	\end{table} 
+
+
+	
 
 	
 	\subsection{Predictors of the best model}
 	
-	The genus of the bacteria ($\chi^2$ (42, N = 231) = 188.16, p < 0.001), as well as the medium ($\chi^2$ (34, N = 231) = 196.83, p < 0.001) and temperature ($\chi^2$ (32, N = 231) = 127.84, p < 0.001) they were grown in, significantly affected which model best described the bacterial growth trend (Figure 2). In particular,  
-	
-	(+ DETAILS ABOUT HOW EXACTLY EACH ONE PREDICTED IT)
-	
-	--> TO DO: INSERT FIGURE 2 (called fig2.png)
+	The genus of the bacteria ($\chi^2$ (42, N = 231) = 188.16, p < 0.001; Figure 2A; Table 2), as well as the medium ($\chi^2$ (34, N = 231) = 196.83, p < 0.001; Figure 2B; Table 3) and temperature ($\chi^2$ (32, N = 231) = 127.84, p < 0.001; Figure 2C; Table 4) they were grown in, significantly affected which model best described the bacterial growth trend. In particular, bacterial populations which showed growth curves best described by the Gompertz model were predominantly of the genera Arthrobacter and Aerobic; those best described by the logistic model were mostly Acinetobacter and Stenotrophomonas; and those best fitted by a cubic model were mostly Serratia (Table 2A, B, C). Bacterial populations grown on TSB mostly showed logistic growth curves, in fact accounting for all populations best fitted by this curve (Table 3B). Similarly, those best fitted by the Gompertz model were biased towards TGE agar and those by a cubic model towards vacuum beef striploins and cooked chicken breast, although there was greater variation in media for populations best fitted by these two models (Table 3A, C). Less clear trends are visible for temperature, although bacterial populations best fitted by the logistic model were mostly grown under higher temperatures with the exception of those grown under five\supersc{o} Celsius, and populations best explained by the Gompertz model were slightly biased towards being grown at 22\supersc{o} Celsius (Table 4A, B, C).
 	
 		\begin{figure}[htbp]
 		\centering
-		\includegraphics{../results/fig2.png}
+		\includegraphics[height=18cm, width=18cm]{../results/fig2.png}
 		\caption{Bar plots showing how genus, temperature, and medium affect which model fitted the bacterial growth curves the best.}
 		\label{fig2}
 	\end{figure}
+
 	
+	\begin{table}[htbp]
+		\caption{Frequency of genera of the bacterial populations best fitted by (A) cubic, (B) logistic, and (C) Gompertz models.}
+		\label{table2}
+		\begin{tabularx}{\linewidth}{l*{6}{Y}}
+			\toprule
+			\multicolumn{7}{l}{\textbf{Panel A: Cubic model}} \\
+			\midrule
+			\textbf{Genus} & \textbf{Frequency} \\
+			Serratia & 6 \\
+			Pseudomonas & 5 \\
+			Aerobic & 4 \\
+			Spoilage^
+			{1} & 3 \\
+			Clavibacter & 2 \\
+			Salmonella & 2 \\
+			Escherichia & 1 \\
+			Oscillatoria & 1 \\
+			\bottomrule   
+		\end{tabularx}
+		\begin{tabularx}{\linewidth}{l*{7}{Y}}
+			\toprule
+			\multicolumn{7}{l}{\textbf{Panel B: Logistic model}} \\
+			\midrule
+			\textbf{Genus} & \textbf{Frequency} \\
+			Acinobacter & 12 \\
+			Stenotrophomonas & 10 \\
+			Bacillus & 8 \\
+			Pantoea & 8 \\
+			Pseudomonas & 8 \\
+			Dickeya & 5 \\
+			Klebsiella & 4 \\
+			Chryseobacterium & 3 \\
+			Clavibacter & 2 \\
+			Pectobacterium & 2 \\
+			Enterobacter & 1 \\
+			\bottomrule
+		\end{tabularx}
+			\begin{tabularx}{\linewidth}{l*{7}{Y}}
+		\toprule
+		\multicolumn{7}{l}{\textbf{Panel C: Gompertz model}} \\
+					\midrule
+		\textbf{Genus} & \textbf{Frequency} \\
+		Arthrobacter & 29 \\
+		Aerobic & 24 \\
+		Pseudomonas & 14 \\
+		Lactobacillus & 13 \\
+		Staphylococcus & 10 \\
+		Serratia & 7 \\
+		Escherichia & 5 \\
+		Salmonella & 5 \\
+		Spoilage & 5 \\
+		Tetraselmis & 5 \\
+		Clavibacter & 4 \\
+		Klebsiella & 4 \\
+		Pantoea & 4 \\
+		Weissella & 4 \\
+		Dickeya & 3 \\
+		Enterobacter & 3 \\
+		Oscillatoria & 2 \\
+		Pectobacterium & 2 \\
+		Chryseobacterium & 1 \\
+		Stenotrophomonas & 1 \\
+		\bottomrule
+	\end{tabularx}
+		
+		[1]\ This refers to a combination of different bacterial strains which cause food spoilage.
+	\end{table}
+	
+	
+		\begin{table}[htbp]
+		\caption{Frequency of media in which the bacterial populations best fitted by (A) cubic, (B) logistic, and (C) Gompertz models were grown.}
+		\label{table3}
+		\begin{tabularx}{\linewidth}{l*{6}{Y}}
+			\toprule
+			\multicolumn{7}{l}{\textbf{Panel A: Cubic model}} \\
+			\midrule
+			\textbf{Medium} & \textbf{Frequency} \\
+			Vacuum beef striploins & 5 \\
+			Cooked chicken breast & 4 \\
+			APT broth & 2 \\
+			Raw chicken breast & 2 \\
+			TSB & 2 \\
+			UHT skim milk & 2 \\
+			CO\subsc{2} beef striploins & 1 \\
+			Pasteurised double cream & 1 \\
+			Pasteurised skim milk & 1 \\
+			Salted chicken breast & 1 \\
+			UHT double cream & 1 \\
+			UHT full-fat milk & 1 \\
+			Z8 & 1 \\
+			\bottomrule   
+		\end{tabularx}
+		\begin{tabularx}{\linewidth}{l*{7}{Y}}
+			\toprule
+			\multicolumn{7}{l}{\textbf{Panel B: Logistic model}} \\
+			\midrule
+			\textbf{Medium} & \textbf{Frequency} \\
+			TSB & 63 \\
+			\bottomrule
+		\end{tabularx}
+		\begin{tabularx}{\linewidth}{l*{7}{Y}}
+			\toprule
+			\multicolumn{7}{l}{\textbf{Panel C: Gompertz model}} \\
+			\midrule
+			\textbf{Medium} & \textbf{Frequency} \\
+			TGE agar & 29 \\
+			TSB & 22 \\
+			Salted chicken breast & 18 \\
+			Raw chicken breast & 16 \\
+			Cooked chicken breast & 13 \\
+			MRS broth & 13 \\
+			Vacuum beef striploins & 9 \\
+			CO\subsc{2} beef striploins & 6 \\
+			ESAW & 5 \\
+			MRS & 4 \\
+			UHT full-fat milk & 2 \\
+			Z8 & 2 \\
+			APT broth & 1 \\
+			Pasteurised double cream & 1 \\
+			Pasteurised full-fat milk & 1 \\
+			Pasteurised skim milk & 1 \\
+			UHT double cream & 1 \\
+			UHT skim milk & 1 \\
+			\bottomrule
+		\end{tabularx}
+	\end{table}
+	
+			\begin{table}[htbp]
+		\caption{Frequency of temperatures in which the bacterial populations best fitted by (A) cubic, (B) logistic, and (C) Gompertz models were grown.}
+		\label{table4}
+		\begin{tabularx}{\linewidth}{l*{6}{Y}}
+			\toprule
+			\multicolumn{7}{l}{\textbf{Panel A: Cubic model}} \\
+			\midrule
+			\textbf{Temperature (\supersc{o}C)} & \textbf{Frequency} \\
+			20 & 5 \\
+			10 & 4 \\
+			15 & 3 \\
+			4 & 2 \\
+			6 & 2 \\
+			7 & 2 \\
+			8 & 2 \\
+			30 & 2 \\
+			2 & 1 \\
+			25 & 1 \\
+			\bottomrule   
+		\end{tabularx}
+		\begin{tabularx}{\linewidth}{l*{7}{Y}}
+			\toprule
+			\multicolumn{7}{l}{\textbf{Panel B: Logistic model}} \\
+			\midrule
+			\textbf{Temperature (\supersc{o}C)} & \textbf{Frequency} \\
+			35 & 18 \\
+			5 & 16 \\
+			15 & 16 \\
+			25 & 16 \\
+			\bottomrule
+		\end{tabularx}
+		\begin{tabularx}{\linewidth}{l*{7}{Y}}
+			\toprule
+			\multicolumn{7}{l}{\textbf{Panel C: Gompertz model}} \\
+			\midrule
+			\textbf{Temperature (\supersc{o}C)} & \textbf{Frequency} \\
+			15 & 22 \\
+			7 & 16 \\
+			20 & 15 \\
+			10 & 14 \\
+			25 & 11 \\
+			30 & 11 \\
+			2 & 9 \\
+			4 & 9 \\
+			5 & 6 \\
+			12 & 6 \\
+			0 & 5 \\
+			8 & 5 \\
+			16 & 4 \\
+			35 & 4 \\
+			37 & 4 \\
+			6 & 3 \\
+			32 & 1 \\
+			\bottomrule
+		\end{tabularx}
+	\end{table}
+	
+	
+	
+	
+	--> IF HAVE TIME: ADD IN FOOTNOTES TO EXPLAIN WHAT SOME OF THE ABBREVIATIONS FOR MEDIA MEAN
+	
+	\newpage
 	
 	\section{Discussion}
 	
@@ -377,11 +585,20 @@
 	
 	
 	
+	effect of medium on model:
+	- think about how it affects lag/stationary phases etc (involve when carrying capacity of the growth medium is reached)
+	
+	
 	interesting stuff to say esp for logistic vs gompertz:
 	- logistic can show deviations from the data: bc assumes that the popn is growing right from the start whereas in reality the popn takes a while to grow truly exponentially
 	- bc bacteria take a while to acclimate to fresh growth media/new resource/environ they encounter (= lag phase)
 	--> gompertz model: captures the time lag phase (unlike logistic model)
 	--> see big model fitting notes section - right at the end (Population growth rates >> Using NLLS)
+	
+	
+	limitations of conclusions:
+	- bc data wasn't collected for the purposes of this study, it'll inevitably have biases e.g. there are more data for certain genera/temperature/media
+	--> e.g. there's a bias towards much more Aerobic (12.6\%), Arthrobacter (12.3\%), and Pseudomonas (11.2\%) - even though there are 22 genera in total
 	
 	
 	
@@ -427,6 +644,6 @@
 	
 	\section{Acknowledgements}
 	
-	\bibliography{miniproj_biblio}
+	\bibliography{miniprojbiblio}
 	
 \end{document}

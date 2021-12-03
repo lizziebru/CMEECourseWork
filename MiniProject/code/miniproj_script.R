@@ -526,7 +526,7 @@ cub_gen <- na.omit(cub_gen) # also remove any rows filled with NAs (sometimes do
 cub_gen <- cub_gen[order(- cub_gen$Freq),] # order by descending frequency
 
 cub_med <- as.data.frame(table(cub$Medium))
-cub_med <- cub_gen[which(cub_med$Freq != 0), ]  # remove rows where count is zero
+cub_med <- cub_med[which(cub_med$Freq != 0), ]  # remove rows where count is zero
 cub_med <- na.omit(cub_med) # also remove any rows filled with NAs (sometimes does this)
 cub_med <- cub_med[order(- cub_med$Freq),] # order by descending frequency
 
@@ -542,7 +542,7 @@ log_gen <- na.omit(log_gen) # also remove any rows filled with NAs (sometimes do
 log_gen <- log_gen[order(- log_gen$Freq),] # order by descending frequency
 
 log_med <- as.data.frame(table(log$Medium))
-log_med <- log_gen[which(log_med$Freq != 0), ]  # remove rows where count is zero
+log_med <- log_med[which(log_med$Freq != 0), ]  # remove rows where count is zero
 log_med <- na.omit(log_med) # also remove any rows filled with NAs (sometimes does this)
 log_med <- log_med[order(- log_med$Freq),] # order by descending frequency
 
@@ -558,7 +558,7 @@ gomp_gen <- na.omit(gomp_gen) # also remove any rows filled with NAs (sometimes 
 gomp_gen <- gomp_gen[order(- gomp_gen$Freq),] # order by descending frequency
 
 gomp_med <- as.data.frame(table(gomp$Medium))
-gomp_med <- gomp_gen[which(gomp_med$Freq != 0), ]  # remove rows where count is zero
+gomp_med <- gomp_med[which(gomp_med$Freq != 0), ]  # remove rows where count is zero
 gomp_med <- na.omit(gomp_med) # also remove any rows filled with NAs (sometimes does this)
 gomp_med <- gomp_med[order(- gomp_med$Freq),] # order by descending frequency
 
@@ -568,12 +568,26 @@ gomp_temp <- na.omit(gomp_temp) # also remove any rows filled with NAs (sometime
 gomp_temp <- gomp_temp[order(- gomp_temp$Freq),] # order by descending frequency
 
 write.csv(cub_gen, file = "../results/cub_gen.csv")
-write.csv(cub_gen, file = "../results/cub_gen.csv")
-write.csv(cub_gen, file = "../results/cub_gen.csv")
+write.csv(log_gen, file = "../results/log_gen.csv")
+write.csv(gomp_gen, file = "../results/gomp_gen.csv")
 
-write.csv(cub_gen, file = "../results/cub_gen.csv")
-write.csv(cub_gen, file = "../results/cub_gen.csv")
-write.csv(cub_gen, file = "../results/cub_gen.csv")
+write.csv(cub_med, file = "../results/cub_med.csv")
+write.csv(log_med, file = "../results/log_med.csv")
+write.csv(gomp_med, file = "../results/gomp_med.csv")
+
+write.csv(cub_temp, file = "../results/cub_temp.csv")
+write.csv(log_temp, file = "../results/log_temp.csv")
+write.csv(gomp_temp, file = "../results/gomp_temp.csv")
+
+
+
+# examining biases in the data:
+# how many of each genus:
+genera <- table(models_everything$Genus)
+# work out what percentage of the populations are Aerobic, Arthrobacter, and Pseudomonas::
+aerobic <- 100*length(which(models_everything$Genus == 'Aerobic'))/length(models_everything$Genus)
+arthrobacter <- 100*length(which(models_everything$Genus == 'Arthrobacter'))/length(models_everything$Genus)
+pseudomonas <- 100*length(which(models_everything$Genus == 'Pseudomonas'))/length(models_everything$Genus)
 
 
 
@@ -612,7 +626,7 @@ temp_plot <- ggplot(data = subset(models_everything, !is.na(Model)))+
 
 fig2 <- ggarrange(genus_plot, temp_plot, medium_plot, labels = c("A", "B", "C"), nrow = 3)
 
-ggsave(fig2, filename = "../results/fig2.png")
+ggsave(fig2, filename = "../results/fig2.png", height = 10, width = 10)
 
 
 
