@@ -14,6 +14,9 @@ echo "Fitting models, plotting data, and analysing results..."
 Rscript miniproj_script.R
 echo "Modelling, plotting, and analysis complete"
 
+# count words in report
+texcount -1 -sum=1,2 miniprojwriteup.tex > words.sum
+
 rm *.pdf
 # LaTeX report
 echo "Compiling LaTeX"
