@@ -1,0 +1,2198 @@
+Starting code feedback for Lizzie, Week7
+
+Current Points = 100
+
+Note that: 
+(1) Major sections begin with a double "====" line 
+(2) Subsections begin with a single "====" line 
+(3) Code output or text file content are printed within single "*****" lines 
+
+======================================================================
+======================================================================
+Your Git repo size this week is about 3.37 MiB on disk 
+
+PART 1: Checking project workflow...
+
+Found the following directories in parent directory: week4, week1, week2, week7, .git, MiniProject, week3, Feedback
+
+Found the following files in parent directory: .gitignore, README.md, Notes.txt
+
+Checking for key files in parent directory...
+
+Found .gitignore in parent directory, great! 
+
+Printing contents of .gitignore:
+
+**********************************************************************
+*.pdf
+*.aux
+*.bbl
+*.log
+*.blg
+
+.idea/
+.Rproj.user
+
+**********************************************************************
+
+Found README in parent directory, named: README.md
+
+Printing contents of README.md:
+
+**********************************************************************
+## **My CMEE Coursework Repository**
+
+This contains all coursework materials from practical work in the Computational Methods in Ecology and Evolution course at Imperial College London Silwood Park, which is guided by the [**The Multilingual Quantitative Biologist**](https://mhasoba.github.io/TheMulQuaBio/intro.html) online book.
+
+### **Languages**
+
+BASH version 5.0.17(1)
+
+TeX 3.14159265 (TeX Live 2019/Debian)
+
+### **Dependencies**
+
+imagemagick
+
+bc
+
+### **Contents** 
+
+[**Week 1**](week1)
+- this directory contains coursework materials from week 1 of practical work, covering the following topics:
+1. [UNIX and Linux](https://mhasoba.github.io/TheMulQuaBio/notebooks/01-Unix.html#)
+2. [Shell scripting](https://mhasoba.github.io/TheMulQuaBio/notebooks/02-ShellScripting.html)
+3. [Version control with Git](https://mhasoba.github.io/TheMulQuaBio/notebooks/03-Git.html)
+4. [Scientific documents with LaTeX](https://mhasoba.github.io/TheMulQuaBio/notebooks/04-LaTeX.html)
+
+### **Usage**
+
+Instructions for usage of specific files in this repository can be found in the week-specific README files.
+
+### **Author name and contact**
+
+Lizzie Bru
+eab21@ic.ac.uk
+
+**********************************************************************
+
+======================================================================
+Looking for the weekly directories...
+
+Found 5 weekly directories: week1, week2, week3, week4, week7
+
+The Week7 directory will be assessed 
+
+======================================================================
+======================================================================
+PART 2: Checking weekly code and workflow...
+
+======================================================================
+Assessing WEEK7...
+
+Found the following directories: code, data, sandbox, results
+
+Found the following files: README.md
+
+Checking for readme file in weekly directory...
+
+Found README in parent directory, named: README.md
+
+Printing contents of README.md:
+
+**********************************************************************
+## **Week 7 Repository**
+
+This repository contains all coursework materials from week 7 of practical work in the CMEE course.
+
+Specifically, this includes the [**Biological Computing in Python I**](https://mhasoba.github.io/TheMulQuaBio/notebooks/05-Python_I.html), [**Biological Computing in Python II**](https://mhasoba.github.io/TheMulQuaBio/notebooks/06-Python_II.html), [**Introduction to Jupyter**](https://mhasoba.github.io/TheMulQuaBio/notebooks/Appendix-JupyIntro.html), [**Data Analyses with Python and Jupyter**](https://mhasoba.github.io/TheMulQuaBio/notebooks/Appendix-Data-Python.html), and [**Mathematical models with Jupyter**](https://mhasoba.github.io/TheMulQuaBio/notebooks/Appendix-Data-Python.html) chapters in [**The Multilingual Quantitative Biologist**](https://mhasoba.github.io/TheMulQuaBio/intro.html) online book.
+
+
+### **Languages**
+
+Python 3.8.10
+
+R version 3.6.3 (2020-02-29)
+
+### **Dependencies** 
+
+Python:
+- numpy
+- scipy
+- scipy.integrate
+- matplotlib.pylab
+- subprocess
+- timeit
+- doctest
+- difflib
+- SequenceMatcher
+
+
+### **Installation**
+
+If you would like to run the scripts in this project, you should clone this repository. 
+
+
+### **Usage**
+
+[**oaks_debugme.py**](code/oaks_debugme.py)
+
+This script served as a debugging exercise. It is now fixed and should take the input data TestOaksData.csv and write an output of oak names to JustOaksData.csv.
+
+
+[**LV1.py**](code/LV1.py)
+
+This script illustrates numerical integration and plotting in Python. It should be run in one go and output two figures as PDFs into the results folder. 
+
+
+[**MyFirstJupyterNb.ipynb**](code/MyFirstJupyterNb.ipynb)
+
+This is an example jupyter notebook with some examples of what you can do in jupyter.
+
+
+[**numpy_intro.py**](code/numpy_intro.py)
+
+This script contains some examples to illustrate how to use numpy in Python.
+
+
+[**profileme.py**](code/profileme.py)
+
+This script illustrates profiling in Python.
+
+
+[**profileme2.py**](code/profileme2.py)
+
+This script also illustrates profiling in Python, but with a faster approach.
+
+
+[**scipy_intro.py**](code/scipy_intro.py)
+
+This script illustrates how to use scipy in Python.
+
+
+[**subprocess_intro.py**](code/subprocess_intro.py)
+
+This script illustrates subprocessing in Python.
+
+
+[**TestR.py**](code/TestR.py)
+
+This script illustrates running R from Python.
+
+
+[**TestR.R**](code/TestR.R)
+
+This script is used to illustrate how to run R from Python.
+
+
+[**timeitme.py**](code/timeitme.py)
+
+This script illustrates quick profiling with timeit in Python.
+
+
+[**vectorization_revisited.py**](code/vectorization_revisited.py)
+
+This script illustrates how to vectorize in Python.
+
+
+[**oaks_debugme.py**](code/oaks_debugme.py)
+
+This script writes a function to read data on oaks.
+
+
+### **Author name and contact**
+
+Lizzie Bru
+eab21@ic.ac.uk
+
+**********************************************************************
+
+Results directory is empty - good! 
+
+Found 12 code files: vectorization_revisited.py, TestR.py, profileme.py, oaks_debugme.py, MyFirstJupyterNb.ipynb, profileme2.py, TestR.R, subprocess_intro.py, numpy_intro.py, scipy_intro.py, LV1.py, timeitme.py
+
+======================================================================
+Testing script/code files...
+
+======================================================================
+Inspecting script file vectorization_revisited.py...
+
+File contents are:
+
+**********************************************************************
+#!/usr/bin/env python3
+
+"""This script illustrates how to vectorize in Python"""
+
+__author__ = 'Lizzie Bru (eab21@ic.ac.uk)'
+
+import numpy as np
+import matplotlib.pylab as p
+
+# example to show the difference in runtime between a loop method and a vectorized method using numpy
+
+# calculating a new array c in which each entry is the product of the two corresponding entries in a and b
+def loop_product(a, b): # define a loop-based function to calculate this
+    N = len(a)
+    c = np.zeros(N)
+    for i in range(N):
+        c[i] = a[i] * b[i]
+    return c
+
+
+def vect_product(a, b): # define a vectorized function to calculate this
+    return np.multiply(a, b) # multiply function from numpy = vectorized implementation of the elementwise product that we've explicitly written in the function loop_product
+
+
+# compare these 2 functions on increasingly large randomly-generated 1D arrays:
+
+import timeit
+
+array_lengths = [1, 100, 10000, 1000000, 10000000]
+t_loop = []
+t_vect = []
+
+for N in array_lengths:
+    print("\nSet N=%d" % N)
+    # randomly generate our 1D arrays of length N
+    a = np.random.rand(N)
+    b = np.random.rand(N)
+
+    # time loop_product 3 times and save the mean execution time.
+    timer = timeit.repeat('loop_product(a, b)', globals=globals().copy(), number=3)
+    t_loop.append(1000 * np.mean(timer))
+    print("Loop method took %d ms on average." % t_loop[-1])
+
+    # time vect_product 3 times and save the mean execution time.
+    timer = timeit.repeat('vect_product(a, b)', globals=globals().copy(), number=3)
+    t_vect.append(1000 * np.mean(timer))
+    print("vectorized method took %d ms on average." % t_vect[-1])
+
+#--> vectorized method took 3ms on average vs loop method took 1372ms!!
+
+
+# compare the timings on a plot:
+p.figure()
+p.plot(array_lengths, t_loop, label="loop method")
+p.plot(array_lengths, t_vect, label="vect method")
+p.xlabel("Array length")
+p.ylabel("Execution time (ms)")
+p.legend()
+p.show()
+
+
+# BUT: there are trade-offs: vectorizing increases RAM usage (because it involves storing parts of matrices rather than running each element one by one)
+
+# if you try to vectorize a problem that's too large, you'll probably run into memory errors:
+# for example if you make the same example as before even bigger:
+
+N = 1000000000
+
+a = np.random.rand(N)
+b = np.random.rand(N)
+c = vect_product(a, b)
+
+# if no error, remove a, b, c from memory.
+del a
+del b
+del c
+
+#--> returns a memory error
+**********************************************************************
+
+Testing vectorization_revisited.py...
+
+vectorization_revisited.py is a Python script file;
+
+checking for docstrings...
+
+Found one or more docstrings and functions
+
+Missing docstring, either in one or functions and/or at the script level
+
+Current Points = 99.0
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 10.00912s
+
+======================================================================
+Inspecting script file TestR.py...
+
+File contents are:
+
+**********************************************************************
+#!/usr/bin/env python3
+
+"""This script illustrates running R from Python"""
+
+__author__ = 'Lizzie Bru eab21@ic.ac.uk'
+
+import subprocess
+
+subprocess.Popen("Rscript --verbose TestR.R > ../results/TestR.Rout 2> ../results/TestR_errFile.Rout", shell=True).wait()
+
+# telling the script to run the R script, redirect its output and save it into results, and also save the second file in the same way
+
+# shell = True: tells subprocess, rather than just spawning a process from bash, to actually open up the terminal window and keep the shell there
+
+# --> the 2 outputs do indeed appear in the results folder
+**********************************************************************
+
+Testing TestR.py...
+
+TestR.py is a Python script file;
+
+checking for docstrings...
+
+Found no functions, but one docstring for the script, good
+
+Current Points = 99.0
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.08046s
+
+======================================================================
+Inspecting script file profileme.py...
+
+File contents are:
+
+**********************************************************************
+#!/usr/bin/env python3
+
+"""This script illustrates profiling in Python"""
+
+__author__ = 'Lizzie Bru eab21@ic.ac.uk'
+
+# example program:
+
+def my_squares(iters):
+    out = []
+    for i in range(iters):
+        out.append(i ** 2)
+    return out
+
+def my_join(iters, string):
+    out = ''
+    for i in range(iters):
+        out += string.join(", ")
+    return out
+
+def run_my_funcs(x,y):
+    print(x,y)
+    my_squares(x)
+    my_join(x,y)
+    return 0
+
+run_my_funcs(10000000,"My string")
+
+# best way to profile this in Pycharm: click on Run > Profile 'profileme.py'
+
+**********************************************************************
+
+Testing profileme.py...
+
+profileme.py is a Python script file;
+
+checking for docstrings...
+
+Found one or more docstrings and functions
+
+Missing docstring, either in one or functions and/or at the script level
+
+Current Points = 97.5
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+10000000 My string
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 5.21664s
+
+======================================================================
+Inspecting script file oaks_debugme.py...
+
+File contents are:
+
+**********************************************************************
+#!/usr/bin/env python3
+
+"""This script writes a function to read data on oaks - the exercise is to debug it"""
+
+__author__ = 'Lizzie Bru eab21@ic.ac.uk'
+
+import csv
+import sys
+import doctest
+from difflib import SequenceMatcher
+
+# NOTE: I am taking the instruction of making this script able to 'handle cases where there is a typo etc' to mean: allow for leeway to include names which could be oaks but just have a typo in them
+
+#Define function
+def is_an_oak(name):
+    """ Returns a measure of how similar a name is to 'Quercus' (i.e. how close it is to being an oak)
+
+    >>> is_an_oak('Quercus')
+    1.0
+
+     >>> is_an_oak('Fraxinus')
+     0.4
+
+    whenever there is a typo, returns a value close enough to 1.0
+    >>> is_an_oak('QQuercus')
+    0.9333333333333333
+    >>> is_an_oak('Quercuss')
+    0.9333333333333333
+    >>> is_an_oak('Quercyuss')
+    0.875
+
+    Let's define 'close enough' as being up to three typos:
+    >>> is_an_oak('uwercuss')
+    0.8
+
+    """
+    return SequenceMatcher(None, name.lower(), "quercus").ratio() # returns the similarity of the input name to 'quercus' as a ratio (.lower makes it all lower-case to standardize comparisons)
+
+
+def main(argv):
+    """Open the input data from TestOaksData.csv and write the outputs (= only the species which have names close enough to being oaks) to JustOaksData.csv"""
+    f = open('../data/TestOaksData.csv','r') # this csv contains 5 oak species names laid out in 2 columns (genus & species)
+    g = open('../data/JustOaksData.csv','w') # this csv is empty
+    taxa = csv.reader(f)
+    csvwrite = csv.writer(g)
+    oaks = set()
+    for row in taxa:
+        print(row)
+        print ("The genus is: ") 
+        print(row[0] + '\n')
+        if is_an_oak(row[0]) == 1.0: # if it's got the exact name 'Quercus'
+            print('FOUND AN OAK!\n')
+            csvwrite.writerow([row[0], row[1]])
+        elif is_an_oak(row[0]) >= 0.8: # if it's 'close enough' to being an oak (defined here as having a similarity of 0.8)
+            print('Close enough to being an oak - but check for typos') # that way it flags the uncertainty and you can manually check these
+    f.close() # need to close the csvs after opening them
+    g.close()
+    return 0
+    
+if (__name__ == "__main__"):
+    status = main(sys.argv)
+
+doctest.testmod() # to run with embedded tests
+**********************************************************************
+
+Testing oaks_debugme.py...
+
+oaks_debugme.py is a Python script file;
+
+checking for docstrings...
+
+Found one or more docstrings and functions
+
+Current Points = 97.5
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+['Genus', ' species']
+The genus is: 
+Genus
+
+['Quercus', ' robur']
+The genus is: 
+Quercus
+
+FOUND AN OAK!
+
+['Fraxinus', ' excelsior']
+The genus is: 
+Fraxinus
+
+['Pinus', ' sylvestris']
+The genus is: 
+Pinus
+
+['Quercus', ' cerris']
+The genus is: 
+Quercus
+
+FOUND AN OAK!
+
+['Quercus', ' petraea']
+The genus is: 
+Quercus
+
+FOUND AN OAK!
+
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.05430s
+
+======================================================================
+Inspecting script file MyFirstJupyterNb.ipynb...
+
+File contents are:
+
+**********************************************************************
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "68fb62d9",
+   "metadata": {},
+   "source": [
+    "**Examples of what you can do in jupyter**"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d452d7da",
+   "metadata": {},
+   "source": [
+    "Can write equations using standard LaTeX environments:"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "516f0d91",
+   "metadata": {},
+   "source": [
+    "$$\n",
+    "    \\frac{dN}{dt} = rN \\left( 1-\\frac{N}{K}\\right)\n",
+    "$$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "8e2f24e5",
+   "metadata": {},
+   "source": [
+    "Can also run code in both Python and R:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "1c270c2b",
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "this is python!\n"
+     ]
+    }
+   ],
+   "source": [
+    "a = \"this is python!\"; print(a)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "cc8af60e",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "this is R!"
+     ]
+    }
+   ],
+   "source": [
+    "a <- \"this is R!\"; cat(a)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "17a12f09",
+   "metadata": {},
+   "source": [
+    "Graphics:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "e850342c",
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/tmp/ipykernel_34177/799143421.py:4: DeprecationWarning: scipy.arange is deprecated and will be removed in SciPy 2.0.0, use numpy.arange instead\n",
+      "  x = sc.arange(0, 5, 0.1); y = sc.sin(x)\n",
+      "/tmp/ipykernel_34177/799143421.py:4: DeprecationWarning: scipy.sin is deprecated and will be removed in SciPy 2.0.0, use numpy.sin instead\n",
+      "  x = sc.arange(0, 5, 0.1); y = sc.sin(x)\n"
+     ]
+    },
+    {
+     "data": {
+      "image/png": "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\n",
+      "text/plain": [
+       "<Figure size 432x288 with 1 Axes>"
+      ]
+     },
+     "metadata": {
+      "needs_background": "light"
+     },
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "import matplotlib.pyplot as p\n",
+    "import scipy as sc\n",
+    "\n",
+    "x = sc.arange(0, 5, 0.1); y = sc.sin(x)\n",
+    "p.plot(x, y); p.show()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f7a41bdc",
+   "metadata": {},
+   "source": [
+    "Same in R:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "bcec8cc4",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "Loading required package: ggplot2\n",
+      "\n"
+     ]
+    },
+    {
+     "data": {
+      "image/png": "iVBORw0KGgoAAAANSUhEUgAAAYwAAAEsCAMAAADn+3SWAAAC+lBMVEUAAAABAQECAgIDAwME\nBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw8QEBARERESEhITExMUFBQVFRUW\nFhYXFxcYGBgZGRkaGhobGxscHBwdHR0eHh4fHx8gICAhISEiIiIjIyMkJCQlJSUmJiYnJyco\nKCgpKSkqKiorKyssLCwtLS0uLi4vLy8wMDAxMTEyMjIzMzM0NDQ1NTU2NjY3Nzc4ODg5OTk6\nOjo7Ozs8PDw9PT0+Pj4/Pz9AQEBBQUFCQkJDQ0NERERFRUVGRkZHR0dJSUlKSkpLS0tMTExN\nTU1OTk5PT09QUFBRUVFSUlJTU1NUVFRVVVVWVlZXV1dYWFhZWVlaWlpbW1tcXFxdXV1eXl5f\nX19gYGBhYWFiYmJjY2NkZGRlZWVmZmZnZ2doaGhpaWlqampra2tsbGxtbW1ubm5vb29wcHBx\ncXFycnJzc3N0dHR1dXV2dnZ3d3d4eHh5eXl6enp7e3t8fHx9fX1+fn5/f3+AgICBgYGCgoKD\ng4OEhISFhYWGhoaHh4eIiIiJiYmKioqLi4uMjIyNjY2Ojo6Pj4+QkJCRkZGSkpKTk5OUlJSV\nlZWWlpaXl5eYmJiZmZmampqbm5ucnJydnZ2enp6fn5+goKChoaGioqKjo6OkpKSlpaWmpqan\np6eoqKipqamqqqqrq6usrKytra2urq6vr6+wsLCxsbGysrK0tLS1tbW2tra3t7e4uLi5ubm6\nurq7u7u8vLy9vb2+vr6/v7/AwMDBwcHCwsLDw8PExMTFxcXGxsbHx8fIyMjJycnKysrLy8vM\nzMzNzc3Ozs7Pz8/Q0NDR0dHS0tLT09PU1NTV1dXW1tbX19fY2NjZ2dna2trb29vc3Nzd3d3e\n3t7f39/g4ODh4eHi4uLj4+Pk5OTl5eXm5ubn5+fo6Ojp6enq6urr6+vs7Ozt7e3u7u7v7+/w\n8PDx8fHy8vLz8/P09PT19fX29vb39/f4+Pj5+fn6+vr7+/v8/Pz9/f3+/v7///8yS3CPAAAA\nCXBIWXMAABJ0AAASdAHeZh94AAAV1UlEQVR4nO2de3wU1dnHn01CLhgUUUAEgvoiF+1bLWkV\ni6KoaIXkFQGpGBFUFFAURMQLFbFSLRUFWqkivgi+1RaMaBWlgApoBCHhHoGIJEDI5QAh98te\n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\nqo4IAAAAAElFTkSuQmCC",
+      "text/plain": [
+       "plot without title"
+      ]
+     },
+     "metadata": {
+      "image/png": {
+       "height": 150,
+       "width": 198
+      }
+     },
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "require(ggplot2)\n",
+    "library(repr)# to resize plot within jupyter - this package is part of IRKernel\n",
+    "options(repr.plot.width=3.3,repr.plot.height=2.5)\n",
+    "\n",
+    "x <- seq(0, 5, 0.1); y <- sin(x)\n",
+    "qplot(x, y, geom = \"line\") # large figure"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2691a3a1",
+   "metadata": {},
+   "source": [
+    "Pandas Python package"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "07ac0289",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'0.25.3'"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "pd.__version__"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "842d1146",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import scipy as sc"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "4b0857b6",
+   "metadata": {},
+   "source": [
+    "documentation:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "a1299fdc",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "pd?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "48be4e25",
+   "metadata": {},
+   "source": [
+    "Pandas dataframes"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6efa49cc",
+   "metadata": {},
+   "source": [
+    "can import data using pd.read_csv or can also make dataframes:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "91470c37",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>col1</th>\n",
+       "      <th>col2</th>\n",
+       "      <th>col3</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>Var1</td>\n",
+       "      <td>Grass</td>\n",
+       "      <td>1.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>Var2</td>\n",
+       "      <td>Rabbit</td>\n",
+       "      <td>2.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>Var3</td>\n",
+       "      <td>Fox</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>Var4</td>\n",
+       "      <td>Wolf</td>\n",
+       "      <td>4.0</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   col1    col2  col3\n",
+       "0  Var1   Grass   1.0\n",
+       "1  Var2  Rabbit   2.0\n",
+       "2  Var3     Fox   NaN\n",
+       "3  Var4    Wolf   4.0"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "MyDF = pd.DataFrame({\n",
+    "   'col1': ['Var1', 'Var2', 'Var3', 'Var4'],\n",
+    "   'col2': ['Grass', 'Rabbit', 'Fox', 'Wolf'],\n",
+    "   'col3': [1, 2, sc.nan, 4]\n",
+    "})\n",
+    "\n",
+    "MyDF"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2d97bd7b",
+   "metadata": {},
+   "source": [
+    "Examine data:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "de4dfc9c",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>col1</th>\n",
+       "      <th>col2</th>\n",
+       "      <th>col3</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>Var1</td>\n",
+       "      <td>Grass</td>\n",
+       "      <td>1.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>Var2</td>\n",
+       "      <td>Rabbit</td>\n",
+       "      <td>2.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>Var3</td>\n",
+       "      <td>Fox</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>Var4</td>\n",
+       "      <td>Wolf</td>\n",
+       "      <td>4.0</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   col1    col2  col3\n",
+       "0  Var1   Grass   1.0\n",
+       "1  Var2  Rabbit   2.0\n",
+       "2  Var3     Fox   NaN\n",
+       "3  Var4    Wolf   4.0"
+      ]
+     },
+     "execution_count": 9,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "MyDF.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "34da439e",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>col1</th>\n",
+       "      <th>col2</th>\n",
+       "      <th>col3</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>Var1</td>\n",
+       "      <td>Grass</td>\n",
+       "      <td>1.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>Var2</td>\n",
+       "      <td>Rabbit</td>\n",
+       "      <td>2.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>Var3</td>\n",
+       "      <td>Fox</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>Var4</td>\n",
+       "      <td>Wolf</td>\n",
+       "      <td>4.0</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   col1    col2  col3\n",
+       "0  Var1   Grass   1.0\n",
+       "1  Var2  Rabbit   2.0\n",
+       "2  Var3     Fox   NaN\n",
+       "3  Var4    Wolf   4.0"
+      ]
+     },
+     "execution_count": 10,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "MyDF.tail()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "70f91b82",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(4, 3)"
+      ]
+     },
+     "execution_count": 11,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "MyDF.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "id": "5defb021",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "4"
+      ]
+     },
+     "execution_count": 12,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "len(MyDF)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "9179cae7",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Index(['col1', 'col2', 'col3'], dtype='object')"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "MyDF.columns"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "id": "5ba9c468",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "col1     object\n",
+       "col2     object\n",
+       "col3    float64\n",
+       "dtype: object"
+      ]
+     },
+     "execution_count": 14,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "MyDF.dtypes"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "3e8c6db4",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([['Var1', 'Grass', 1.0],\n",
+       "       ['Var2', 'Rabbit', 2.0],\n",
+       "       ['Var3', 'Fox', nan],\n",
+       "       ['Var4', 'Wolf', 4.0]], dtype=object)"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "MyDF.values"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "01bd3359",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>col3</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>count</th>\n",
+       "      <td>3.000000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>mean</th>\n",
+       "      <td>2.333333</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>std</th>\n",
+       "      <td>1.527525</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>min</th>\n",
+       "      <td>1.000000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>25%</th>\n",
+       "      <td>1.500000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>50%</th>\n",
+       "      <td>2.000000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>75%</th>\n",
+       "      <td>3.000000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>max</th>\n",
+       "      <td>4.000000</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "           col3\n",
+       "count  3.000000\n",
+       "mean   2.333333\n",
+       "std    1.527525\n",
+       "min    1.000000\n",
+       "25%    1.500000\n",
+       "50%    2.000000\n",
+       "75%    3.000000\n",
+       "max    4.000000"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "MyDF.describe()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "8a1f1e54",
+   "metadata": {},
+   "source": [
+    "Can also develop and analyze mathematical models"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "id": "ed01c747",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "%matplotlib inline\n",
+    "import matplotlib.pyplot as p"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "id": "b7299fad",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from sympy import *\n",
+    "import scipy as sc\n",
+    "init_printing()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "id": "236aa0c8",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "sympy.core.symbol.Symbol"
+      ]
+     },
+     "execution_count": 22,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x = var('x') # create symbolic variable to work with\n",
+    "type(x) # check its class"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "id": "41c3c5ba",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "a, b, c, = var(\"a, b, c\") # create multiple symbolic variables at one go"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "eb0d179c",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "x = var('x', real = True) # often important to add assumptions\n",
+    "x.is_imaginary # check"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "id": "42d8e529",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "x = Symbol('x', positive = True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "id": "2e7afd35",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/png": "iVBORw0KGgoAAAANSUhEUgAAACoAAAAOCAYAAABZ/o57AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAB0UlEQVRIDb2W7U0CQRCGD0IBqB1oBxAqEDuA2IF0oH/5Z6ADtAKFDqAEpAOxA0MH+Dzn7uVyhFNAb5JhZudj592vOWrb7TYZDodvSZI04Q38GWQLKWlbw/rPg1yTc4NeGTVCJUH1KT6LldHv0UfwAP0pZ++hP8dxVbIOCHdqlgdZVjzELcti/sNXZ1KPc37g5KuwwAPTjg8XqDvqHTyE3gl2gZVRg51ZHVHNhU3JvUQ+wo47cBfuwy7ee6x/QZy2BHmHGMBpHuOx9kiMtT/AbsQF3MRmfFL351Ai2eLtkHcV5ATpo+zi82rot4MIOiVsPsprOLN9e9JFmGv3GRE3hlPASG3HATUxkEAE5mN0V8+QWYdgvHOl8G9CblFMMbyGeVIfujveQvZieyom/XZs0QxMCYjS+chzNz32dPcKwV7NzqlAndNdPZUEKbUB7T3Ok1dq+RdA9x1lvthPejyVOUCzj04+qZ4fVKEDJO5eVg6bx+uCbzNjTsHfPRVok/nkfeSHpAjMFiYo20+e7AY+TP0ZMfYzvq75pyRSCLLn2cxNEISTLmDv4oQYW48++5vf/eh/wb5zbNi8Y5K90dhX+AOWlvizPzfoLsq2JMVeas31Fx2vogF49TMKAAAAAElFTkSuQmCC\n",
+      "text/latex": [
+       "$\\displaystyle \\text{True}$"
+      ],
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 28,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x > 0 # check"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "id": "7f9be0bb",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/png": "iVBORw0KGgoAAAANSUhEUgAAAC0AAAAPCAYAAABwfkanAAAACXBIWXMAAA7EAAAOxAGVKw4bAAACVUlEQVRIDdWW21FbMRCGZYYCGKgASsCkAkwHMHSQdJAMT/YbAx1AKgjQAVABIR3EHYS4A+f7BJvRuZhzDsMLO7NnV9K/F61WskfT6XQ3pXQCKzdh6e5Z5O8G3x041rZns9miWG9VwejvO6ztHeOjVuAbJkfL5TKb4XSCcgsb4KDu62X9mvl99F/19VVjsI+szZHvlvRaEWz+ordWkaBW/xts5YbQ0xBwH2yZdB/8FaChSffxOwjTmTQV3oHt64RsPYVBEd8BvN7Dh71ua+SESfxcG+RnRN4Mcss56LTPxsB4SfWrz/BxzPyYcSZ0T9R2/A3rf4O5L8j0atKFYfmaJOYPsT2Dx+j5LiAvGN87B68kcCZ5hqxcdsY5IQ3R3VT2hR7+v6I/wuO29piwcC1jKPftYbG72HXh98DtgYsKM8zkpoP0dQUmHoeE7gnr/7Ct0pU3FVDpLDtl7gZFTugGN5FK5VxrI/D690X5q470mb1Bj7azym7cp7JOPrWf2pKuA3XaIILkY2ZhE/4BPzRAqydsIX/Qos1sl0vYFomTsvW8NyVZwJ+dSWOYK1paMmcwf+2O0HO/I61QJ4EzqSekl0xO6CZ3gTSpaIlbxo3Y4tf8vIGi58oLasUzEey13nZzlQqCv2TOBO11W2ABH8MNYn1SJh0XI2TDoGMiKq19HPEqkxOC1+M4jiLso/sgTEoHjH2x5qPiD5OBDLyAw9h3151XiDlx9qR97HFqa7WiTz1mfTiOwI5tB7Fe2j9wkO+w7RBxE7q43D7IeKttofn/P0xh/RHkP0QG2/u59wGyAAAAAElFTkSuQmCC\n",
+      "text/latex": [
+       "$\\displaystyle \\text{False}$"
+      ],
+      "text/plain": [
+       "False"
+      ]
+     },
+     "execution_count": 29,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "x < 0"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "1d8e30e6",
+   "metadata": {},
+   "source": [
+    "Can define equations:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "id": "e6810726",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/png": "iVBORw0KGgoAAAANSUhEUgAAAEgAAAAaCAYAAAAUqxq7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAADRklEQVRYCe2Y0VEbMRCGDyYFeFKC04GJKwh0QJIKwB3g4cl+y5AOIBUkoQOTCiB0YEog14Hzf2dJs3c++3QhyMmZnVmvtNJpd//blXTeWywW2a7TdDrtCYNzh0PfyRPp81e7Do6L/0JgjDwWal+q/VP8Zt8rd1yeCpRDg8GF2n3pBi8ALVEhe+4MQKG597IHBSxCQ5lDBh1LrpaYlH6TCg/87402MWnuAHDEB8RdKjENnknHhK4R+wmxbSQHJNlzoHbO5FBiUoDaUHLMQNdIcQFQLnlVF5v0VM5YsjjNXH8JkDrcA35IFmlVt0AXdIqPo/udZJEdPib1AYej3SYHQI39PYi0YkIyklMcq6R+7Rt9JkeIkVjDncfZATiSBBlIvo0yTrHJZPILmZJl81h8ltKmj1V2e7F294USe89DgK37DWL9EBsmJXYkvln3gAAk9U7d+FDyREzNfnS6W825du0kQvYoE3zCt3V0pXnVUmIusRJzVGlzzL8Vz8XriO+Uz7Am3Iq/iA/VZ0PDQZxNRrLr7b2XURi/OFyKTdW1OabrwNFwESsvOIrIIIJ8rJstI7wl7xBTcjElSRZBr8V2vFA+14/84Y4WMlZ9ju5LyQcxm/6N5H2DfWJtBRBBEngd3WHcDPCm7qUr5kvyBjeS5nBy4HyVsJtpvO5NY2NlbekI3gJwJB0ZBA3FMWVDPCRFFJFBa8k5ZMfZ3D5ZRVNba9QBkElPJnLM+wCbliqN6zmyyb7YgXS2X5pvOpsSwkxbNtmDSLlGRGWcLGBe2JCl68HSbYMAfmYMx5YN/hJzFAEQKbeyuAt+5oBhMRziqm5L7lz9nMGUhG+yx/74zdo1vlp1tU0G2Riq46U+AFHT1G+VyBj40TlUQt05w6m2DQIcNubqy+H4bqJiH22a5MfZg76Kv3uFkdwX2PQAKZMzIzEZxabLlRzgQrkxJyEBhP1uwnSsL8RTuy+yyAq56/dc1+9B7PX7b8zbxqeGbPbF8zb+U2IQd5l4VItHnvxDeVRL5MmLNixA1rW7t3k0hewMhH2/a9Jlz6xtXD6DAJ6LWdK/PDCakIitdZWEfxRxVJsuxz1/Vv/R5Y01/kVSPHySXEtGH+8+jt/Eu3Ka1sxn6gAAAABJRU5ErkJggg==\n",
+      "text/latex": [
+       "$\\displaystyle \\left(x + \\pi\\right)^{2}$"
+      ],
+      "text/plain": [
+       "       2\n",
+       "(x + π) "
+      ]
+     },
+     "execution_count": 30,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "MyFun = (pi + x)**2; MyFun"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "cd1dc3b7",
+   "metadata": {},
+   "source": [
+    "--> also lots more stuff you can do with equations etc - see Mathematical models in Jupyter section of the notes"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.10"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
+
+**********************************************************************
+
+Testing MyFirstJupyterNb.ipynb...
+
+======================================================================
+Inspecting script file profileme2.py...
+
+File contents are:
+
+**********************************************************************
+#!/usr/bin/env python3
+
+"""This script illustrates profiling in Python - using an alternative approach to make it faster"""
+
+__author__ = 'Lizzie Bru eab21@ic.ac.uk'
+
+# alternative approach to the same program as in profileme.py:
+
+def my_squares(iters):
+    out = [i ** 2 for i in range(iters)]
+    return out
+
+def my_join(iters, string):
+    out = ''
+    for i in range(iters):
+        out += ", " + string
+    return out
+
+def run_my_funcs(x,y):
+    print(x,y)
+    my_squares(x)
+    my_join(x,y)
+    return 0
+
+run_my_funcs(10000000,"My string")
+
+# best way to profile this in Pycharm: click on Run > Profile 'profileme2.py'
+##--> shows that it's faster than 'profileme.py'
+**********************************************************************
+
+Testing profileme2.py...
+
+profileme2.py is a Python script file;
+
+checking for docstrings...
+
+Found one or more docstrings and functions
+
+Missing docstring, either in one or functions and/or at the script level
+
+Current Points = 96.0
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+10000000 My string
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 3.05343s
+
+======================================================================
+Inspecting script file TestR.R...
+
+File contents are:
+
+**********************************************************************
+# Author: Lizzie Bru eab21@imperial.ac.uk
+# Script: TestR.R
+# Desc: R script to use to demonstrate how to run R from Python
+# Date: Nov 2021
+
+print("Hello, this is R!")
+**********************************************************************
+
+Testing TestR.R...
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+[1] "Hello, this is R!"
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.05333s
+
+======================================================================
+Inspecting script file subprocess_intro.py...
+
+File contents are:
+
+**********************************************************************
+#!/usr/bin/env python3
+
+"""This script illustrates subprocessing in Python"""
+
+__author__ = 'Lizzie Bru eab21@ic.ac.uk'
+
+import subprocess
+
+#--> using subprocess: can run non-Python commands & scripts, obtain their outputs, and crawl through & manipulate directories
+
+
+# try running some commands in the UNIX bash:
+p = subprocess.Popen(["echo", "I'm talkin' to you, bash!"], # command line arguments passed as a list of strings to avoid needing to escape quotes
+                     stdout=subprocess.PIPE, # output from the process spawned by the command
+                     stderr=subprocess.PIPE) # error code from which you capture whether the process ran successfully or not
+#--> creates an object p, from which you can extract the output and other info of the command you ran: the method PIPE creates a new "pipe" to the output of the "child" process
+
+stdout, stderr = p.communicate()
+
+
+# check what's in stderr and stdout
+
+stderr
+# --> nothing here bc the echo command doesn't return any code
+# the b indicates that the output is unencoded
+
+stdout
+
+# encode and print it:
+print(stdout.decode())
+
+# can also use universal_newlines = True to make the outputs be returned as encoded text with line endings converted to '\n'
+p = subprocess.Popen(["echo", "I'm talkin' to you, bash!"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines = True)
+stdout, stderr = p.communicate()
+stdout # don't need to decode it this time
+
+
+# trying something else:
+p = subprocess.Popen(["ls", "-l"], stdout=subprocess.PIPE)
+stdout, stderr = p.communicate()
+print(stdout.decode()) # lists all files in a long listing format
+
+
+# can also call python itself from bash:
+p = subprocess.Popen(["python3", "../../week2/code/boilerplate.py"], # need to give it the relative path to boilerplate
+                     stdout=subprocess.PIPE,
+                     stderr=subprocess.PIPE) # A bit silly!
+stdout, stderr = p.communicate()
+print(stdout.decode())
+#--> telling python to run bash to open python and run boilerplate
+
+
+# can also compile a latex document like this:
+subprocess.os.system("pdflatex ../../week1/code/FirstExample")
+# can also do it this way:
+p = subprocess.Popen(["pdflatex", "../../week1/code/FirstExample.tex"], # need to give it the relative path to boilerplate
+                     stdout=subprocess.PIPE,
+                     stderr=subprocess.PIPE) # A bit silly!
+stdout, stderr = p.communicate()
+print(stdout.decode())
+
+
+## Handling directory and file paths:
+
+# e.g. to assign paths:
+subprocess.os.path.join('directory', 'subdirectory', 'file')
+
+# can catch the output of subprocess so that you can then use the output within your python script
+MyPath = subprocess.os.path.join('directory', 'subdirectory', 'file')
+MyPath
+
+
+## Running R
+
+# you can run R from Python easily
+
+# have to make an R script first so that python has something to run
+
+# --> see TestR.R and TestR.py scripts for more on this
+
+
+
+# NB: need to explicitly tell subprocess to tell you if there are errors - it won't do it automatically!
+
+
+
+**********************************************************************
+
+Testing subprocess_intro.py...
+
+subprocess_intro.py is a Python script file;
+
+checking for docstrings...
+
+Found no functions, but one docstring for the script, good
+
+Current Points = 96.0
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+I'm talkin' to you, bash!
+
+total 92
+-rw-rw-r-- 1 alexander alexander  2342 Dec  5 10:15 LV1.py
+-rw-rw-r-- 1 alexander alexander 45096 Dec  5 10:15 MyFirstJupyterNb.ipynb
+-rw-rw-r-- 1 alexander alexander  2841 Dec  5 10:15 numpy_intro.py
+-rwxrwxr-x 1 alexander alexander  2325 Dec  5 10:15 oaks_debugme.py
+-rw-rw-r-- 1 alexander alexander   673 Dec  5 10:15 profileme2.py
+-rw-rw-r-- 1 alexander alexander   560 Dec  5 10:15 profileme.py
+-rw-rw-r-- 1 alexander alexander  3499 Dec  5 10:15 scipy_intro.p
+**********************************************************************
+
+Encountered error (or warning):
+sh: 1: pdflatex: not found
+Traceback (most recent call last):
+  File "subprocess_intro.py", line 58, in <module>
+    stderr=subprocess.PIPE) # A bit silly!
+  File "/usr/lib/python3.5/subprocess.py", line 947, in __init__
+    restore_signals, start_new_session)
+  File "/usr/lib/python3.5/subprocess.py", line 1551, in _execute_child
+    raise child_exception_type(errno_num, err_msg)
+FileNotFoundError: [Errno 2] No such file or directory: 'pdflatex'
+
+======================================================================
+Inspecting script file numpy_intro.py...
+
+File contents are:
+
+**********************************************************************
+#!/usr/bin/env python3
+
+"""Introduction to numpy"""
+__author__ = 'Lizzie Bru eab21@ic.ac.uk'
+
+import numpy as np
+
+# example of making a 1D array
+a = np.array(range(5))
+a
+print(type(a))
+print(type(a[0]))
+
+# can also specify the data type of the array:
+# can make it a float:
+a = np.array(range(5), float)
+a
+a.dtype # to check type
+x = np.arange(5) # can make a 1D array this way
+x
+x = np.arange(5.) # directly specify float using decimal
+x
+
+# to see dimensions:
+x.shape
+
+
+# can convert to and from python lists:
+b = np.array([i for i in range(10) if i % 2 == 1]) #odd numbers between 1 and 10
+b
+
+# convert back to list
+c = b.tolist() #convert back to list
+c
+
+# need a 2D numpy array to make a matrix
+mat = np.array([[0, 1], [2, 3]])
+mat
+mat.shape
+
+
+# indexing and accessing arrays:
+mat[1]
+
+mat[:,1] # accessing whole second column
+
+mat[0,0] # 1st row, 1st column element
+
+mat[1,0] # 2nd row, 1st column element
+
+mat[:,0] # whole first column
+
+mat[0,1]
+
+mat[0,-1] # also accepts negative values for going back to the start from the end of an array
+
+mat[-1,0]
+
+mat[0,-2]
+
+
+# manipulating arrays:
+mat[0, 0] = -1
+mat
+
+mat[:,0] = [12,12] #replace whole column
+mat
+
+np.append(mat, [[12,12]], axis = 0) #append row, note axis specification
+
+np.append(mat, [[12],[12]], axis = 1) #append column
+
+newRow = [[12,12]] #create new row
+
+mat = np.append(mat, newRow, axis = 0) #append that existing row
+mat
+
+np.delete(mat, 2, 0) #Delete 3rd row
+
+# concatenation:
+mat = np.array([[0, 1], [2, 3]])
+mat0 = np.array([[0, 10], [-1, 3]])
+np.concatenate((mat, mat0), axis = 0)
+
+
+# flattening of reshaping arrays:
+
+mat.ravel() # flattens it from a matrix to a vector
+
+mat.reshape((4,1)) # un-flattens it to dimensions (4,1)
+
+mat.reshape((1,4)) # the same but with different dimensions
+
+mat.reshape((3,1)) # ditto
+
+mat.reshape((3,1))
+# gives an error bc the total no. of elements has to stay the same!
+
+
+# pre-allocating arrays
+np.ones((4,2)) # initialising an array with 4 rows and 2 columns and filled with just ones
+np.zeros((4,2)) # can also do it with zeros
+m = np.identity(4) # creating an identity matrix
+m
+m.fill(16) # fill the matrix with 16
+m
+
+
+# numpy matrices
+
+# can perform some common matrix-vector operations on arrays:
+
+mm = np.arange(16)
+mm = mm.reshape(4,4) #Convert to matrix
+mm
+
+mm.transpose() # just a normal matrix transpose
+
+mm + mm.transpose() # normal matrix arithmetic
+
+mm - mm.transpose() # ditto
+
+mm * mm.transpose() # Note that this is element-wise multiplication
+
+mm // mm.transpose()
+
+mm // (mm + 1).transpose()
+
+mm * np.pi
+
+mm.dot(mm) # No this is matric multiplication, or the dot product
+
+mm = np.matrix(mm) # convert to scipy/numpy matrix class
+mm
+
+print(type(mm))
+
+mm * mm # instead of mm.dot(mm) --> makes multiplication syntactically easier
+
+#--> BUT: don't use the numpy matrix class cause it might be removed in future
+
+
+
+
+
+
+
+**********************************************************************
+
+Testing numpy_intro.py...
+
+numpy_intro.py is a Python script file;
+
+checking for docstrings...
+
+Found no functions, but one docstring for the script, good
+
+Current Points = 96.0
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+<class 'numpy.ndarray'>
+<class 'numpy.int64'>
+
+**********************************************************************
+
+Encountered error (or warning):
+Traceback (most recent call last):
+  File "numpy_intro.py", line 94, in <module>
+    mat.reshape((3,1)) # ditto
+ValueError: cannot reshape array of size 4 into shape (3,1)
+
+======================================================================
+Inspecting script file scipy_intro.py...
+
+File contents are:
+
+**********************************************************************
+#!/usr/bin/env python3
+
+"""Introduction to scipy"""
+__author__ = 'Lizzie Bru eab21@ic.ac.uk'
+
+# useful for more complex numerical operations
+
+# can do linear model fitting etc like in R but in python using the scipy package
+
+import numpy as np
+import scipy as sc
+import scipy.integrate as integrate
+import matplotlib.pylab as p
+
+# e.g. generate 10 samples from normal distribution:
+sc.stats.norm.rvs(size = 10)
+
+# can seed random numbers to get the same sequence
+np.random.seed(1234)
+sc.stats.norm.rvs(size = 10) # NB: if you run just this line a second time it doesn't come out the same as the first time (bc set.seed only applies to the next one time)
+
+# often a more robust way is just to use the random_state argument for each specific generation of a set of random numbers
+sc.stats.norm.rvs(size=5, random_state=1234)
+
+# example of generating random integers between 1 and 10
+sc.stats.randint.rvs(0, 10, size = 7)
+
+# and doing it with random seed:
+sc.stats.randint.rvs(0, 10, size = 7, random_state=1234)
+
+sc.stats.randint.rvs(0, 10, size = 7, random_state=3445) # a different seed
+
+
+
+# numerical integration using scipy.integrate
+
+# e.g. calculate the area under an arbitrary curve
+
+y = np.array([5, 20, 18, 19, 18, 7, 4]) # The y values; can also use a python list here
+
+p.plot(y)
+
+area = integrate.trapz(y, dx = 2)
+print("area =", area)
+
+area = integrate.trapz(y, dx = 1)
+print("area =", area) # changing dx changes the spacing between points of the curve and therefore changes the area
+
+area = integrate.trapz(y, dx = 3)
+print("area =", area)
+
+
+# can do the same using Simpson's rule: (slightly more computationally intensive but more accurate)
+area = integrate.simps(y, dx = 2)
+print("area =", area)
+
+area = integrate.simps(y, dx = 1)
+print("area =", area)
+
+area = integrate.simps(y, dx = 3)
+print("area =", area)
+
+
+# Numerical integration for solving the Lotka-Volterra model
+ # define a function that returns growth rate of consumer & resource popn at any given timestep
+ # (i.e. basically just writes the equations into one readable format for further analysis)_
+def dCR_dt(pops, t=0):
+
+    R = pops[0]
+    C = pops[1]
+    dRdt = r * R - a * R * C
+    dCdt = -z * C + e * a * R * C
+
+    return np.array([dRdt, dCdt])
+type(dCR_dt)
+
+# now assign some parameter values:
+r = 1.
+a = 0.1
+z = 1.5
+e = 0.75
+
+# define the time vector:
+t = np.linspace(0, 15, 1000) # = integrate from time point 0 to 15, using 1000 sub-divisions of time
+
+# set the initial conditions for the two populations and convert the two into an array
+ro = 10
+co = 10
+rco = np.array([ro, co])
+
+# numerically integrate this system forward from those starting conditions:
+pops, infodict = integrate.odeint(dCR_dt, rco, t, full_output = True)
+# -- this function integrates within some given limits
+# -- have to give it a function to integrate (in this case the 2 L-V model functions)
+# -- rco = telling it where to start
+# -- pops = the actual answer to the question (= the first entry of the array)
+# -- infodict = 2nd entry of the array = just a dictionary of the output
+pops
+type(infodict)
+infodict.keys()
+infodict['message'] # it worked!
+
+# visualize the results:
+
+f1 = p.figure()
+
+p.plot(t, pops[:,0], 'g-', label='Resource density') # Plot
+p.plot(t, pops[:,1]  , 'b-', label='Consumer density')
+p.grid()
+p.legend(loc='best')
+p.xlabel('Time')
+p.ylabel('Population density')
+p.title('Consumer-Resource population dynamics')
+p.show()# To display the figure
+
+# save the figure as a pdf:
+f1.savefig('../results/LV_model.pdf')
+**********************************************************************
+
+Testing scipy_intro.py...
+
+scipy_intro.py is a Python script file;
+
+checking for docstrings...
+
+Found one or more docstrings and functions
+
+Missing docstring, either in one or functions and/or at the script level
+
+Current Points = 95.5
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+
+**********************************************************************
+
+Encountered error (or warning):
+Traceback (most recent call last):
+  File "scipy_intro.py", line 16, in <module>
+    sc.stats.norm.rvs(size = 10)
+AttributeError: module 'scipy' has no attribute 'stats'
+
+======================================================================
+Inspecting script file LV1.py...
+
+File contents are:
+
+**********************************************************************
+#!/usr/bin/env python3
+
+"""Python II practical: illustrating numerical integration and plotting"""
+__author__ = 'Lizzie Bru eab21@ic.ac.uk'
+
+import numpy as np
+import scipy as sc
+import scipy.integrate as integrate
+import matplotlib.pylab as p
+
+# Numerical integration for solving the Lotka-Volterra model
+ # define a function that returns growth rate of consumer & resource popn at any given timestep
+ # (i.e. basically just writes the equations into one readable format for further analysis)_
+def dCR_dt(pops, t=0):
+
+    R = pops[0]
+    C = pops[1]
+    dRdt = r * R - a * R * C
+    dCdt = -z * C + e * a * R * C
+
+    return np.array([dRdt, dCdt])
+type(dCR_dt)
+
+# now assign some parameter values:
+r = 1.
+a = 0.1
+z = 1.5
+e = 0.75
+
+# define the time vector:
+t = np.linspace(0, 15, 1000) # = integrate from time point 0 to 15, using 1000 sub-divisions of time
+
+# set the initial conditions for the two populations and convert the two into an array
+ro = 10
+co = 5
+rco = np.array([ro, co])
+
+# numerically integrate this system forward from those starting conditions:
+pops, infodict = integrate.odeint(dCR_dt, rco, t, full_output = True)
+# -- this function integrates within some given limits
+# -- have to give it a function to integrate (in this case the 2 L-V model functions)
+# -- rco = telling it where to start
+# -- pops = the actual answer to the question (= the first entry of the array)
+# -- infodict = 2nd entry of the array = just a dictionary of the output
+pops
+#--> this array has 1000 rows, each corresponding to a time
+#--> in each row there's a pair of numbers: R and C for each time point
+type(infodict)
+infodict.keys()
+infodict['message'] # it worked!
+
+# visualize the results:
+import matplotlib.pylab as p
+
+# plot population density against time:
+f1 = p.figure()
+p.plot(t, pops[:,0], 'g-', label='Resource density') # Plot
+p.plot(t, pops[:,1]  , 'b-', label='Consumer density')
+p.grid()
+p.legend(loc='best')
+p.xlabel('Time')
+p.ylabel('Population density')
+p.title('Consumer-Resource population dynamics')
+
+# plot consumer density against resource density:
+f2 = p.figure()
+p.plot(pops[:,0], pops[:,1], "r-")
+p.grid()
+p.xlabel('Resource density')
+p.ylabel('Consumer density')
+p.title('Consumer-Resource population dynamics')
+
+# save the figures as pdfs:
+f1.savefig('../results/LV_model.pdf')
+f2.savefig('../results/LV_model2.pdf')
+**********************************************************************
+
+Testing LV1.py...
+
+LV1.py is a Python script file;
+
+checking for docstrings...
+
+Found one or more docstrings and functions
+
+Missing docstring, either in one or functions and/or at the script level
+
+Current Points = 95.0
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 0.76973s
+
+======================================================================
+Inspecting script file timeitme.py...
+
+File contents are:
+
+**********************************************************************
+#!/usr/bin/env python3
+
+"""This script illustrates quick profiling with timeit in Python"""
+
+__author__ = 'Lizzie Bru eab21@ic.ac.uk'
+
+import timeit
+
+##############################################################################
+# loops vs. list comprehensions: which is faster?
+##############################################################################
+
+iters = 1000000
+
+from profileme import my_squares as my_squares_loops
+
+from profileme2 import my_squares as my_squares_lc
+
+##############################################################################
+# loops vs. the join method for strings: which is faster?
+##############################################################################
+
+mystring = "my string"
+
+from profileme import my_join as my_join_join
+
+from profileme2 import my_join as my_join
+
+# don't use magic commands in Pycharm: instead use:
+
+import time
+start = time.time()
+my_squares_loops(iters)
+print("my_squares_loops takes %f s to run." % (time.time() - start)) # could also specify an end() and use the difference between start and end
+
+start = time.time()
+my_squares_lc(iters)
+print("my_squares_lc takes %f s to run." % (time.time() - start))
+
+
+
+
+
+
+**********************************************************************
+
+Testing timeitme.py...
+
+timeitme.py is a Python script file;
+
+checking for docstrings...
+
+Found no functions, but one docstring for the script, good
+
+Current Points = 95.0
+
+Output (only first 500 characters): 
+
+
+**********************************************************************
+10000000 My string
+10000000 My string
+my_squares_loops takes 0.256161 s to run.
+my_squares_lc takes 0.209442 s to run.
+
+**********************************************************************
+
+Code ran without errors
+
+Time consumed = 8.61891s
+
+======================================================================
+======================================================================
+Finished running scripts
+
+Ran into 3 errors
+
+======================================================================
+======================================================================
+
+FINISHED WEEKLY ASSESSMENT
+
+Current Points for the Week = 95.0
+
+NOTE THAT THESE ARE POINTS, NOT MARKS FOR THE WEEK!
