@@ -1,0 +1,157 @@
+## HPC WEEK NOTES
+
+course objectives: ecological neutral theory, stochastic & event-based models, fractals in biology, iterative functions and chaos
+
+mark scheme:
+60% main questions
+8% written answers
+8% quality of graphs
+8% quality of code
+16% open-ended challenge questions
+
+flow chart of work:
+- read hints in the question sheet and find out about the functions they're telling you to look up
+- look on github for any related issues (including closed issues) --> Git issues are rly helpful!!
+- ask GTAs/James/post a git issue if still stuck too
+
+
+
+## LECTURE 1: what is neutral theory?
+
+
+kinda controversial
+- v misunderstood
+
+what is theory in the first place?
+- conforms with empirical data and puts forward and explanation for observed phenomena
+
+ecological theory: anything that's not in the field or in the lab: basically anything that uses maths/comuputers
+
+
+ecological neutral theory: 
+- assumes all indivs are ecologically equivalent - their fates are all the same
+    --> NB: it's not a claim that all indivs ARE ecological relevant
+    --> it's instead about making some assumptions and seeing where they get us
+    --> this is a common use of deduction
+- so ignores all the complexity around us
+- an example of a simple individual-based model - i.e. components of the model are individuals
+
+common misconceptions:
+- the term neutral model = null model --> NOT TRUE!!
+    - neutral models are a mechanistic model which can be used as null model but not necessarily
+- neutral models assume that all species are the same --> NOT TRUE!!
+    - they assume that all individuals are the same - not species!
+    - ecological neutral theory assumes that the demographic properties (probability of birth, death, reproduction etc) of an individual are independent of its species identity
+- there is another kind of model in which species are interchangeable --> called a neutral model
+
+
+## LECTURE 2: EXAMPLE NEUTRAL models
+
+the model rules:
+- e.g. 16 squares with a diff indiv in each
+- an indiv randomly dies
+- their square will be filled at random with the seed of another indiv
+- there's some competition which isn't explictly modelled
+- but that seed fills that gap 
+- occasionally also get speciation: new specie entering the system from outside
+
+example early neutral model: Voter model (Holley & Liggett 1975)
+- model of how political views spread throughout ppl
+- how it works:
+    - pick a random neighbour
+    - take their view or they take yours
+    - occasionaly someone introduces a new view
+- sometimes you have the same view to begin with - still go through the same process but nothing changes
+- sometimes someone introduces a new view too
+- applying the voter model to biology:
+    - political view becomes species identity
+    - ppl become places in space where an indiv could live
+    - dispersal is over v short distances - bc we historically would persuade ppl close by to us --> equivalent in bio is using reproduction where seeds don't disperse v far
+- what we find from simulating voter models
+    - there are some impenetrable clumps forming of indivs holding the same view / large clumps of single spp monodominance
+    - tehre are edge effects: the behaviour of the model near the edge is diff from centre of a large area
+    - without any new ideas being injected into the system, eventually everyone holds the same view
+
+--> in biology: we call this the dynamic equilibrium: our community, filled with diff spp, has new spp arriving from speciation and spp going extinct at teh same time
+        - ideally, speciation & extinction balance out so that spp richness remains constant throughout
+        - equilibrium: balance between speciation & extinction
+        - dynamic: the type of spp is always changing
+
+
+variations on the theme of these neutral models
+- i.e. tehre are tehrefore many diff neutral models, each making subtly diff assmptions/predictions
+- e.g. the zero sum assumption:
+    - indiv has to die before a new can be born
+    - can relax this assumption though - indivs constantly dying and being born but these processes are roughly equal so total no. of indivs remains teh same with some fluctuations
+- speciation mode - also variable
+    - e.g. no speciation
+    - e.g. speciation by point mutation where new indivs spontaneously form new spp
+    - e.g. speciation by random fission: clumps of  indivs together form new spp e.g. like allopatric speciation
+    - e.g. protracted speciation: happens over period of many years (not spontaneously)
+- spatial structure of the system
+    - e.g. non-spatial: everything is well mixed and its position in space doesn't affect the outcome of the model
+    - e.g. spatially implicit: meta-community which is well-mixed and a smaller local community which is also well-mixed in itself but receives immigration from the metacomunity by dispersal
+        - in metacommunity: balance btween extinction & speciation
+        - lcoal community: balance between immigration & local extinction
+    - e.g. spatially-explcit network: expansion of above into network of many diff patches (each of which is well-mixed in itself)
+    - e.g. fully spatially explicit: where you have a dispersal kernel describing your probability of dispersing a seed or an offspring a certain distance away from your own position of birth
+- most often studied neutral model: contains these assumptions:
+    - relaxed zero sum assumption
+    - no speciation
+    - spatially implicit
+    --> = Hubble 2001 neutral model
+
+we will study these examples in our worksheet:
+- relaxed zero sum assumption
+- with or without speciation
+- with no spatial structure
+
+
+LECTURE 3: USES OF NEUTRAL THEORY 
+
+neutral theory = gives you teh bare bone minimum model against which you can compare and upon which you can build
+- can add dispersal limitations/other processes of speciation etc and see what happens when you add these as such
+
+George Box qute: Essentially, all models are wrong, but some are useful
+- they can all fail when being challenegd with real data
+- they can be useful in helping us understand what's going on
+- also helping us to predict either something that hasn't happened yet or something in a diff location that we haven't observed
+
+How is ecological neutral theory useful for understanding?
+- take data and challenge it with a model containing a mixture of processes that can be tweaked
+- may have many diff competing models
+- what if we find that many diff models explain the data equally well - often the case 
+    - in this case maybe the neutral model wins or at east casts considerable doubt on the others bc it's much simpler (fewer assumptions etc) 
+- can go through cycles of getting more data and revising models to make them explain the data better multiple times
+
+example data comparison of species' abundance distributions:
+- neutral model does better than lognormal model distribution - and its mechanistic too which is good
+- BUT: mean spp lifetimes are too short - so we neeed a new model to explain the spp's lifetimes
+
+point mutation speciation = speciation happens suddenly
+protracted speciaton = speciation happens gradually
+
+
+ecological neutral theory: how useful is it for predicting?
+- can use models to make 2 types of predictions:
+    - processes that mean something - mechanistic model (e.g. neutral theory - bc based on processes like birth/death which mean something ecologically)
+    - phenomenological or pure stats - e.g. machine learning
+
+there are lots of examples of making predictions from neutral models
+- local spp richness: 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
