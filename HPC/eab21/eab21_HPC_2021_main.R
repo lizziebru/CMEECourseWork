@@ -4,7 +4,7 @@
 name <- "Lizzie Bru"
 preferred_name <- "Lizzie"
 email <- "e.bru21@imperial.ac.uk"
-username <- "lizziebru"
+username <- "eab21"
 
 # please remember *not* to clear the workspace here, or anywhere in this file. If you do, it'll wipe out your username information that you entered just above, and when you use this file as a 'toolbox' as intended it'll also wipe away everything you're doing outside of the toolbox.  For example, it would wipe away any automarking code that may be running and that would be annoying!
 
@@ -119,7 +119,12 @@ neutral_step_speciation <- function(community,speciation_rate)  {
   x <- sample(c(0,1), 1, prob = c(speciation_rate, 1-speciation_rate))
   # if x = 0: replace it with a new species (with probability 'speciation_rate') or the offspring of another individual (with probability 1-'speciation_rate')
   if (x == 0){
-    r1 <- sample((max(community)+1):100*max(community), 1) # sample a value at random between the max value of community and a larger value than that (so that we're sure it isn't already in community)
+    repeat {
+    r1 <- sample(1:100000, 1) # sample a random value
+    if (!(r1 %in% community)) { # break the loop as soon as you've sampled a value that isn't already in community
+      break
+    }
+    }
     append(com1, r1) # append it to the community
   }
   else {
@@ -180,8 +185,12 @@ question_12 <- function()  {
     scale_fill_manual(values = c("#005AB5", "#DC3220"))+ # use colour-blind-friendly colours
     theme_bw()+
     ylab('Species richness')+
-    theme(legend.position = "bottom", aspect.ratio = 1, plot.title = element_text(hjust = 0.5))+
-    ggtitle("Species richness across generations in a neutral simulation")
+    labs(colour="")+
+    theme(legend.position = "bottom", 
+          aspect.ratio = 1, 
+          plot.title = element_text(hjust = 0.5, size = 15, face = "bold"), 
+          axis.title = element_text(size = 10, face = "bold"))+
+    ggtitle("Species richness across generations \nin a neutral simulation")
   plot(p)
   return("Communities with low initial species richness increase in diversity over time as common species are replaced by new, unique species. 
   Communities with high initial species richness conversely lose species richness over time as speciation replaces existing unique species with new species. 
@@ -190,14 +199,12 @@ question_12 <- function()  {
          This equilibrium depends on speciation rate; higher speciation rates are associated with higher equilibrium species richness.")
 }
 
-# error: cannot allocate vector of size 21520358.0 Gb --> to ask about
-
 # Question 13
 species_abundance <- function(community)  {
   community_info <- table(community) # make table with each unique species identity and its corresponding abundance
   sorted <- as.data.frame(sort(community_info, decreasing = TRUE)) # sort by decreasing abundance of each species
   # return just the column with the abundance - return it as a list so it's easy to read
-  c(sorted[2])
+  return(sorted[,2])
 }
 
 # Question 14
@@ -366,8 +373,59 @@ draw_fern2 <- function()  {
 
 # Challenge question A
 Challenge_A <- function() {
-  # clear any existing graphs and plot your graph within the R window
+  graphics.off() # clear any existing graphs
+  
+  # define variables to be used to simulate a community's species richness over many generations
+  time <- seq(0, 200)
+  rich_max <- matrix(nrow = 30, ncol = 201, data = NA)
+  rich_min <- matrix(nrow = 30, ncol = 201, data = NA)
+  
+  # simulate neutral steps with speciation
+  for (i in seq(1, 30)){
+    rich_max[i,] <- neutral_time_series_speciation(init_community_max(100), 0.1, 200)
+    rich_min[i,] <- neutral_time_series_speciation(init_community_min(100), 0.1, 200)
+  }
+  
+  # make functions to work out upper and lower CIs
+  CI_upper <- function(x){
+    qnorm(0.972, mean = mean(x), sd = sd(x))}
+  CI_lower <- function(x){
+    qnorm(0.028, mean = mean(x), sd = sd(x))}
+  
+  # apply these functions to work out upper and lower CIs for max and min
+  CI_upper_max <- apply(rich_max, 2, CI_upper)
+  CI_lower_max <- apply(rich_max, 2, CI_lower)
+  
+  CI_upper_min <- apply(rich_min, 2, CI_upper)
+  CI_lower_min <- apply(rich_min, 2, CI_lower)
+  
+  # work out the mean number of species at each generation
+  rich_max <- apply(rich_max, 2, mean)
+  rich_min <- apply(rich_min, 2, mean)
+  
+  # make dataframe for plot
+  df <- data.frame(time = rep(time, 2), 
+                   species_no = c(rich_max, rich_min),
+                   CI_upper = c(CI_upper_max, CI_upper_min), 
+                   CI_lower = c(CI_lower_max, CI_lower_min),
+                   minmax = c(rep("Maximum intial diversity", 201), rep("Minimum initial diversity", 201)))
+  # plot
+  p <- ggplot(data = df, aes(x = time, y = species_no, colour = minmax)) +
+    geom_point()+
+    geom_ribbon(aes(ymin = CI_lower, ymax = CI_upper), alpha = 0.2) +
+    annotate("text", label = "X", x = 29, y = 25, size = 5, colour = "black", fontface = "bold") +
+    ggtitle("Mean species richness with \n97.2% confidence interval") +
+    xlab("Generation") +
+    ylab("Mean number of species") + 
+    theme_bw()+
+    theme(aspect.ratio = 1) +
+    theme(legend.position = "bottom") +
+    labs(colour="")+
+    theme(axis.title = element_text(size = 10, face = "bold"), 
+          plot.title = element_text(size = 15, face = "bold"))
+  plot(p)
 
+  return("The point labelled 'X' on the graph is my estimate of where the system reaches dynamic equilibrium: at roughly 29 generations.")
 }
 
 # Challenge question B

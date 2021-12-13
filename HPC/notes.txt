@@ -138,7 +138,36 @@ ecological neutral theory: how useful is it for predicting?
     - phenomenological or pure stats - e.g. machine learning
 
 there are lots of examples of making predictions from neutral models
-- local spp richness: 
+- e.g. only ecological neutral theory can mechanistically predict the full tri-phasic species-area relationship (as you sample bigger area - sample more species)
+    - also for making predictions on what happens when we fragment habitats
+
+
+what are the arguments about neutral theory about?
+- the world isn't neutral
+    - but: not the right reason to reject neutral theory - not a good enough reason to disprove neutral theory
+- neutral models aren't really neutral: species still differ in a neutral model, even if only by chance
+    - BUT: this isnt a good argument - it's just about semantics really - there'll always be stochasticity
+- the real issues:
+    - is there a good enough linnk between pattern & process
+    - realism (for a model to be useful it has to really represent reality) vs instrumentalism (even if the model doesn't match real word, can stll have its uses) perspectives
+    - TO between simpplicity & complexity
+
+CONCLUSIONS: what we've learnt about modelling
+- more complex models aren't necessarily better or more useful
+- theoyries in biology and physics have diff goals and are v diff
+- modelling for making predictions vs for gaining understanding are v diff
+- not all data are very informative
+- simplicity vs complexity: only add complexity when it's needed, and use computers when needed
+- start with the end in mind: build a model after you#ve decided what you want to achieve using it
+
+SUMMARY on neutral theory:
+- neutral tehory is a collection of neutral models assuming the demographic properties of an individual are independent of its species identity
+- useful for understanding and predicting but not both at the same time
+- explains species area relationships and other spatial biodiversity patterns
+- neutral theory is one of theh many useful tools you have in your tool box
+
+
+
 
 
 
