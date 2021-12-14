@@ -161,10 +161,115 @@ CONCLUSIONS: what we've learnt about modelling
 - start with the end in mind: build a model after you#ve decided what you want to achieve using it
 
 SUMMARY on neutral theory:
-- neutral tehory is a collection of neutral models assuming the demographic properties of an individual are independent of its species identity
+- neutral theory is a collection of neutral models assuming the demographic properties of an individual are independent of its species identity
 - useful for understanding and predicting but not both at the same time
 - explains species area relationships and other spatial biodiversity patterns
 - neutral theory is one of theh many useful tools you have in your tool box
+
+
+
+
+LECTURE 4: PRINCIPLES OF HPC
+
+how to parallelize your code:
+- need to insert this: 
+
+i <- as.numeric(Sys.getenv("PBS_ARRAY_INDEX"))
+do_simulation(i)
+#     - use this to give a simulation number
+
+do this instead of:
+ for(i in 1:10){
+    do simulation(i)
+} #--> that would be for if you're just running simulations on your computer
+
+# then need a shell script that sends the instructions of doing these simulations
+
+set.seed!!
+- need to give each simulation a diff seed
+
+
+handling memory:
+
+save your results in memory then write to the disk at the end
+
+output your data as a series of files
+- each with a diff name bc they're saved to the same place
+
+parameters
+- write local code to read in your series of files automatically
+
+build a timer into your code
+
+test your code locally to know your memory and time requirements
+
+
+RECAP:
+
+i <- as.numeric(Sys.getenv("PBS_ARRAY_INDEX"))
+do_simulation(i)
+
+do_simulation <- function(i) {
+    # set random seed as i 
+    # select your simulation parameters 
+    # do your simulation 
+    # save your output in a file named ..i.. 
+    # include a timer
+}
+
+
+FOR OUR CODE:
+- just need to adapt it to run on the cluster for a much bigger community size
+- need to collect spp abundance data as befre and average over a large number of parallel simulations
+- use a burn-in period and check the spp abundance distribution periodically to check that it really is at eqm 
+    - should plot spp richness against time and make a conservative judgement
+    - but for neutral theory 8 times metacommunity size complete turnovers of the community is a good rule of thumb
+
+
+
+
+LECTURE 5: USING THE HPC 
+
+need to log into the cx1 cluster: cx1.hpc.ic.ac.uk
+
+my access: need to go to login node: Login.cx1.hpc.ic.ac.uk 
+
+where your data is stored: 
+- $HOME - for most of your data
+- also ephemeral - much more space but only for 30-day period 
+    - it's your responsibility to move data from here to $HOME
+    - but probs don't need this for what you're going to be doing 
+- $TMPDIR: ignore these temporary files, but be careful you don't lose files here! 
+    - the queue moves things from $HOME while it runs 
+    - so this is the wrking directory 
+    - when your job finishes you need to make sure you move results from here back into the $HOME directory!!
+        - so need to make sure you put a 'copy' command into the shell script 
+
+
+
+
+HOW TO GET YOUR CODE TO RUN ON THE CLUSTER:
+- see separate notes
+- use 1GB of nodes
+- need to change what's written in blue in the template
+- r--vanilla - runs the code itself
+- mv: to bring files back from cluster to your home directory so that you can work on them and pull them back into your computer 
+- echos are tehre to help you know at wwhat point things went wrong if they do 
+- -J 1-32 --> will be run 32 times 
+- qstat: shows you the jobs you've submitted
+    - type this in 5-10min after sending to check it's worked
+- good idea to only send a couple of jobs at first to check it works before then sending the whole 100
+- qstat tells you if your job is still running
+
+
+
+LECTURE 6: COALESCENCE
+
+
+
+
+
+
 
 
 

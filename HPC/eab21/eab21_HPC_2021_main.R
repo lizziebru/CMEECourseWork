@@ -11,6 +11,7 @@ username <- "eab21"
 
 # load required packages:
 require(ggplot2)
+require(viridis)
 
 
 # Question 1
@@ -261,14 +262,40 @@ question_16 <- function()  {
       oct_max <- sum_vect(oct_max, octaves(species_abundance(rich_max)))
     }
   }
+  
+  # sometimes oct_min only has 5 octaves rather than 6, so this messes up the plotting: to fix this:
+  if (length(oct_min) == 5) {
+    oct_min <- c(oct_min, 0)
+  }
+  
+  if (length(oct_min) == 4) {
+    oct_min <- c(oct_min, 0, 0)
+  }
+  
+  if (length(oct_min) == 3) {
+    oct_min <- c(oct_min, 0, 0, 0)
+  }
+  
   # work out mean octaves
   oct_max_mean <- oct_max/counter
   oct_min_mean <- oct_min/counter
   
   # Plots: bar charts of mean octaves for communities with either max or min initial diversity
-  par(mfrow=c(1,2))
-  barplot(oct_max_mean,generations)
-  barplot(oct_max_mean,generations)
+  df <- data.frame(ranges = c(seq(1,6), seq(1,6)),
+                   values = c(oct_max_mean, oct_min_mean),
+                   type = c(rep("Octave_max", 6), rep("Octave_min", 6)))
+  df$ranges <- factor(df$ranges, levels = unique(df$ranges))
+  p <- ggplot(data = df, aes(x = ranges, y = values, fill = type)) + 
+    geom_bar(stat = "identity", position = "dodge") +
+    xlab("Octaves") + 
+    ylab("Mean octave count") +
+    ggtitle("Mean octaves of communities \nunder neutral simulation") +    
+    theme_bw()+ 
+    theme(legend.position = "bottom")+ 
+    theme(axis.title = element_text(size = 10, face = "bold"),
+          plot.title = element_text(hjust = 0.5, size = 15, face = "bold"))+
+    scale_fill_manual(name = "Initial diversity", labels = c("Maximum", "Minimum"), values = c("#005AB5", "#DC3220")) # colour-blind-friendly colours
+  plot(p)
   
   return ("The initial condition does not affect the final outcome because both populations tend towards the same octave number after the initial 'burn-in' period (set here as 200 generations).")
 }
@@ -276,7 +303,36 @@ question_16 <- function()  {
 
 # Question 17
 cluster_run <- function(speciation_rate, size, wall_time, interval_rich, interval_oct, burn_in_generations, output_file_name)  {
-    
+  start <- proc.time() # get a timer working on its own
+  community <- init_community_min(size) # define starting community as that with minimum diversity and size given as an argument to the function
+  richness <- species_richness(community) # assign species richness of this starting community to a variable
+  
+  # apply neutral generations with a speciation rate given by speciation_rate for a pre-defined amount of time wall_time
+  
+  # initial burn-in period:
+  for (i in 1:burn_in_generations){ 
+    community <- neutral_generation_speciation(community, speciation_rate)
+    if (i %% interval_rich == 0) { # store the species richness at intervals of interval_rich
+      richness <- c(richness, species_richness(community))
+      } 
+  }
+  
+  # entire simulation:
+  counter <- 0
+  oct <- list(octaves(species_abundance(community)))
+  while (TRUE){
+    counter <- counter + 1
+    community <- neutral_generation_speciation(community, speciation_rate)
+    if (counter %% interval_oct == 0) { # record the species abundances as octaves every interval_oct generations
+      oct[[(counter/interval_oct) + 1]] <- octaves(species_abundance(community))
+      }
+    final_time_min <- as.double((proc.time() - start) / 60)[3]
+    if (final_time_min >= wall_time) break
+  }
+  
+  # save simulation results in a file with name given by the input output_file_name
+  save(richness, oct, community, final_time_min, speciation_rate, size, wall_time,
+       interval_rich, interval_oct, burn_in_generations, file = output_file_name)
 }
 
 
@@ -285,9 +341,31 @@ cluster_run <- function(speciation_rate, size, wall_time, interval_rich, interva
 
 # Question 20 
 process_cluster_results <- function()  {
-  combined_results <- list() #create your list output here to return
-  # save results to an .rda file
-  
+  # define variables
+  sum_abundance <- c( )
+  sum_size <- c()
+  combined_results <- list()  #create your list output here to return
+  counter <- 0
+  while (counter < 100){
+    counter <- counter + 1
+    fileName <- paste("Results/eab21_result", counter, ".rda", sep = "")
+    load(fileName)
+    # Obtain mean octaves for each abundance octave
+    for (j in 1:length(oct)){
+      sum_abundance <- sum_vect(sum_abundance, oct[[j]])
+    }
+    oct_mean <- sum_abundance/length(oct)
+    sum_abundance <- c()
+    sum_size <- sum_vect(sum_size, oct_mean)
+    if (i %% 25 == 0){
+      # print(i)
+      combined_results <- c(combined_results, list(sum_size / 25))
+      sum_abundance <- c()
+      sum_size <- c()
+    }
+    # save results to an .rda file
+    save(combined_results, file = "combined_results.rda")
+  }
 }
 
 plot_cluster_results <- function()  {
@@ -421,8 +499,10 @@ Challenge_A <- function() {
     theme(aspect.ratio = 1) +
     theme(legend.position = "bottom") +
     labs(colour="")+
-    theme(axis.title = element_text(size = 10, face = "bold"), 
-          plot.title = element_text(size = 15, face = "bold"))
+    theme(legend.position = "bottom")+ 
+    theme(axis.title = element_text(size = 10, face = "bold"),
+          plot.title = element_text(hjust = 0.5, size = 15, face = "bold"))+
+    scale_fill_manual(name = "Initial diversity", labels = c("Maximum", "Minimum"), values = c("#005AB5", "#DC3220")) # colour-blind-friendly colours
   plot(p)
 
   return("The point labelled 'X' on the graph is my estimate of where the system reaches dynamic equilibrium: at roughly 29 generations.")
@@ -430,8 +510,49 @@ Challenge_A <- function() {
 
 # Challenge question B
 Challenge_B <- function() {
-  # clear any existing graphs and plot your graph within the R window
-
+  graphics.off() # clear any existing graphs
+  
+  # set starting values
+  mean_richness <- c()
+  mean_richness_values <- c()
+  series <- c()
+  time_series <- c()
+  
+  # set counter
+  counter <- 0
+  
+  while (counter < 10){ # only do this for 10 different starting communities otherwise the graph gets too messy
+    counter <- counter + 1
+    community <- replicate(100, sample(2 ** (counter + 1), 1))
+    for (i in 1:30){
+      richness <- neutral_time_series_speciation(community, 0.1, 100)
+      mean_richness <- sum_vect(mean_richness, richness)
+    }
+    mean_richness <- mean_richness / counter
+    mean_richness_values <- c(mean_richness_values, mean_richness)
+    time_series <- c(time_series, seq(1, length(mean_richness)))
+    series <- c(series, rep(species_richness(community), length(mean_richness)))
+  }
+  
+  df <- data.frame(time = time_series, 
+                   spp_no = mean_richness_values, 
+                   types = factor(series, levels = unique(series)))
+  
+  p <- ggplot(data = df, aes(x = time, y = spp_no, colour = types))+
+    geom_line()+
+    theme(aspect.ratio = 1)+
+    theme(legend.position = "bottom")+
+    ggtitle("Average time series for a range of different \nstarting communities under neutral simulation")+
+    xlab("Generation")+
+    ylab("Number of species")+
+    theme_bw()+
+    theme(legend.position = "bottom")+ 
+    theme(axis.title = element_text(size = 10, face = "bold"),
+          plot.title = element_text(hjust = 0.5, size = 15, face = "bold"))+
+    labs(fill = "Initial diversity")+
+    scale_colour_viridis(discrete = TRUE, name = "Initial diversity") # colour-blind-friendly palette
+  
+  plot(p)
 }
 
 # Challenge question C
