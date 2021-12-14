@@ -287,9 +287,9 @@ question_16 <- function()  {
   df$ranges <- factor(df$ranges, levels = unique(df$ranges))
   p <- ggplot(data = df, aes(x = ranges, y = values, fill = type)) + 
     geom_bar(stat = "identity", position = "dodge") +
-    xlab("Octaves") + 
-    ylab("Mean octave count") +
-    ggtitle("Mean octaves of communities \nunder neutral simulation") +    
+    xlab("Number of individuals per species") + 
+    ylab("Number of species") +
+    ggtitle("Number of species for various \nspecies abundances for communities \nunder neutral simulation") +    
     theme_bw()+ 
     theme(legend.position = "bottom")+ 
     theme(axis.title = element_text(size = 10, face = "bold"),
@@ -339,41 +339,78 @@ cluster_run <- function(speciation_rate, size, wall_time, interval_rich, interva
 
 # Questions 18 and 19 involve writing code elsewhere to run your simulations on the cluster
 
-# Question 20 
+# Question 20  - TO DO: FIGURE OUT PROPERLY WHAT'S GOING ON AND FIND WAYS TO RE-WRITE LOTS OF THIS ONCE HAVE RESULTS THAT CAN WORK WITH
 process_cluster_results <- function()  {
-  # define variables
-  sum_abundance <- c( )
+  # create empty lists for ouput variables
+  sum_abundance <- c()
   sum_size <- c()
-  combined_results <- list()  #create your list output here to return
+  combined_results <- list()
+  
+  # set counter
   counter <- 0
   while (counter < 100){
     counter <- counter + 1
-    fileName <- paste("Results/eab21_result", counter, ".rda", sep = "")
-    load(fileName)
-    # Obtain mean octaves for each abundance octave
-    for (j in 1:length(oct)){
-      sum_abundance <- sum_vect(sum_abundance, oct[[j]])
+    fileName <- paste("results/eab21_result", counter, ".rda", sep = "")
+    load(fileName) # read in the output files
+    
+    # Work out mean value across all the data for each abundance octave and for each simulation size
+    for (i in 1:length(oct)){
+      sum_abundance <- sum_vect(sum_abundance, oct[[i]])
     }
     oct_mean <- sum_abundance/length(oct)
     sum_abundance <- c()
     sum_size <- sum_vect(sum_size, oct_mean)
-    if (i %% 25 == 0){
-      # print(i)
+    if (j %% 25 == 0){
       combined_results <- c(combined_results, list(sum_size / 25))
       sum_abundance <- c()
       sum_size <- c()
     }
-    # save results to an .rda file
+    # save results to a new .rda file
     save(combined_results, file = "combined_results.rda")
   }
 }
 
 plot_cluster_results <- function()  {
-    # clear any existing graphs and plot your graph within the R window
-    # load combined_results from your rda file
-    # plot the graphs
-    
-    return(combined_results)
+  # clear any existing graphs and plot your graph within the R window
+  graphics.off()
+  # load combined_results from your rda file
+  load("combined_results.rda")
+  
+  # plot the graphs
+  
+  # make names variable - but not sure exactly this is the right thing to call it/what it does
+  names <- c()
+  for (n in 1:12){
+    if (n == 1){
+      names <- c(names, "1")
+    } else {
+      names <- c(names, paste(2^(n-1),"~",2^n-1, sep = ""))
+    }
+  }
+  
+  # make dataframe for plotting:
+  df <- data.frame(ranges = c(names[1:9], names[1:10], names[1:11], names[1:11]),
+                   octaves = c(combined_results[[1]], combined_results[[2]], combined_results[[3]], combined_results[[4]]),
+                   sizes = c(rep("Size = 500 Simulation", 9), rep("Size = 1000 Simulation", 10), rep("Size = 2500 Simulation", 11), rep("Size = 5000 Simulation", 11)))
+  
+  df$ranges <- factor(df$ranges, levels = unique(df$ranges))
+  df$size <- factor(df$size, levels = unique(df$size))
+  
+  p <- ggplot(df, aes(x = ranges, y = octaves, fill = sizes)) +
+    geom_bar(stat = "identity") +
+    facet_grid(Sizes ~ ., scales = "free")+
+    theme(legend.position = "bottom")+
+    xlab("Intervals") +
+    ylab("Number of species") +
+    theme_bw()+
+    ggtitle("Mean species abundance octave of neutral \nsimulation for different simulation sizes") +
+    theme(axis.title = element_text(size = 11, face = "bold"),
+          plot.title = element_text(hjust = 0.5, size = 14, face = "bold"))
+  
+  
+  plot(p)
+  
+  return(combined_results)
 }
 
 # Question 21
