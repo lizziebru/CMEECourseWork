@@ -289,11 +289,13 @@ question_16 <- function()  {
     geom_bar(stat = "identity", position = "dodge") +
     xlab("Number of individuals per species") + 
     ylab("Number of species") +
-    ggtitle("Number of species for various \nspecies abundances for communities \nunder neutral simulation") +    
-    theme_bw()+ 
-    theme(legend.position = "bottom")+ 
+    ggtitle("Number of species for various \nspecies abundances for communities \nunder neutral simulation")+
     theme(axis.title = element_text(size = 10, face = "bold"),
-          plot.title = element_text(hjust = 0.5, size = 15, face = "bold"))+
+          plot.title = element_text(hjust = 0.5, size = 15, face = "bold"),
+          legend.position = "bottom",
+          #plot.background = element_rect(fill = "transparent", color = 'white'),
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank())+ 
     scale_fill_manual(name = "Initial diversity", labels = c("Maximum", "Minimum"), values = c("#005AB5", "#DC3220")) # colour-blind-friendly colours
   plot(p)
   
@@ -406,8 +408,6 @@ plot_cluster_results <- function()  {
     ggtitle("Mean species abundance octave of neutral \nsimulation for different simulation sizes") +
     theme(axis.title = element_text(size = 11, face = "bold"),
           plot.title = element_text(hjust = 0.5, size = 14, face = "bold"))
-  
-  
   plot(p)
   
   return(combined_results)
@@ -592,15 +592,54 @@ Challenge_B <- function() {
   plot(p)
 }
 
-# Challenge question C
+# Challenge question C - also have a look at once have run simulations on HPC --> TO FINISH ONCE HAVE RUN STUFF ON HPC!!
 Challenge_C <- function() {
-  # clear any existing graphs and plot your graph within the R window
+  # clear any existing graphs
+  graphics.off()
+  
+  # make empty variables to fill
+  mean_spp_richness <- c()
+  mean_spp_richness_all <- c() # for the final output
+  
+  # set counter
+  counter <- 0
+  
+  # read in results and work out mean octaves for each species abundance octave
+  while(counter < 100){
+    counter <- counter + 1
+    result <- paste("results/eab21_result", i, ".rda", sep = "") # read in and load results
+    load(result)
+    mean_spp_richness <- sum_vect(mean_oct, richness)
+    if (counter %% 25 == 0){
+      mean_spp_richness_all <- c(mean_spp_richness_all, list(mean_richness / 25))
+      mean_richness <- c()
+    }
+  }
+  
+  # plot graph of mean species richness against simulation generation 
+  
+  # make dataframe:
+  df <- data.frame(generation = c(gen1_time, gen2_time, gen3_time, gen4_time), # need to fill this with generation times
+                   richness = c(combined_results[[1]], combined_results[[2]], combined_results[[3]], combined_results[[4]]),
+                   simulation = c(rep("Size = 500 Simulation", 4001), rep("Size = 1000 Simulation", 8001), rep("Size = 2500 Simulation", 20001), rep("Size = 5000 Simulation", 40001)))
+  
+  p <- ggplot(df, aes(x = time, y = richness, colour = simulation)) + 
+    geom_line() +
+    facet_wrap(Sizes ~ ., scales = "free") + 
+    theme(legend.position = "bottom") +
+    theme_bw()+
+    xlab("Generations") + 
+    ylab("Mean Species Richness")
+  plot(p)
+  
+  
+  
 
 }
 
 # Challenge question D
 Challenge_D <- function() {
-  # clear any existing graphs and plot your graph within the R window
+  # clear any existing graphs
   
   return("type your written answer here")
 }
