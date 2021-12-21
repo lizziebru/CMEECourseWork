@@ -29,7 +29,7 @@ set.seed(iter)
 # create a filename to store results
 cluster_run(speciation_rate = speciation_rate, 
             size = size, 
-            wall_time = 10, # set to be 11.5x60 for final run ( and set to be 12:00:00 in shell script)
+            wall_time = 5, # set to be 11.5x60 for final run ( and set to be 12:00:00 in shell script)
             interval_rich = 1, # NB: qsub -J 1-100 is what you need to type for the full thing too
             interval_oct = size / 10, 
             burn_in_generations = 8 * size, 

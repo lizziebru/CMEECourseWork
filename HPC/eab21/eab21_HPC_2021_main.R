@@ -696,10 +696,14 @@ Challenge_D <- function() {
   return("type your written answer here")
 }
 
-# Challenge question E
+# Challenge question E - TO DO: TRY TO FIGURE OUT WHY IT'S NOT PLOTTING PROPERLY
 Challenge_E <- function() {
   # clear any existing graphs
   graphics.off()
+  
+  #############################################################################################################
+  
+  # FIGURING OUT WHAT HAPPENS WHEN X CHANGES
   
   # start the chaos game from a completely different initial position X
   
@@ -751,20 +755,182 @@ Challenge_E <- function() {
   chaos_function(x = 1, y = 3)
   
   
-  # try this plotting the first n steps in a different colour
+  # try this plotting the first n steps in a different colour to better visualise what's going on
+  # store the point vectors A, B, and C
+  A = c(0,0)
+  B = c(3,4)
+  C = c(4,1)
   
+  # initialise the point vector X - set randomly to (4,3)
+  X = c(4,3)
+  
+  # plot a very small point on the graph at X
+  df <- data.frame(rbind(A, B, C))
+  plot(df$X1, # make plot with A, B, and C on it
+       df$X2,
+       type = "p",
+       xlim = c(0,4),
+       ylim = c(0,4),
+       xlab = "x",
+       ylab = "y",
+       main = "Chaos game")
+  text(0, 0.3, labels = "A")
+  text(2.8, 4, labels = "B")
+  text(4, 0.8, labels = "C")
+  lines(X[1], # add a very small point for X in blue
+        X[2],
+        type = "p",
+        cex = 0.3,
+        col = "blue",
+        pch = 1)
+  
+  # choose one of the 3 points at random and move X halfway towards it - and repeat 2000 times
+  ABC <- list(A, B, C)
+  for (i in 1:2000){
+    X <- (X + sample(ABC, 1)[[1]])/2
+    if (i < 50) {
+      lines(X[1], 
+            X[2], 
+            type = "p",
+            cex = 0.3,
+            col = "red",
+            pch = 1)
+    }
+    else {
+    lines(X[1], 
+          X[2], 
+          type = "p",
+          cex = 0.3,
+          col = "blue",
+          pch = 1)
+    }
+  }
   
   # return description of what happens when change the starting values of X:
-  return("Despite different starting values of X, each time the plot creates the same fractal bounded between A, B, and C with repeating triangles of the shape defined by the minimum convex polygon around A, B, and C. The further away from A, B, or C the starting value of X is, the less dense the fractal is (i.e. it takes more iterations to form it) and the more random points there are scattered aronnd the fractal.")
-
+  return("Despite different starting values of X, each time the plot creates the same fractal bounded between A, B, and C with repeating triangles of the shape defined by the minimum convex polygon around A, B, and C. The further away from A, B, or C the starting value of X is, the less dense the fractal is (i.e. it takes more iterations to form it) and the more random points there are scattered aronnd the fractal. The plot with the different-coloured points for the first few iterations shows that the first few points are outside of the final fractal shape; this is before the algorithm converges on that final fractal.")
   
   
+  #########################################################################################################################
   
+  # to put the following two plots in one multi-panel graph
+  par(mfrow = c(1, 2)) 
   
+  #########################################################################################################################
+  
+  # EQUILATERAL TRIANGLE
+  
+  # now trying using an equilateral triangle as the starting points to produce a classic Sierpinksi Gasket
+  # store the point vectors A, B, and C
+  A <- c(0,0)
+  B <- c(2,sqrt(12))
+  C <- c(4,0)
+  
+  # initialise the point vector X - now know that it doesn't matter too much what this is since it would end up converging on the same fractal anyway
+  X = c(0,0)
+  
+  # plot a very small point on the graph at X
+  df <- data.frame(rbind(A, B, C))
+  plot(df$X1, # make plot with A, B, and C on it
+       df$X2,
+       type = "p",
+       xlim = c(0,4),
+       ylim = c(0,4),
+       xlab = "x",
+       ylab = "y",
+       main = "Chaos game - classic Sierpinksi Gasket")
+  text(0, 0.3, labels = "A")
+  text(2, 3.6, labels = "B")
+  text(4, 0.3, labels = "C")
+  lines(X[1], # add a very small point for X in blue
+        X[2],
+        type = "p",
+        cex = 0.3,
+        col = "blue",
+        pch = 1)
+  
+  # choose one of the 3 points at random and move X halfway towards it - and repeat 2000 times
+  ABC <- list(A, B, C)
+  for (i in 1:2000){
+    X <- (X + sample(ABC, 1)[[1]])/2
+    if (i < 50) {
+      lines(X[1], 
+            X[2], 
+            type = "p",
+            cex = 0.3,
+            col = "red",
+            pch = 1)
+    }
+    else {
+      lines(X[1], 
+            X[2], 
+            type = "p",
+            cex = 0.3,
+            col = "blue",
+            pch = 1)
+    }
+  }
+  
+  #########################################################################################################################
+  
+  # SQUARE
+  
+  # now trying using a square as the starting points
+  # store the point vectors A, B, and C
+  A <- c(0,0)
+  B <- c(0,4)
+  C <- c(4,4)
+  D <- c(4,0)
+  
+  # initialise the point vector X - now know that it doesn't matter too much what this is since it would end up converging on the same fractal anyway
+  X = c(0,0)
+  
+  # plot a very small point on the graph at X
+  df <- data.frame(rbind(A, B, C))
+  plot(df$X1, # make plot with A, B, and C on it
+       df$X2,
+       type = "p",
+       xlim = c(0,4),
+       ylim = c(0,4),
+       xlab = "x",
+       ylab = "y",
+       main = "Chaos game - square")
+  text(0, 0.3, labels = "A")
+  text(0, 4.2, labels = "B")
+  text(4, 4.2, labels = "C")
+  text(4, 0.3, labels = "D")
+  lines(X[1], # add a very small point for X in blue
+        X[2],
+        type = "p",
+        cex = 0.3,
+        col = "blue",
+        pch = 1)
+  
+  # choose one of the 3 points at random and move X halfway towards it - and repeat 2000 times
+  ABC <- list(A, B, C)
+  for (i in 1:2000){
+    X <- (X + sample(ABC, 1)[[1]])/2
+    if (i < 50) {
+      lines(X[1], 
+            X[2], 
+            type = "p",
+            cex = 0.3,
+            col = "red",
+            pch = 1)
+    }
+    else {
+      lines(X[1], 
+            X[2], 
+            type = "p",
+            cex = 0.3,
+            col = "blue",
+            pch = 1)
+    }
+  }
+  
+  #par(mfrow = c(1, 2)) -  maybe should be here instead?
   
 }
   
-
 
 
 # Challenge question F
