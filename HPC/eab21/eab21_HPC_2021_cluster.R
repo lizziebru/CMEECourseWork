@@ -4,17 +4,17 @@ rm(list=ls()) # good practice
 
 graphics.off() # clear any existing graphs
 
-source("eab21_HPC_2020_main.R") # source main code file
+source("eab21_HPC_2021_main.R") # source main code file
 
 # define variables needed
 speciation_rate <- 0.0024267 # my personal speciation rate
 community_size <- c(500, 1000, 2500, 5000)
 
 # read in the job number from the cluster
-#iter <- as.numeric(Sys.getenv("PBS_ARRAY_INDEX")) # comment this out and set iter myself for testing locally
+iter <- as.numeric(Sys.getenv("PBS_ARRAY_INDEX")) # comment this out and set iter myself for testing locally
 
 # setting iter myself for testing locally:
-iter <- seq(1,3)
+#iter <- 1
 
 # select the correct value for community in each parallel simulation based on the value of iter
 if (iter >= 1 && iter <= 25) size <- community_size[1]
@@ -29,8 +29,8 @@ set.seed(iter)
 # create a filename to store results
 cluster_run(speciation_rate = speciation_rate, 
             size = size, 
-            wall_time = 5, 
-            interval_rich = 1,
+            wall_time = 10, # set to be 11.5x60 for final run ( and set to be 12:00:00 in shell script)
+            interval_rich = 1, # NB: qsub -J 1-100 is what you need to type for the full thing too
             interval_oct = size / 10, 
             burn_in_generations = 8 * size, 
             output_file_name = paste("results/eab21_result", iter, ".rda", sep = ""))

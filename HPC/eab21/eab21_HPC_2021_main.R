@@ -415,22 +415,74 @@ plot_cluster_results <- function()  {
 
 # Question 21
 question_21 <- function()  {
-    
-  return("type your written answer here")
+  dim <- log(8)/log(3)
+  return(list(round(dim, 3), "The dimension of a fractal is given in the equation D = log(N)/log(S), where D is the dimension, N is the number of miniature pieces in the final figure, and S is the scaling factor. 
+              The main pattern of this fractal repeats eight times so N = 8. To make a single line this fractal is repeated three times, so S = 3. Therefore, D = log(8)/log(3)."))
 }
 
 # Question 22
 question_22 <- function()  {
-    
-  return("type your written answer here")
-}
+  dim <- log(20)/log(3)
+  return(list(round(dim, 3), "The dimension of a fractal is given in the equation D = log(N)/log(S), where D is the dimension, N is the number of miniature pieces in the final figure, and S is the scaling factor. 
+  The overall cube has six faces each with eight smaller squares on it. Hence the overall cube is made up of 20 smaller cubes, so N = 20. To make a single line this fractal is repeated three times, so S = 3. Therefore, D = log(20)/log(3)."))
+  }
 
 # Question 23
 chaos_game <- function()  {
-  # clear any existing graphs and plot your graph within the R window
+  # clear any existing graphs
+  graphics.off()
   
-  return("type your written answer here")
+  # store the point vectors A, B, and C
+  A = c(0,0)
+  B = c(3,4)
+  C = c(4,1)
+  
+  # initialise the point vector X
+  X = c(0,0)
+  
+  # plot a very small point on the graph at X
+  df <- data.frame(rbind(A, B, C))
+  plot(df$X1, # make plot with A, B, and C on it
+       df$X2,
+       type = "p",
+       xlim = c(0,4),
+       ylim = c(0,4),
+       xlab = "x",
+       ylab = "y",
+       main = "Chaos game")
+  text(0, 0.3, labels = "A")
+  text(2.8, 4, labels = "B")
+  text(4, 0.8, labels = "C")
+  lines(X[1], # add a very small point for X in blue
+        X[2],
+        type = "p",
+        cex = 0.3,
+        col = "blue",
+        pch = 1)
+  
+  # choose one of the 3 points at random and move X halfway towards it
+  ABC <- list(A, B, C)
+  X <- (X + sample(ABC, 1)[[1]])/2
+  lines(X[1], 
+        X[2], 
+        type = "p",
+        cex = 0.3,
+        col = "blue",
+        pch = 1)
+  
+  # repeat the two previous steps 30,000 times (because only takes a couple of seconds)
+  for (i in 1:30000){
+    X <- (X + sample(ABC, 1)[[1]])/2
+    lines(X[1], 
+          X[2], 
+          type = "p",
+          cex = 0.3,
+          col = "blue",
+          pch = 1)
+  }
+  return("This creates a fractal bounded between A, B, and C with repeating triangles of the shape defined by the minimum convex polygon around A, B, and C.")
 }
+
 
 # Question 24
 turtle <- function(start_position, direction, length)  {
@@ -646,10 +698,74 @@ Challenge_D <- function() {
 
 # Challenge question E
 Challenge_E <- function() {
-  # clear any existing graphs and plot your graph within the R window
+  # clear any existing graphs
+  graphics.off()
   
-  return("type your written answer here")
+  # start the chaos game from a completely different initial position X
+  
+  chaos_function <- function(x,y){ # define function where can vary the starting values of X
+    # store the point vectors A, B, and C
+    A = c(0,0)
+    B = c(3,4)
+    C = c(4,1)
+    
+    # initialise the point vector X
+    X = c(x,y)
+    
+    # plot a very small point on the graph at X
+    df <- data.frame(rbind(A, B, C))
+    plot(df$X1, # make plot with A, B, and C on it
+         df$X2,
+         type = "p",
+         xlim = c(0,4),
+         ylim = c(0,4),
+         xlab = "x",
+         ylab = "y",
+         main = "Chaos game")
+    text(0, 0.3, labels = "A")
+    text(2.8, 4, labels = "B")
+    text(4, 0.8, labels = "C")
+    lines(X[1], # add a very small point for X in blue
+          X[2],
+          type = "p",
+          cex = 0.3,
+          col = "blue",
+          pch = 1)
+    
+    # choose one of the 3 points at random and move X halfway towards it - and repeat 2000 times
+    ABC <- list(A, B, C)
+    for (i in 1:2000){
+      X <- (X + sample(ABC, 1)[[1]])/2
+      lines(X[1], 
+            X[2], 
+            type = "p",
+            cex = 0.3,
+            col = "blue",
+            pch = 1)
+    }
+  }
+  
+  # try with a few different starting values of X:
+  chaos_function(x = 4, y = 3)
+  chaos_function(x = 2, y = 0)
+  chaos_function(x = 1, y = 3)
+  
+  
+  # try this plotting the first n steps in a different colour
+  
+  
+  # return description of what happens when change the starting values of X:
+  return("Despite different starting values of X, each time the plot creates the same fractal bounded between A, B, and C with repeating triangles of the shape defined by the minimum convex polygon around A, B, and C. The further away from A, B, or C the starting value of X is, the less dense the fractal is (i.e. it takes more iterations to form it) and the more random points there are scattered aronnd the fractal.")
+
+  
+  
+  
+  
+  
 }
+  
+
+
 
 # Challenge question F
 Challenge_F <- function() {
