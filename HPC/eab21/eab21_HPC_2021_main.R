@@ -486,17 +486,28 @@ chaos_game <- function()  {
 
 # Question 24
 turtle <- function(start_position, direction, length)  {
-    
-  return() # you should return your endpoint here.
+  # draw a line of given start position, direction & length  
+  # first define the endpoint
+  endpoint <- c(start_position[1] + length*cos(direction),
+                start_position[2] + length*sin(direction))
+  # then draw a line between the start and endpoint
+  lines(c(start_position[1], endpoint[1]), c(start_position[2], endpoint[2]), type = "l")
+
+  # return the endpoint of the line as a vector
+  return(endpoint)
 }
 
 # Question 25
 elbow <- function(start_position, direction, length)  {
-  
+  # call turtle twice to draw a pair of lines that join together with a given angle between them
+  endpoint <- turtle(start_position, direction, length) # first line
+  turtle(endpoint, direction-pi/4, 0.95 * length) # second line
 }
 
 # Question 26
 spiral <- function(start_position, direction, length)  {
+  
+  
   
   return("type your written answer here")
 }
