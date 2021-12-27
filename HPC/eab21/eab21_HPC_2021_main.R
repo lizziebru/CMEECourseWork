@@ -506,45 +506,84 @@ elbow <- function(start_position, direction, length)  {
 
 # Question 26
 spiral <- function(start_position, direction, length)  {
-  
-  
-  
-  return("type your written answer here")
+  # call turtle to draw the first line
+  endpoint <- turtle(start_position, direction, length)
+  # call spiral to draw the second line
+  if (length >= 0.001) 
+    spiral(endpoint, direction-pi/4, 0.95*length)
+  return("To make the spiral function work, the if statement is needed. If it is not there, an error message is thrown because it is trying to store too much into the stack. This is because it is trying to spiral too many times due to the starting length being too small, meaning the recursion depth is too deep and the stack usage exceeds the maximum limit. The if statement thus makes it only make the spiral if the starting length is sufficiently long such that the recursion depth would be shallow enough for the stack usage limit to not be exceeded.")
 }
 
 # Question 27
 draw_spiral <- function()  {
-  # clear any existing graphs and plot your graph within the R window
-  
+  # clear any existing graphs
+  graphics.off()
+  # make a new plot
+  plot(1, type="n", xlab="", ylab="", xlim=c(0, 8), ylim=c(0, 8))
+  # call spiral
+  spiral(c(2,3), pi/2, 2)
+  # return the same text answer from the spiral function
+  return("To make the spiral function work, the if statement is needed. If it is not there, an error message is thrown because it is trying to store too much into the stack. This is because it is trying to spiral too many times due to the starting length being too small, meaning the recursion depth is too deep and the stack usage exceeds the maximum limit. The if statement thus makes it only make the spiral if the starting length is sufficiently long such that the recursion depth would be shallow enough for the stack usage limit to not be exceeded.")
 }
 
 # Question 28
 tree <- function(start_position, direction, length)  {
-  
+  # call turtle to draw the first line
+  endpoint <- turtle(start_position, direction, length)
+  # call tree twice to draw the next lines
+  if (length >= 0.01) { # make the minimum length larger than for spiral so that it plots it in less than 30 seconds
+    tree(endpoint, direction-pi/4, 0.65*length)
+    tree(endpoint, direction+pi/4, 0.65*length)
+  }
 }
 
 draw_tree <- function()  {
-  # clear any existing graphs and plot your graph within the R window
-
+  # clear any existing graphs
+  graphics.off()
+  # make a new plot
+  plot(1, type="n", xlab="", ylab="", xlim=c(0, 8), ylim=c(0, 8))
+  # call tree
+  tree(c(4,1), pi/2, 2)
 }
 
 # Question 29
 fern <- function(start_position, direction, length)  {
-  
+  # call turtle to draw the first line
+  endpoint <- turtle(start_position, direction, length)
+  # call fern twice to draw the next lines
+  if (length >= 0.01) { # make the minimum length larger than for spiral so that it plots it in less than 30 seconds
+    fern(endpoint, direction+pi/4, 0.38*length)
+    fern(endpoint, direction, 0.87*length)
+  }
 }
 
 draw_fern <- function()  {
-  # clear any existing graphs and plot your graph within the R window
-
+  # clear any existing graphs
+  graphics.off()
+  # make a new plot
+  plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9))
+  # call fern
+  fern(c(3,1), pi/2, 1)
 }
 
 # Question 30
 fern2 <- function(start_position, direction, length, dir)  {
+  # call turtle to draw the first line
+  endpoint <- turtle(start_position, direction, length)
+  # call fern twice to draw the next lines
+  if (length >= 0.01) { # make the minimum length larger than for spiral so that it plots it in less than 30 seconds
+    fern2(endpoint, direction, 0.87*length, -dir)
+    fern2(endpoint, direction + dir*pi/4, 0.38*length, dir)
+  }
+}  
   
-}
 draw_fern2 <- function()  {
-  # clear any existing graphs and plot your graph within the R window
-
+  # clear any existing graphs
+  graphics.off()
+  # make a new plot
+  plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9))
+  # call fern
+  fern2(c(3,1), pi/2, 1)
 }
 
 # Challenge questions - these are optional, substantially harder, and a maximum of 16% is available for doing them.  
