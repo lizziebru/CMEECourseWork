@@ -583,7 +583,7 @@ draw_fern2 <- function()  {
   # make a new plot
   plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9))
   # call fern
-  fern2(c(3,1), pi/2, 1)
+  fern2(c(2,1), pi/2, 1, 1)
 }
 
 # Challenge questions - these are optional, substantially harder, and a maximum of 16% is available for doing them.  
@@ -985,9 +985,11 @@ Challenge_E <- function() {
 
 # Challenge question F
 Challenge_F <- function() {
-  # clear any existing graphs and plot your graph within the R window
+  # clear any existing graphs
+  graphics.off()
   
-  return("type your written answer here")
+  
+  return("The shorter the length of the line, the less time it takes to make the fractal. This is because it takes less time to reach the minimum threshold length needed to make the next lines following the first one.")
 }
 
 # Challenge question G should be written in a separate file that has no dependencies on any functions here.
