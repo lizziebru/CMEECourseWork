@@ -1,5 +1,7 @@
 # CMEE 2021 HPC excercises R code HPC run code pro forma
 
+print("running cluster.R script")
+
 rm(list=ls()) # good practice 
 
 graphics.off() # clear any existing graphs

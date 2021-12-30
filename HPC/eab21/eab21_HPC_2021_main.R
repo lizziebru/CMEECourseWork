@@ -8,6 +8,7 @@ username <- "eab21"
 
 # please remember *not* to clear the workspace here, or anywhere in this file. If you do, it'll wipe out your username information that you entered just above, and when you use this file as a 'toolbox' as intended it'll also wipe away everything you're doing outside of the toolbox.  For example, it would wipe away any automarking code that may be running and that would be annoying!
 
+print("source main.R script")
 
 # load required packages:
 require(ggplot2)
@@ -746,7 +747,7 @@ Challenge_D <- function() {
   return("type your written answer here")
 }
 
-# Challenge question E - TO DO: TRY TO FIGURE OUT WHY IT'S NOT PLOTTING PROPERLY
+# Challenge question E - NOT PLOTTING PROPERLY
 Challenge_E <- function() {
   # clear any existing graphs
   graphics.off()
@@ -857,7 +858,7 @@ Challenge_E <- function() {
   }
   
   # return description of what happens when change the starting values of X:
-  return("Despite different starting values of X, each time the plot creates the same fractal bounded between A, B, and C with repeating triangles of the shape defined by the minimum convex polygon around A, B, and C. The further away from A, B, or C the starting value of X is, the less dense the fractal is (i.e. it takes more iterations to form it) and the more random points there are scattered aronnd the fractal. The plot with the different-coloured points for the first few iterations shows that the first few points are outside of the final fractal shape; this is before the algorithm converges on that final fractal.")
+  print("Despite different starting values of X, each time the plot creates the same fractal bounded between A, B, and C with repeating triangles of the shape defined by the minimum convex polygon around A, B, and C. The further away from A, B, or C the starting value of X is, the less dense the fractal is (i.e. it takes more iterations to form it) and the more random points there are scattered aronnd the fractal. The plot with the different-coloured points for the first few iterations shows that the first few points are outside of the final fractal shape; this is before the algorithm converges on that final fractal.")
   
   
   #########################################################################################################################
@@ -976,8 +977,7 @@ Challenge_E <- function() {
             pch = 1)
     }
   }
-  
-  #par(mfrow = c(1, 2)) -  maybe should be here instead?
+
   
 }
   
@@ -987,6 +987,80 @@ Challenge_E <- function() {
 Challenge_F <- function() {
   # clear any existing graphs
   graphics.off()
+  
+  
+  #########################################################################################################################################
+  
+  # varying the value of e (the line size threshold)
+  
+  e <- c(0.1, 0.01, 0.005)
+  
+  time_taken <- list()
+  
+  # to draw the first fern:
+  
+  ##fern1:
+  # clear any existing graphs
+  graphics.off()
+  # make a new plot
+  plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9))
+  # call fern
+  fern(c(3,1), pi/2, 1)
+  
+  
+  
+  
+  
+  
+  
+  fern3 <- function(start_position = c(5, 5), direction = pi/2, length = 1, dir = 1, ee = 0.01)  {
+    endpoint = turtle(start_position, direction, length)
+    if (length >= ee){
+      fern3(endpoint, direction, 0.87 * length, -dir, ee)
+      fern3(endpoint, direction + dir * pi/4, 0.38 * length, dir, ee)
+    } 
+  }
+  
+  draw_fern3 <- function(e)  {
+    # clear any existing graphs and plot your graph within the R window
+    plot(1, xlab="", ylab="", xlim=c(2.5, 7), ylim=c(4.5, 13))
+    fern3(ee=e)
+  }
+  
+  par(mfrow = c(2, 2))
+  for (i in e){
+    start <- proc.time()
+    draw_fern3(e = i)
+    end <- (proc.time() - start)[3]
+    time_takes <- c(time_takes, list(end))
+    title(paste(i, "Threshold"))
+  }
+  
+  
+  #############################################################################################################################
+  
+  # experimenting with colours and other variables to produce an additional multipanel plot
+  
+  fern2 <- function(start_position = c(5, 5), direction = pi/2, length = 1, dir = 1, col = "red")  {
+    end_points <- c(start_position[1] + length * cos(direction), start_position[2] + length * sin(direction))
+    lines(c(start_position[1], end_points[1]), c(start_position[2], end_points[2]), type = "l", col = col)
+    if (length >= 0.01){
+      if (dir == 1){
+        fern2(end_points, direction, 0.87 * length, -dir)
+        fern2(end_points, direction + dir * pi/4, 0.38 * length, dir)
+      } else {
+        fern2(end_points, direction, 0.87 * length, -dir, col = "blue")
+        fern2(end_points, direction + dir * pi/4, 0.38 * length, dir, col = "blue")
+      }
+    } 
+  }
+  plot(1, xlab="", ylab="", xlim=c(2.5, 7), ylim=c(4.5, 13))
+  fern2()
+  title("Happy Christmas!")
+  
+  par(mfrow = c(1, 1))
+  return(paste("The function with ", e[1], " threshold takes ", time_takes[[1]], " seconds to run; ", "the function with ", e[2], "threshold takes ", time_takes[[2]], " seconds to run;", "the function with ", e[3], "threshold takes ", time_takes[[3]], " seconds to run.", "As expected, the less values of threshold, the more time spent, the more repetition of fratals as well." ))
+  
   
   
   return("The shorter the length of the line, the less time it takes to make the fractal. This is because it takes less time to reach the minimum threshold length needed to make the next lines following the first one.")
