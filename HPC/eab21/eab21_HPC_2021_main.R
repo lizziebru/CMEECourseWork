@@ -988,58 +988,126 @@ Challenge_F <- function() {
   # clear any existing graphs
   graphics.off()
   
-  
   #########################################################################################################################################
   
   # varying the value of e (the line size threshold)
   
   e <- c(0.1, 0.01, 0.005)
   
-  time_taken <- list()
+  time_taken_tree <- list()
+  time_taken_fern1 <- list()
+  time_taken_fern2 <- list()
+
+  ##tree:
+  tree2 <- function(start_position, direction, length, e)  {
+    # call turtle to draw the first line
+    endpoint <- turtle(start_position, direction, length)
+    # call tree twice to draw the next lines
+    if (length >= e) { # make the minimum length larger than for spiral so that it plots it in less than 30 seconds
+      tree2(endpoint, direction-pi/4, 0.65*length, e)
+      tree2(endpoint, direction+pi/4, 0.65*length, e)
+    }
+  }
   
-  # to draw the first fern:
+  draw_tree2 <- function(e)  {
+    # clear any existing graphs
+    graphics.off()
+    # make a new plot
+    plot(1, type="n", xlab="", ylab="", xlim=c(0, 8), ylim=c(0, 8))
+    # call tree
+    tree2(c(4,1), pi/2, 2, e)
+  }
+  
+  for (i in e){
+    start <- proc.time()
+    draw_tree2(i)
+    end <- (proc.time() - start)[3]
+    time_taken_tree <- c(time_taken_tree, list(end))
+    title(paste(i, "Threshold"))
+  }
+  
   
   ##fern1:
-  # clear any existing graphs
-  graphics.off()
-  # make a new plot
-  plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9))
-  # call fern
-  fern(c(3,1), pi/2, 1)
-  
-  
-  
-  
-  
-  
-  
-  fern3 <- function(start_position = c(5, 5), direction = pi/2, length = 1, dir = 1, ee = 0.01)  {
-    endpoint = turtle(start_position, direction, length)
-    if (length >= ee){
-      fern3(endpoint, direction, 0.87 * length, -dir, ee)
-      fern3(endpoint, direction + dir * pi/4, 0.38 * length, dir, ee)
-    } 
+  fern3 <- function(start_position, direction, length, e)  {
+    # call turtle to draw the first line
+    endpoint <- turtle(start_position, direction, length)
+    # call fern twice to draw the next lines
+    if (length >= e) { # make the minimum length larger than for spiral so that it plots it in less than 30 seconds
+      fern3(endpoint, direction+pi/4, 0.38*length, e)
+      fern3(endpoint, direction, 0.87*length, e)
+    }
   }
   
   draw_fern3 <- function(e)  {
-    # clear any existing graphs and plot your graph within the R window
-    plot(1, xlab="", ylab="", xlim=c(2.5, 7), ylim=c(4.5, 13))
-    fern3(ee=e)
+    # clear any existing graphs
+    graphics.off()
+    # make a new plot
+    plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9))
+    # call fern
+    fern3(c(3,1), pi/2, 1, e)
   }
   
-  par(mfrow = c(2, 2))
   for (i in e){
     start <- proc.time()
-    draw_fern3(e = i)
+    draw_fern3(i)
     end <- (proc.time() - start)[3]
-    time_takes <- c(time_takes, list(end))
+    time_taken_fern1 <- c(time_taken_fern1, list(end))
     title(paste(i, "Threshold"))
   }
+
+  ##fern2:
+  fern4 <- function(start_position, direction, length, dir, e)  {
+    # call turtle to draw the first line
+    endpoint <- turtle(start_position, direction, length)
+    # call fern twice to draw the next lines
+    if (length >= e) { # make the minimum length larger than for spiral so that it plots it in less than 30 seconds
+      fern4(endpoint, direction, 0.87*length, -dir, e)
+      fern4(endpoint, direction + dir*pi/4, 0.38*length, dir, e)
+    }
+  }  
+  
+  draw_fern4 <- function(e)  {
+    # clear any existing graphs
+    graphics.off()
+    # make a new plot
+    plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9))
+    # call fern
+    fern4(c(2,1), pi/2, 1, 1, e)
+  }
+  
+  for (i in e){
+    start <- proc.time()
+    draw_fern4(i)
+    end <- (proc.time() - start)[3]
+    time_taken_fern2 <- c(time_taken_fern2, list(end))
+    title(paste(i, "Threshold"))
+  }
+
+  
+  df <- data.frame(plant = c(rep("tree", 3), rep("fern1", 3), rep("fern2", 3)),
+                   threshold = c(rep(e, 3)),
+                   time_taken = c(time_taken_tree[[1]], time_taken_tree[[2]], time_taken_tree[[3]], time_taken_fern1[[1]], time_taken_fern1[[2]], time_taken_fern1[[3]], time_taken_fern2[[1]], time_taken_fern2[[2]], time_taken_fern2[[3]]))
+  
+  # TO DO: make stacked bar chart
+  
+  times_plot <- ggplot(data = df)+
+    aes(x = plant, fill = threshold)+
+    geom_bar()+
+    scale_fill_viridis(discrete = TRUE)+
+    theme_minimal()+
+    theme(legend.position = 'bottom')+
+    xlab('Model')+
+    ylab('Count')+
+    coord_flip()
+  
+  all_times <- table(df$threshold, df$plant)
   
   
   #############################################################################################################################
   
   # experimenting with colours and other variables to produce an additional multipanel plot
+  
+  # could use different colours for each different iteration
   
   fern2 <- function(start_position = c(5, 5), direction = pi/2, length = 1, dir = 1, col = "red")  {
     end_points <- c(start_position[1] + length * cos(direction), start_position[2] + length * sin(direction))
