@@ -980,7 +980,6 @@ Challenge_E <- function() {
 
   
 }
-  
 
 
 # Challenge question F
@@ -1018,12 +1017,21 @@ Challenge_F <- function() {
     tree2(c(4,1), pi/2, 2, e)
   }
   
-  for (i in e){
+  par(mfrow = c(1,3)) ## FIGURE OUT WHY IT'S NOT PLOTTNG ON ONE PLOT
+  draw_tree2(0.1)
+  title(paste("e = 0.1"))
+  draw_tree2(0.01)
+  title(paste("e = 0.01"))
+  draw_tree2(0.005)
+  title(paste("e = 0.005"))
+  
+  par(mfrow = c(1,3)) 
+  for (i in e){ 
     start <- proc.time()
-    draw_tree2(i)
+    draw_tree2(i) # FIGURE OUT WHY PLOTTING HERE ISN'T WORKING - WOULD BE BETTER THAN ABOVE - and do the same for the ferns
+    title(paste("e = ", i))
     end <- (proc.time() - start)[3]
     time_taken_tree <- c(time_taken_tree, list(end))
-    title(paste(i, "Threshold"))
   }
   
   
@@ -1047,12 +1055,20 @@ Challenge_F <- function() {
     fern3(c(3,1), pi/2, 1, e)
   }
   
+  par(mfrow = c(1,3)) ## FIGURE OUT WHY IT'S NOT PLOTTNG ON ONE PLOT
+  draw_fern3(0.1)
+  title(paste("e = 0.1"))
+  draw_fern3(0.01)
+  title(paste("e = 0.01"))
+  draw_fern3(0.005)
+  title(paste("e = 0.005"))
+  
   for (i in e){
     start <- proc.time()
     draw_fern3(i)
+    title(paste("e = ", i))
     end <- (proc.time() - start)[3]
     time_taken_fern1 <- c(time_taken_fern1, list(end))
-    title(paste(i, "Threshold"))
   }
 
   ##fern2:
@@ -1075,63 +1091,132 @@ Challenge_F <- function() {
     fern4(c(2,1), pi/2, 1, 1, e)
   }
   
+  par(mfrow = c(1,3)) ## FIGURE OUT WHY IT'S NOT PLOTTNG ON ONE PLOT
+  draw_fern4(0.1)
+  title(paste("e = 0.1"))
+  draw_fern4(0.01)
+  title(paste("e = 0.01"))
+  draw_fern4(0.005)
+  title(paste("e = 0.005"))
+  
   for (i in e){
     start <- proc.time()
     draw_fern4(i)
+    title(paste("e = ", i))
     end <- (proc.time() - start)[3]
     time_taken_fern2 <- c(time_taken_fern2, list(end))
-    title(paste(i, "Threshold"))
   }
-
   
   df <- data.frame(plant = c(rep("tree", 3), rep("fern1", 3), rep("fern2", 3)),
-                   threshold = c(rep(e, 3)),
+                   threshold = as.character(c(rep(e, 3))),
                    time_taken = c(time_taken_tree[[1]], time_taken_tree[[2]], time_taken_tree[[3]], time_taken_fern1[[1]], time_taken_fern1[[2]], time_taken_fern1[[3]], time_taken_fern2[[1]], time_taken_fern2[[2]], time_taken_fern2[[3]]))
   
-  # TO DO: make stacked bar chart
-  
-  times_plot <- ggplot(data = df)+
-    aes(x = plant, fill = threshold)+
-    geom_bar()+
+  times_plot <- ggplot(df, aes(x = plant, y = time_taken, fill = threshold))+
+    geom_bar(position = "stack", stat = "identity")+
     scale_fill_viridis(discrete = TRUE)+
     theme_minimal()+
     theme(legend.position = 'bottom')+
-    xlab('Model')+
-    ylab('Count')+
-    coord_flip()
+    xlab('Plant')+
+    ylab('Time taken (s)')
+  times_plot
   
-  all_times <- table(df$threshold, df$plant)
+  print("The shorter the line size threshold (e), the longer it takes to make the fractal, as shown in the bar plot. The resulting fractal is also less detailed, having fewer iterations of the lines making it up, when the line size threshold is smaller.")
   
   
   #############################################################################################################################
   
   # experimenting with colours and other variables to produce an additional multipanel plot
   
-  # could use different colours for each different iteration
-  
-  fern2 <- function(start_position = c(5, 5), direction = pi/2, length = 1, dir = 1, col = "red")  {
-    end_points <- c(start_position[1] + length * cos(direction), start_position[2] + length * sin(direction))
-    lines(c(start_position[1], end_points[1]), c(start_position[2], end_points[2]), type = "l", col = col)
-    if (length >= 0.01){
-      if (dir == 1){
-        fern2(end_points, direction, 0.87 * length, -dir)
-        fern2(end_points, direction + dir * pi/4, 0.38 * length, dir)
-      } else {
-        fern2(end_points, direction, 0.87 * length, -dir, col = "blue")
-        fern2(end_points, direction + dir * pi/4, 0.38 * length, dir, col = "blue")
-      }
-    } 
+  # redefine turtle to take in a colour as an argument
+  turtle2 <- function(start_position, direction, length, colour)  {
+    # draw a line of given start position, direction & length  
+    # first define the endpoint
+    endpoint <- c(start_position[1] + length*cos(direction),
+                  start_position[2] + length*sin(direction))
+    # then draw a line between the start and endpoint
+    lines(c(start_position[1], endpoint[1]), c(start_position[2], endpoint[2]), type = "l", col = colour)
+    
+    # return the endpoint of the line as a vector
+    return(endpoint)
   }
-  plot(1, xlab="", ylab="", xlim=c(2.5, 7), ylim=c(4.5, 13))
-  fern2()
-  title("Happy Christmas!")
   
-  par(mfrow = c(1, 1))
-  return(paste("The function with ", e[1], " threshold takes ", time_takes[[1]], " seconds to run; ", "the function with ", e[2], "threshold takes ", time_takes[[2]], " seconds to run;", "the function with ", e[3], "threshold takes ", time_takes[[3]], " seconds to run.", "As expected, the less values of threshold, the more time spent, the more repetition of fratals as well." ))
+  # define vector of colour-blind friendly colours
+  colours = c("#88CCEE", "#CC6677", "#DDCC77", "#117733", "#332288", "#AA4499", 
+              "#44AA99", "#999933", "#882255", "#661100", "#6699CC", "#888888")
+  
+  ## TREE
+  
+  tree3 <- function(start_position, direction, length, iteration = 0)  {
+    # call turtle to draw the first line
+    endpoint <- turtle2(start_position, direction, length, colour = colours[iteration])
+    # call tree twice to draw the next lines
+    if (length >= 0.01) { # make the minimum length larger than for spiral so that it plots it in less than 30 seconds
+      tree3(endpoint, direction-pi/4, 0.65*length, iteration = iteration + 1)
+      tree3(endpoint, direction+pi/4, 0.65*length, iteration = iteration + 1)
+    }
+  }
+  
+  draw_tree3 <- function()  {
+    # clear any existing graphs
+    graphics.off()
+    # make a new plot
+    plot(1, type="n", xlab="", ylab="", xlim=c(0, 8), ylim=c(0, 8))
+    # call tree
+    tree3(c(4,1), pi/2, 2)
+  }
   
   
+  ## FERN 1
   
-  return("The shorter the length of the line, the less time it takes to make the fractal. This is because it takes less time to reach the minimum threshold length needed to make the next lines following the first one.")
+  fern5 <- function(start_position, direction, length, iteration = 0)  {
+    # call turtle to draw the first line
+    endpoint <- turtle2(start_position, direction, length, colour = colours[iteration])
+    # call fern twice to draw the next lines
+    if (length >= 0.01) { # make the minimum length larger than for spiral so that it plots it in less than 30 seconds
+      fern5(endpoint, direction+pi/4, 0.38*length, iteration = iteration + 1)
+      fern5(endpoint, direction, 0.87*length, iteration = iteration + 1)
+    }
+  }
+  
+  draw_fern5 <- function()  {
+    # clear any existing graphs
+    graphics.off()
+    # make a new plot
+    plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9))
+    # call fern
+    fern5(c(3,1), pi/2, 1)
+  }
+  
+  
+  ## FERN 2
+  
+  fern6 <- function(start_position, direction, length, dir, iteration = 0)  {
+    # call turtle to draw the first line
+    endpoint <- turtle2(start_position, direction, length, colour = colours[iteration])
+    # call fern twice to draw the next lines
+    if (length >= 0.01) { # make the minimum length larger than for spiral so that it plots it in less than 30 seconds
+      fern6(endpoint, direction, 0.87*length, -dir, iteration = iteration + 1)
+      fern6(endpoint, direction + dir*pi/4, 0.38*length, dir, iteration = iteration + 1)
+    }
+  }  
+  
+  draw_fern6 <- function()  {
+    # clear any existing graphs
+    graphics.off()
+    # make a new plot
+    plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9))
+    # call fern
+    fern6(c(2,1), pi/2, 1, 1)
+  }
+  
+  graphics.off()
+  par(mfrow = c(1,3)) # TO DO: FIGURE OUT WHY THIS ISN'T WORKING
+  draw_tree3()
+  draw_fern5()
+  draw_fern6()
+  
+  
+  print("These plots illustrate the different levels of the fractals, with each level having a different colour.")
 }
 
 # Challenge question G should be written in a separate file that has no dependencies on any functions here.
