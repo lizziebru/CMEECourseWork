@@ -13,10 +13,10 @@ speciation_rate <- 0.0024267 # my personal speciation rate
 community_size <- c(500, 1000, 2500, 5000)
 
 # read in the job number from the cluster
-iter <- as.numeric(Sys.getenv("PBS_ARRAY_INDEX")) # comment this out and set iter myself for testing locally
+#iter <- as.numeric(Sys.getenv("PBS_ARRAY_INDEX")) # comment this out and set iter myself for testing locally
 
 # setting iter myself for testing locally:
-#iter <- 1
+iter <- 1
 
 # select the correct value for community in each parallel simulation based on the value of iter
 if (iter >= 1 && iter <= 25) size <- community_size[1]
@@ -35,4 +35,4 @@ cluster_run(speciation_rate = speciation_rate,
             interval_rich = 1, # NB: qsub -J 1-100 is what you need to type for the full thing too
             interval_oct = size / 10, 
             burn_in_generations = 8 * size, 
-            output_file_name = paste("results/eab21_result", iter, ".rda", sep = ""))
+            output_file_name = paste("eab21_result", iter, ".rda", sep = ""))

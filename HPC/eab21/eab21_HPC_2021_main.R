@@ -11,8 +11,10 @@ username <- "eab21"
 print("source main.R script")
 
 # load required packages:
-require(ggplot2)
-require(viridis)
+install.packages('ggplot2') # for plots
+library(ggplot2)
+install.packages('viridis') # for colour-blind friendly palettes
+library(viridis)
 
 
 # Question 1
@@ -342,44 +344,48 @@ cluster_run <- function(speciation_rate, size, wall_time, interval_rich, interva
 
 # Questions 18 and 19 involve writing code elsewhere to run your simulations on the cluster
 
-# Question 20  - TO DO: FIGURE OUT PROPERLY WHAT'S GOING ON AND FIND WAYS TO RE-WRITE LOTS OF THIS ONCE HAVE RESULTS THAT CAN WORK WITH
+# Question 20 
 process_cluster_results <- function()  {
-  # create empty lists for ouput variables
+  # create empty lists for output variables
   sum_abundance <- c()
   sum_size <- c()
-  combined_results <- list()
+  oct_outputs <- list()
   
-  # set counter
-  counter <- 0
+  counter <- 0 # set counter
   while (counter < 100){
     counter <- counter + 1
-    fileName <- paste("results/eab21_result", counter, ".rda", sep = "")
-    load(fileName) # read in the output files
+    
+    # read in output files
+    outputs <- paste("eab21_result", counter, ".rda", sep = "") # assign an "outputs" variable which corresponds to all the outputs
+    load(outputs)
     
     # Work out mean value across all the data for each abundance octave and for each simulation size
     for (i in 1:length(oct)){
-      sum_abundance <- sum_vect(sum_abundance, oct[[i]])
+      oct_sum <- sum_vect(oct_sum, oct[[i]]) # for each octave, sum its contents
     }
-    oct_mean <- sum_abundance/length(oct)
-    sum_abundance <- c()
+    oct_mean <- oct_sum/length(oct)
+    oct_sum <- c()
     sum_size <- sum_vect(sum_size, oct_mean)
     if (j %% 25 == 0){
-      combined_results <- c(combined_results, list(sum_size / 25))
-      sum_abundance <- c()
+      oct_outputs <- c(oct_outputs, list(sum_size / 25))
+      oct_sum <- c()
       sum_size <- c()
     }
+    
     # save results to a new .rda file
-    save(combined_results, file = "combined_results.rda")
+    save(oct_outputs, file = "oct_outputs.rda")
   }
 }
 
 plot_cluster_results <- function()  {
   # clear any existing graphs and plot your graph within the R window
   graphics.off()
-  # load combined_results from your rda file
-  load("combined_results.rda")
   
-  # plot the graphs
+  # load octave outputs produced in process_cluster_results function
+  load("oct_outputs.rda")
+  
+  
+  ## PLOTTING
   
   # make names variable - but not sure exactly this is the right thing to call it/what it does
   names <- c()
@@ -520,7 +526,7 @@ draw_spiral <- function()  {
   # clear any existing graphs
   graphics.off()
   # make a new plot
-  plot(1, type="n", xlab="", ylab="", xlim=c(0, 8), ylim=c(0, 8))
+  plot(1, type="n", xlab="", ylab="", xlim=c(0, 8), ylim=c(0, 8), axes = F)
   # call spiral
   spiral(c(2,3), pi/2, 2)
   # return the same text answer from the spiral function
@@ -542,7 +548,7 @@ draw_tree <- function()  {
   # clear any existing graphs
   graphics.off()
   # make a new plot
-  plot(1, type="n", xlab="", ylab="", xlim=c(0, 8), ylim=c(0, 8))
+  plot(1, type="n", xlab="", ylab="", xlim=c(0, 8), ylim=c(0, 8), axes = F)
   # call tree
   tree(c(4,1), pi/2, 2)
 }
@@ -562,7 +568,7 @@ draw_fern <- function()  {
   # clear any existing graphs
   graphics.off()
   # make a new plot
-  plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9))
+  plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9), axes = F)
   # call fern
   fern(c(3,1), pi/2, 1)
 }
@@ -582,7 +588,7 @@ draw_fern2 <- function()  {
   # clear any existing graphs
   graphics.off()
   # make a new plot
-  plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9))
+  plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9), axes = F)
   # call fern
   fern2(c(2,1), pi/2, 1, 1)
 }
@@ -747,7 +753,7 @@ Challenge_D <- function() {
   return("type your written answer here")
 }
 
-# Challenge question E - NOT PLOTTING PROPERLY
+# Challenge question E
 Challenge_E <- function() {
   # clear any existing graphs
   graphics.off()
@@ -864,7 +870,7 @@ Challenge_E <- function() {
   #########################################################################################################################
   
   # to put the following two plots in one multi-panel graph
-  par(mfrow = c(1, 2)) 
+  par(mfrow = c(1, 2), mar = c(8,1,8,1)) 
   
   #########################################################################################################################
   
@@ -888,7 +894,7 @@ Challenge_E <- function() {
        ylim = c(0,4),
        xlab = "x",
        ylab = "y",
-       main = "Chaos game - classic Sierpinksi Gasket")
+       main = "Chaos game:\nclassic Sierpinski\nGasket")
   text(0, 0.3, labels = "A")
   text(2, 3.6, labels = "B")
   text(4, 0.3, labels = "C")
@@ -944,7 +950,7 @@ Challenge_E <- function() {
        ylim = c(0,4),
        xlab = "x",
        ylab = "y",
-       main = "Chaos game - square")
+       main = "Chaos game:\nsquare")
   text(0, 0.3, labels = "A")
   text(0, 4.2, labels = "B")
   text(4, 4.2, labels = "C")
@@ -1010,7 +1016,7 @@ Challenge_F <- function() {
   
   draw_tree2 <- function(e)  {
     # make a new plot
-    plot(1, type="n", xlab="", ylab="", xlim=c(0, 8), ylim=c(0, 8))
+    plot(1, type="n", xlab="", ylab="", xlim=c(0, 8), ylim=c(0, 8), axes = F)
     # call tree
     tree2(c(4,1), pi/2, 2, e)
   }
@@ -1038,7 +1044,7 @@ Challenge_F <- function() {
   
   draw_fern3 <- function(e)  {
     # make a new plot
-    plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9))
+    plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9), axes = F)
     # call fern
     fern3(c(3,1), pi/2, 1, e)
   }
@@ -1065,7 +1071,7 @@ Challenge_F <- function() {
   
   draw_fern4 <- function(e)  {
     # make a new plot
-    plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9))
+    plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9), axes = F)
     # call fern
     fern4(c(2,1), pi/2, 1, 1, e)
   }
@@ -1117,11 +1123,11 @@ Challenge_F <- function() {
   
   ## TREE
   
-  tree3 <- function(start_position, direction, length, iteration = 0)  {
+  tree3 <- function(start_position, direction, length, iteration = 1)  { # set iteration argument so that can assign each iteration a different colour
     # call turtle to draw the first line
     endpoint <- turtle2(start_position, direction, length, colour = colours[iteration])
     # call tree twice to draw the next lines
-    if (length >= 0.01) { # make the minimum length larger than for spiral so that it plots it in less than 30 seconds
+    if (length >= 0.01) { 
       tree3(endpoint, direction-pi/4, 0.65*length, iteration = iteration + 1)
       tree3(endpoint, direction+pi/4, 0.65*length, iteration = iteration + 1)
     }
@@ -1129,7 +1135,7 @@ Challenge_F <- function() {
   
   draw_tree3 <- function()  {
     # make a new plot
-    plot(1, type="n", xlab="", ylab="", xlim=c(0, 8), ylim=c(0, 8))
+    plot(1, type="n", xlab="", ylab="", xlim=c(0, 8), ylim=c(0, 8), axes = F)
     # call tree
     tree3(c(4,1), pi/2, 2)
   }
@@ -1137,7 +1143,7 @@ Challenge_F <- function() {
   
   ## FERN 1
   
-  fern5 <- function(start_position, direction, length, iteration = 0)  {
+  fern5 <- function(start_position, direction, length, iteration = 1)  {
     # call turtle to draw the first line
     endpoint <- turtle2(start_position, direction, length, colour = colours[iteration])
     # call fern twice to draw the next lines
@@ -1157,7 +1163,7 @@ Challenge_F <- function() {
   
   ## FERN 2
   
-  fern6 <- function(start_position, direction, length, dir, iteration = 0)  {
+  fern6 <- function(start_position, direction, length, dir, iteration = 1)  {
     # call turtle to draw the first line
     endpoint <- turtle2(start_position, direction, length, colour = colours[iteration])
     # call fern twice to draw the next lines
