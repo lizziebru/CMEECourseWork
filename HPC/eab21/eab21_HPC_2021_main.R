@@ -1009,26 +1009,16 @@ Challenge_F <- function() {
   }
   
   draw_tree2 <- function(e)  {
-    # clear any existing graphs
-    graphics.off()
     # make a new plot
     plot(1, type="n", xlab="", ylab="", xlim=c(0, 8), ylim=c(0, 8))
     # call tree
     tree2(c(4,1), pi/2, 2, e)
   }
-  
-  par(mfrow = c(1,3)) ## FIGURE OUT WHY IT'S NOT PLOTTNG ON ONE PLOT
-  draw_tree2(0.1)
-  title(paste("e = 0.1"))
-  draw_tree2(0.01)
-  title(paste("e = 0.01"))
-  draw_tree2(0.005)
-  title(paste("e = 0.005"))
-  
-  par(mfrow = c(1,3)) 
+
+  par(mfrow = c(1,3), mar = c(10,1,10,1)) 
   for (i in e){ 
     start <- proc.time()
-    draw_tree2(i) # FIGURE OUT WHY PLOTTING HERE ISN'T WORKING - WOULD BE BETTER THAN ABOVE - and do the same for the ferns
+    draw_tree2(i)
     title(paste("e = ", i))
     end <- (proc.time() - start)[3]
     time_taken_tree <- c(time_taken_tree, list(end))
@@ -1047,22 +1037,13 @@ Challenge_F <- function() {
   }
   
   draw_fern3 <- function(e)  {
-    # clear any existing graphs
-    graphics.off()
     # make a new plot
     plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9))
     # call fern
     fern3(c(3,1), pi/2, 1, e)
   }
   
-  par(mfrow = c(1,3)) ## FIGURE OUT WHY IT'S NOT PLOTTNG ON ONE PLOT
-  draw_fern3(0.1)
-  title(paste("e = 0.1"))
-  draw_fern3(0.01)
-  title(paste("e = 0.01"))
-  draw_fern3(0.005)
-  title(paste("e = 0.005"))
-  
+  par(mfrow = c(1,3), mar = c(10,1,10,1)) 
   for (i in e){
     start <- proc.time()
     draw_fern3(i)
@@ -1083,22 +1064,13 @@ Challenge_F <- function() {
   }  
   
   draw_fern4 <- function(e)  {
-    # clear any existing graphs
-    graphics.off()
     # make a new plot
     plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9))
     # call fern
     fern4(c(2,1), pi/2, 1, 1, e)
   }
   
-  par(mfrow = c(1,3)) ## FIGURE OUT WHY IT'S NOT PLOTTNG ON ONE PLOT
-  draw_fern4(0.1)
-  title(paste("e = 0.1"))
-  draw_fern4(0.01)
-  title(paste("e = 0.01"))
-  draw_fern4(0.005)
-  title(paste("e = 0.005"))
-  
+  par(mfrow = c(1,3), mar = c(10,1,10,1)) 
   for (i in e){
     start <- proc.time()
     draw_fern4(i)
@@ -1111,14 +1083,13 @@ Challenge_F <- function() {
                    threshold = as.character(c(rep(e, 3))),
                    time_taken = c(time_taken_tree[[1]], time_taken_tree[[2]], time_taken_tree[[3]], time_taken_fern1[[1]], time_taken_fern1[[2]], time_taken_fern1[[3]], time_taken_fern2[[1]], time_taken_fern2[[2]], time_taken_fern2[[3]]))
   
-  times_plot <- ggplot(df, aes(x = plant, y = time_taken, fill = threshold))+
+  ggplot(df, aes(x = plant, y = time_taken, fill = threshold))+
     geom_bar(position = "stack", stat = "identity")+
     scale_fill_viridis(discrete = TRUE)+
     theme_minimal()+
     theme(legend.position = 'bottom')+
     xlab('Plant')+
     ylab('Time taken (s)')
-  times_plot
   
   print("The shorter the line size threshold (e), the longer it takes to make the fractal, as shown in the bar plot. The resulting fractal is also less detailed, having fewer iterations of the lines making it up, when the line size threshold is smaller.")
   
@@ -1157,8 +1128,6 @@ Challenge_F <- function() {
   }
   
   draw_tree3 <- function()  {
-    # clear any existing graphs
-    graphics.off()
     # make a new plot
     plot(1, type="n", xlab="", ylab="", xlim=c(0, 8), ylim=c(0, 8))
     # call tree
@@ -1179,8 +1148,6 @@ Challenge_F <- function() {
   }
   
   draw_fern5 <- function()  {
-    # clear any existing graphs
-    graphics.off()
     # make a new plot
     plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9))
     # call fern
@@ -1201,18 +1168,16 @@ Challenge_F <- function() {
   }  
   
   draw_fern6 <- function()  {
-    # clear any existing graphs
-    graphics.off()
     # make a new plot
     plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9))
     # call fern
     fern6(c(2,1), pi/2, 1, 1)
   }
-  
-  graphics.off()
-  par(mfrow = c(1,3)) # TO DO: FIGURE OUT WHY THIS ISN'T WORKING
+
+  par(mfrow = c(1,3), mar = c(10,1,10,1))
   draw_tree3()
   draw_fern5()
+  title("Happy New Year!", line = 2)
   draw_fern6()
   
   
