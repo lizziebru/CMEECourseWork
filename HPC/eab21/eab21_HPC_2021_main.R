@@ -11,10 +11,8 @@ username <- "eab21"
 print("source main.R script")
 
 # load required packages:
-install.packages('ggplot2') # for plots
-library(ggplot2)
-install.packages('viridis') # for colour-blind friendly palettes
-library(viridis)
+require(ggplot2) # for plots
+require(viridis) # for colour-blind friendly palettes
 
 
 # Question 1
@@ -97,16 +95,29 @@ neutral_time_series <- function(community,duration)  {
 
 # Question 8
 question_8 <- function() {
-  community <- init_community_max(100)
-  spp_richness <- neutral_time_series(community, 200)
-  graphics.off() # clear any existing graphs
-  plot_df <- data.frame(spp_richness = spp_richness,
+  # clear any existing graphs
+  graphics.off() 
+  
+  
+  ## neutral theory simulation
+  
+  community <- init_community_max(100) # initialise community of size 100 with maximum diversity
+  spp_richness <- neutral_time_series(community, 200) # return a time series of species richness in this community under neutral theory simulation for 200 generations
+  
+  
+  ## plot: time series graph of this neutral theory simulation 
+  
+  df <- data.frame(spp_richness = spp_richness,
                         Generation = seq(0,200))
-  p <- ggplot(plot_df, aes(x = Generation, y = spp_richness))+ # plot graph within the R window
+  
+  p <- ggplot(df, aes(x = Generation, y = spp_richness))+ 
     geom_line()+
-    theme_bw()+
     ylab('Species richness')+
-    theme(aspect.ratio = 1, plot.title = element_text(hjust = 0.5))+
+    theme(axis.title = element_text(size = 10, face = "bold"),
+          plot.title = element_text(hjust = 0.5, size = 15, face = "bold"),
+          legend.position = "bottom",
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank())+ 
     ggtitle("Species richness across generations \nin a neutral simulation")
   plot(p)
   return("The system will always converge to monodominance (species richness equal to 1) if you wait long enough because there is no immigration; when an individual reproduces to fill gaps left by individuals dying, it creates more individuals of that species which then each in turn create more, causing a gradual take-over by that species")
@@ -176,26 +187,36 @@ neutral_time_series_speciation <- function(community,speciation_rate,duration)  
 
 # Question 12
 question_12 <- function()  {
+  # clear any existing graphs
+  graphics.off() 
+  
+  
+  ## neutral theory simulation
+  
   community_max <- init_community_max(100)
   community_min <- init_community_min(100)
   spp_richness_max <- neutral_time_series_speciation(community_max, 0.1, 200)
   spp_richness_min <- neutral_time_series_speciation(community_min, 0.1, 200)
-  graphics.off() # clear any existing graphs
-  plot_df <- data.frame(spp_richness = c(spp_richness_max, spp_richness_min),
+  
+  
+  ## plot: time series graph of this neutral theory simulation 
+  
+  df <- data.frame(spp_richness = c(spp_richness_max, spp_richness_min),
                         minmax = c(rep('Maximum_initial_richness', length(spp_richness_max)), rep('Minimum_initial_richness', length(spp_richness_max))),
                         Generation = c(rep(seq(0, 200), length(2))))
-  p <- ggplot(plot_df, aes(x = Generation, y = spp_richness, colour = minmax))+ # plot graph within the R window
+  p <- ggplot(df, aes(x = Generation, y = spp_richness, colour = minmax))+ # plot graph within the R window
     geom_line()+
     scale_fill_manual(values = c("#005AB5", "#DC3220"))+ # use colour-blind-friendly colours
-    theme_bw()+
     ylab('Species richness')+
     labs(colour="")+
-    theme(legend.position = "bottom", 
-          aspect.ratio = 1, 
-          plot.title = element_text(hjust = 0.5, size = 15, face = "bold"), 
-          axis.title = element_text(size = 10, face = "bold"))+
+    theme(axis.title = element_text(size = 10, face = "bold"),
+          plot.title = element_text(hjust = 0.5, size = 15, face = "bold"),
+          legend.position = "bottom",
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank())+ 
     ggtitle("Species richness across generations \nin a neutral simulation")
   plot(p)
+  
   return("Communities with low initial species richness increase in diversity over time as common species are replaced by new, unique species. 
   Communities with high initial species richness conversely lose species richness over time as speciation replaces existing unique species with new species. 
   Over many generations, community species richness in both communities with initially low and initially high diversity tends towards the same equilibrium.
@@ -283,11 +304,15 @@ question_16 <- function()  {
   oct_max_mean <- oct_max/counter
   oct_min_mean <- oct_min/counter
   
-  # Plots: bar charts of mean octaves for communities with either max or min initial diversity
+  
+  ## plot: bar charts of mean octaves for communities with either max or min initial diversity
+  
   df <- data.frame(ranges = c(seq(1,6), seq(1,6)),
                    values = c(oct_max_mean, oct_min_mean),
                    type = c(rep("Octave_max", 6), rep("Octave_min", 6)))
+  
   df$ranges <- factor(df$ranges, levels = unique(df$ranges))
+  
   p <- ggplot(data = df, aes(x = ranges, y = values, fill = type)) + 
     geom_bar(stat = "identity", position = "dodge") +
     xlab("Number of individuals per species") + 
@@ -296,7 +321,6 @@ question_16 <- function()  {
     theme(axis.title = element_text(size = 10, face = "bold"),
           plot.title = element_text(hjust = 0.5, size = 15, face = "bold"),
           legend.position = "bottom",
-          #plot.background = element_rect(fill = "transparent", color = 'white'),
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank())+ 
     scale_fill_manual(name = "Initial diversity", labels = c("Maximum", "Minimum"), values = c("#005AB5", "#DC3220")) # colour-blind-friendly colours
@@ -347,8 +371,8 @@ cluster_run <- function(speciation_rate, size, wall_time, interval_rich, interva
 # Question 20 
 process_cluster_results <- function()  {
   # create empty lists for output variables
-  sum_abundance <- c()
-  sum_size <- c()
+  oct_sum <- c()
+  oct_mean_sum <- c()
   oct_outputs <- list()
   
   counter <- 0 # set counter
@@ -365,11 +389,11 @@ process_cluster_results <- function()  {
     }
     oct_mean <- oct_sum/length(oct)
     oct_sum <- c()
-    sum_size <- sum_vect(sum_size, oct_mean)
+    oct_mean_sum <- sum_vect(oct_mean_sum, oct_mean)
     if (j %% 25 == 0){
-      oct_outputs <- c(oct_outputs, list(sum_size / 25))
+      oct_outputs <- c(oct_outputs, list(oct_mean_sum / 25))
       oct_sum <- c()
-      sum_size <- c()
+      oct_mean_sum <- c()
     }
     
     # save results to a new .rda file
@@ -385,39 +409,32 @@ plot_cluster_results <- function()  {
   load("oct_outputs.rda")
   
   
-  ## PLOTTING
-  
-  # make names variable - but not sure exactly this is the right thing to call it/what it does
-  names <- c()
-  for (n in 1:12){
-    if (n == 1){
-      names <- c(names, "1")
-    } else {
-      names <- c(names, paste(2^(n-1),"~",2^n-1, sep = ""))
-    }
-  }
+  ## plot: four bar graphs in a multi-panel graph (one for each simulation size) each showing a mean species abundance octave result from all the simulation runs of that size
   
   # make dataframe for plotting:
-  df <- data.frame(ranges = c(names[1:9], names[1:10], names[1:11], names[1:11]),
-                   octaves = c(combined_results[[1]], combined_results[[2]], combined_results[[3]], combined_results[[4]]),
-                   sizes = c(rep("Size = 500 Simulation", 9), rep("Size = 1000 Simulation", 10), rep("Size = 2500 Simulation", 11), rep("Size = 5000 Simulation", 11)))
+  df <- data.frame(no_indivs = c(seq(1,length(oct_outputs[[1]])), seq(1,length(oct_outputs[[2]])), seq(1,length(oct_outputs[[3]])), seq(1,length(oct_outputs[[4]]))),
+                   octaves = c(oct_outputs[[1]], oct_outputs[[2]], oct_outputs[[3]], oct_outputs[[4]]),
+                   Simulation = c(rep("Size = 500 Simulation", length(oct_outputs[[1]])), rep("Size = 1000 Simulation", length(oct_outputs[[2]])), rep("Size = 2500 Simulation", length(oct_outputs[[3]])), rep("Size = 5000 Simulation", length(oct_outputs[[4]]))))
   
-  df$ranges <- factor(df$ranges, levels = unique(df$ranges))
-  df$size <- factor(df$size, levels = unique(df$size))
+  df$no_indivs <- factor(df$no_indivs, levels = unique(df$no_indivs))
+  df$Simulation <- factor(df$Simulation, levels = unique(df$Simulation))
   
-  p <- ggplot(df, aes(x = ranges, y = octaves, fill = sizes)) +
+  p <- ggplot(df, aes(x = no_indivs, y = octaves, fill = Simulation)) +
     geom_bar(stat = "identity") +
     facet_grid(Sizes ~ ., scales = "free")+
-    theme(legend.position = "bottom")+
-    xlab("Intervals") +
+    xlab("Number of individuals per species") + 
     ylab("Number of species") +
-    theme_bw()+
-    ggtitle("Mean species abundance octave of neutral \nsimulation for different simulation sizes") +
-    theme(axis.title = element_text(size = 11, face = "bold"),
-          plot.title = element_text(hjust = 0.5, size = 14, face = "bold"))
+    ggtitle("Number of species for various \nspecies abundances for communities \nunder neutral simulation,\nfor different simulation sizes")+
+    theme(axis.title = element_text(size = 10, face = "bold"),
+          plot.title = element_text(hjust = 0.5, size = 15, face = "bold"),
+          legend.position = "bottom",
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank())+ 
+    scale_fill_manual(name = "Simulation size", labels = c("500", "1000", "2500", "5000"), values = c("#F0E442", "#0072B2", "#D55E00", "#CC79A7")) # colour-blind-friendly colours
   plot(p)
   
-  return(combined_results)
+  # return a list of the data just plotted
+  return(oct_outputs)
 }
 
 # Question 21
@@ -627,13 +644,15 @@ Challenge_A <- function() {
   rich_max <- apply(rich_max, 2, mean)
   rich_min <- apply(rich_min, 2, mean)
   
-  # make dataframe for plot
+  
+  ## plot: mean species richness as a function of time (generations)
+
   df <- data.frame(time = rep(time, 2), 
                    species_no = c(rich_max, rich_min),
                    CI_upper = c(CI_upper_max, CI_upper_min), 
                    CI_lower = c(CI_lower_max, CI_lower_min),
                    minmax = c(rep("Maximum intial diversity", 201), rep("Minimum initial diversity", 201)))
-  # plot
+
   p <- ggplot(data = df, aes(x = time, y = species_no, colour = minmax)) +
     geom_point()+
     geom_ribbon(aes(ymin = CI_lower, ymax = CI_upper), alpha = 0.2) +
@@ -641,13 +660,12 @@ Challenge_A <- function() {
     ggtitle("Mean species richness with \n97.2% confidence interval") +
     xlab("Generation") +
     ylab("Mean number of species") + 
-    theme_bw()+
-    theme(aspect.ratio = 1) +
-    theme(legend.position = "bottom") +
     labs(colour="")+
-    theme(legend.position = "bottom")+ 
     theme(axis.title = element_text(size = 10, face = "bold"),
-          plot.title = element_text(hjust = 0.5, size = 15, face = "bold"))+
+          plot.title = element_text(hjust = 0.5, size = 15, face = "bold"),
+          legend.position = "bottom",
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank())+ 
     scale_fill_manual(name = "Initial diversity", labels = c("Maximum", "Minimum"), values = c("#005AB5", "#DC3220")) # colour-blind-friendly colours
   plot(p)
 
@@ -656,13 +674,17 @@ Challenge_A <- function() {
 
 # Challenge question B
 Challenge_B <- function() {
-  graphics.off() # clear any existing graphs
+  # clear any existing graphs
+  graphics.off() 
   
   # set starting values
   mean_richness <- c()
   mean_richness_values <- c()
   series <- c()
   time_series <- c()
+  
+  
+  ## neutral theory simulation: for a range of different initial species richnesses
   
   # set counter
   counter <- 0
@@ -680,6 +702,9 @@ Challenge_B <- function() {
     series <- c(series, rep(species_richness(community), length(mean_richness)))
   }
   
+  
+  ## plot: graph of time series for these different initial species richness
+  
   df <- data.frame(time = time_series, 
                    spp_no = mean_richness_values, 
                    types = factor(series, levels = unique(series)))
@@ -691,13 +716,13 @@ Challenge_B <- function() {
     ggtitle("Average time series for a range of different \nstarting communities under neutral simulation")+
     xlab("Generation")+
     ylab("Number of species")+
-    theme_bw()+
-    theme(legend.position = "bottom")+ 
     theme(axis.title = element_text(size = 10, face = "bold"),
-          plot.title = element_text(hjust = 0.5, size = 15, face = "bold"))+
+          plot.title = element_text(hjust = 0.5, size = 15, face = "bold"),
+          legend.position = "bottom",
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank())+ 
     labs(fill = "Initial diversity")+
     scale_colour_viridis(discrete = TRUE, name = "Initial diversity") # colour-blind-friendly palette
-  
   plot(p)
 }
 
@@ -713,11 +738,11 @@ Challenge_C <- function() {
   # set counter
   counter <- 0
   
-  # read in results and work out mean octaves for each species abundance octave
+  # read in outputs and work out mean octaves for each species abundance octave
   while(counter < 100){
     counter <- counter + 1
-    result <- paste("results/eab21_result", i, ".rda", sep = "") # read in and load results
-    load(result)
+    outputs <- paste("eab21_result", i, ".rda", sep = "") # read in and load outputs
+    load(outputs)
     mean_spp_richness <- sum_vect(mean_oct, richness)
     if (counter %% 25 == 0){
       mean_spp_richness_all <- c(mean_spp_richness_all, list(mean_richness / 25))
@@ -725,33 +750,144 @@ Challenge_C <- function() {
     }
   }
   
-  # plot graph of mean species richness against simulation generation 
+  ## plot: graph of mean species richness against simulation generation 
   
-  # make dataframe:
-  df <- data.frame(generation = c(gen1_time, gen2_time, gen3_time, gen4_time), # need to fill this with generation times
-                   richness = c(combined_results[[1]], combined_results[[2]], combined_results[[3]], combined_results[[4]]),
-                   simulation = c(rep("Size = 500 Simulation", 4001), rep("Size = 1000 Simulation", 8001), rep("Size = 2500 Simulation", 20001), rep("Size = 5000 Simulation", 40001)))
+  df <- data.frame(generation = c(seq(1,4001), seq(1,8001), seq(1,20001), seq(1,40001)),
+                   richness = c(mean_spp_richness_all[[1]], mean_spp_richness_all[[2]], mean_spp_richness_all[[3]], mean_spp_richness_all[[4]]),
+                   simulation = c(rep("Community size = 500", 4001), rep("Community size = 1000", 8001), rep("Community size = 2500", 20001), rep("Community size = 5000", 40001)))
   
-  p <- ggplot(df, aes(x = time, y = richness, colour = simulation)) + 
+  p <- ggplot(df, aes(x = generation, y = richness, colour = simulation)) + 
     geom_line() +
-    facet_wrap(Sizes ~ ., scales = "free") + 
-    theme(legend.position = "bottom") +
-    theme_bw()+
-    xlab("Generations") + 
-    ylab("Mean Species Richness")
+    facet_wrap(Sizes ~ ., scales = "free")+
+    xlab("Generation") + 
+    ylab("Mean species richness")+
+    ggtitle("Mean species richness against simulation generation")+
+    theme(axis.title = element_text(size = 10, face = "bold"),
+          plot.title = element_text(hjust = 0.5, size = 15, face = "bold"),
+          legend.position = "bottom",
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank())
   plot(p)
-  
-  
-  
-
 }
 
 # Challenge question D
 Challenge_D <- function() {
   # clear any existing graphs
+  graphics.off()
   
-  return("type your written answer here")
+  # write a coalescence function
+  coalescence <- function(J, v){
+    
+    lineages <- init_community_min(J) # initialise a lineages vector with length J and 1 as every entry
+    abundances <- c() # initialise an empty vector abundances
+    N <- J # initialise a number N = J
+    theta <- v * (J - 1) / (1 - v) # calculate theta
+   
+    while (N > 1) { # if N >1 repeat this chunk of code again
+      randnum <- runif(1)
+      rand <- sample(N, 2)
+      
+      # choose indices of the vector lineages at random according to a uniform distribution
+      j <- rand[1]
+      i <- rand[2]
+      
+      if (randnum < theta / (theta + N - 1)){
+        abundances <- c(abundances, lineages[j])
+      } else {
+        lineages[i] <- lineages[i] + lineages[j]
+      }
+      
+      lineages <- lineages[-j] # remove lineages[j] from lineages
+      
+      N <- N - 1 # so that N still gives the length of the lineages vector
+    }
+    
+    abundances <- c(abundances, lineages) # add the only element left in lineages to the end of abundances
+    
+    return(abundances) # vector of simulated species abundances
+  }
+  
+  
+  
+  ## Simulations using coalescence
+  
+  start <- proc.time() # start timing
+  
+  oct_mean <- c() # initialise empty vector for mean octaves
+  
+  # create empty lists for output variables
+  oct_sum <- c()
+  sum_size <- c()
+  oct_outputs_coal <- list()
+  
+  counter <- 0 # set counter
+  while (counter < 100){
+    counter <- counter + 1
+    
+    # Work out mean value across all the data for each abundance octave and for each simulation size
+    for (i in 1:length(oct)){
+      oct <- octaves(coalescence(J = 5000, v = 0.0024267)) # generate octaves for a coalescence simulation (using J = max initial community size and v = my personal speciation rate)
+      oct_sum <- sum_vect(oct_sum, oct[[i]]) # for each octave, sum its contents
+    }
+    oct_mean <- oct_sum/length(oct)
+    oct_sum <- c()
+    sum_size <- sum_vect(sum_size, oct_mean)
+    if (j %% 25 == 0){
+      oct_outputs_coal <- c(oct_outputs_coal, list(sum_size / 25))
+      oct_sum <- c()
+      sum_size <- c()
+    }
+    # store time taken for this in hours
+    time_coal <- (proc.time() - start)
+    time_coal <- time_coal / 3600 
+  
+  
+  ## Simulations using the cluster
+  
+  load("oct_outputs.rda")
+  i <- 79
+  sum_abundance <- c( )
+  fileName <- paste("eab21_result", i, ".rda", sep = "")
+  load(fileName)
+  # Obtain mean octaves for each abundance octave
+  for (j in 1:length(oct)){
+    sum_abundance <- sum_vect(sum_abundance, oct[[j]])
+  }
+  oct_mean <- sum_abundance/length(oct)
+  
+  
+  # plot: to check that results from the cluster agree with those from coalescence
+  
+  df <- data.frame(no_indivs = c(seq(1,length(oct_outputs)), seq(1,length(oct_outputs_coal))),
+                   Abundance = c(oct_outputs, oct_outputs_coal),
+                   Method = c(rep("Cluster", length(oct_outputs)), rep("Coalescence", length(oct_outputs_coal))))
+
+  df$no_indivs <- factor(df$no_indivs, levels = unique(df$no_indivs))
+  df$Simulation <- factor(df$Simulation, levels = unique(df$Simulation))
+  
+  p <- ggplot(df, aes(x = no_indivs, y = Abundance, fill = Method)) + 
+    geom_bar(stat = "identity", position = "dodge") + 
+    xlab("Number of individuals per species") + 
+    ylab("Number of species") +
+    ggtitle("Number of species for various \nspecies abundances for communities \nunder neutral simulation using either \ncoalescence or the cluster")+
+    theme(axis.title = element_text(size = 10, face = "bold"),
+          plot.title = element_text(hjust = 0.5, size = 15, face = "bold"),
+          legend.position = "bottom",
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank())+
+    panel.grid.minor = element_blank()+ 
+    scale_fill_manual(values = c("#F0E442", "#0072B2")) # colour-blind-friendly colours
+    scale_colour_viridis(discrete = TRUE)# colour-blind-friendly palette
+  plot(p)
+  
+  return(paste("The coalescence simulation takes", time_coal[3], "hours to run, while running an equivalent set of simulations on the cluster takes", final_time_min/60, "hours to run even though they produce the same results. 
+               The coalescence simulation is much quicker because it involves simulating only the lineages which are present in the final community."))
+  }
+  
 }
+
+
+
 
 # Challenge question E
 Challenge_E <- function() {
@@ -1085,17 +1221,24 @@ Challenge_F <- function() {
     time_taken_fern2 <- c(time_taken_fern2, list(end))
   }
   
+  ## plot: to visualise how how varying e affects time taken
+  
   df <- data.frame(plant = c(rep("tree", 3), rep("fern1", 3), rep("fern2", 3)),
                    threshold = as.character(c(rep(e, 3))),
                    time_taken = c(time_taken_tree[[1]], time_taken_tree[[2]], time_taken_tree[[3]], time_taken_fern1[[1]], time_taken_fern1[[2]], time_taken_fern1[[3]], time_taken_fern2[[1]], time_taken_fern2[[2]], time_taken_fern2[[3]]))
   
-  ggplot(df, aes(x = plant, y = time_taken, fill = threshold))+
+  p <- ggplot(df, aes(x = plant, y = time_taken, fill = threshold))+
     geom_bar(position = "stack", stat = "identity")+
     scale_fill_viridis(discrete = TRUE)+
-    theme_minimal()+
-    theme(legend.position = 'bottom')+
     xlab('Plant')+
-    ylab('Time taken (s)')
+    ylab('Time taken (s)')+
+    ggtitle("Time taken to generate various\ntypesof fractals for varying\nline size thresholds")+
+    theme(axis.title = element_text(size = 10, face = "bold"),
+          plot.title = element_text(hjust = 0.5, size = 15, face = "bold"),
+          legend.position = "bottom",
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank())
+  plot(p)
   
   print("The shorter the line size threshold (e), the longer it takes to make the fractal, as shown in the bar plot. The resulting fractal is also less detailed, having fewer iterations of the lines making it up, when the line size threshold is smaller.")
   
