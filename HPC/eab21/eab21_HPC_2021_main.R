@@ -226,10 +226,8 @@ question_12 <- function()  {
 
 # Question 13
 species_abundance <- function(community)  {
-  community_info <- table(community) # make table with each unique species identity and its corresponding abundance
-  sorted <- as.data.frame(sort(community_info, decreasing = TRUE)) # sort by decreasing abundance of each species
-  # return just the column with the abundance - return it as a list so it's easy to read
-  return(sorted[,2])
+  # make table with each unique species identity and its corresponding abundance and sort by decreasing abundance of each species
+  return(as.numeric(sort(table(community)), decreasing = T))
 }
 
 # Question 14
@@ -238,7 +236,7 @@ octaves <- function(abundance_vector) {
   # Add 1 to this to account for the fact that there are zeros
   # use floor to round down to an integer value
   # bin these resulting values
-  tabulate(floor(log2(abundance_vector))+1)
+  return(tabulate(floor(log2(abundance_vector))+1))
 }
 
 # Question 15
