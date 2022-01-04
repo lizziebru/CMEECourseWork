@@ -12,28 +12,30 @@ print("source main.R script")
 
 # load required packages:
 require(ggplot2) # for plots
-require(viridis) # for colour-blind friendly palettes
+require(viridis) # for colour blindness-friendly palettes
 
 
 # Question 1
 species_richness <- function(community){
-  length(unique(community)) # unique lists all the unique values - length then returns the length of that to give the number of unique values
+  return(length(unique(community))) # unique lists all the unique values - length then returns the length of that to give the number of unique values
 }
 
 # Question 2
 init_community_max <- function(size){
-  seq(from = 1, to = size, by = 1) # generate a sequence from one to the the size of the community in increments of 1
+  return(seq(from = 1, to = size, by = 1)) # generate a sequence from one to the the size of the community in increments of 1
 }
 
 # Question 3
 init_community_min <- function(size){
-  rep(1, size) # repeat 1 however many times the size of the community is
+  return(rep(1, size)) # repeat 1 however many times the size of the community is
 }
 
 # Question 4
 choose_two <- function(max_value){
+  
   # choose a random number according to uniform distribution between 1 and max_value (inclusive of endpoints)
   r1 <- sample(1:max_value, 1)
+  
   # choose a second random number between 1 and max_value but not equal to r1
   repeat {
     r2 <- sample(1:max_value, 1)
@@ -41,22 +43,27 @@ choose_two <- function(max_value){
       break
     }
   }
+  
   # return numbers as a vector of length 2
-  c(r1, r2)
+  return(c(r1, r2))
 }
 
 # Question 5
 neutral_step <- function(community){
-  # call choose_two to sample two random positions in the vector
+  
+  # call choose_two to sample two different random positions in the community
   random2 <- choose_two(length(community))
+  
   # make an individual die:
   com1 <- community[-random2[1]]
+  
   # make another reproduce
-  append(com1, community[random2[2]])
+  return(append(com1, community[random2[2]]))
 }
 
 # Question 6
 neutral_generation <- function(community){
+  
   # store the value of generation length (half the number of individuals in the community (randomly rounded up or down if not a whole number))
   if ((length(community) %% 2) == 0) {# if the number of individuals is even (i.e. when divided by 2 gives a remainder of zero)
     half <- length(community)/2
@@ -66,28 +73,36 @@ neutral_generation <- function(community){
     half2 <- half1 + sample(c(-0.1, 0.1), 1) # to randomly alternate between rounding up and down: either add or subtract 0.1 which means it'll either round up or down, respectively
     half <- round(half2)
   }
-  count = 0  # set the counter equal to zero: this will be used to break the repeat loop
-  repeat{ # run neutral_steps on the community, repeating this a number of times equal to half the size of the community
+  
+  counter = 0  # set the counter equal to zero: this will be used to break the repeat loop
+  
+  # run neutral_steps on the community, repeating this a number of times equal to half the size of the community
+  repeat{
     community <- neutral_step(community) 
-    count = count + 1
-    if (count == half + 1){ # stop repeating once you've done this the correct number of times
+    counter = counter + 1
+    if (counter == half + 1){ # stop repeating once you've done this the correct number of times
       break
     }
   }
-  return(community) # return the final community
+  
+  # return the final community
+  return(community) 
 }
 
 
 # Question 7
 neutral_time_series <- function(community,duration)  {
+  
   # make empty spp_richness vector 
-  spp_richness <- c(species_richness(community)) 
+  spp_richness <- c(species_richness(community))
+  
   #run neutral_generation on the community for each generation (i.e. duration)
   for (i in 1:duration) {
     community <- neutral_generation(community)
     richness = species_richness(community)
     spp_richness <- c(spp_richness, richness)
   } 
+  
   # return species richness of the final community
   return(spp_richness)
 }
@@ -108,11 +123,12 @@ question_8 <- function() {
   ## plot: time series graph of this neutral theory simulation 
   
   df <- data.frame(spp_richness = spp_richness,
-                        Generation = seq(0,200))
+                   Generation = seq(0,200))
   
   p <- ggplot(df, aes(x = Generation, y = spp_richness))+ 
     geom_line()+
     ylab('Species richness')+
+    theme_bw()+
     theme(axis.title = element_text(size = 10, face = "bold"),
           plot.title = element_text(hjust = 0.5, size = 15, face = "bold"),
           legend.position = "bottom",
@@ -120,18 +136,23 @@ question_8 <- function() {
           panel.grid.minor = element_blank())+ 
     ggtitle("Species richness across generations \nin a neutral simulation")
   plot(p)
+  
   return("The system will always converge to monodominance (species richness equal to 1) if you wait long enough because there is no immigration; when an individual reproduces to fill gaps left by individuals dying, it creates more individuals of that species which then each in turn create more, causing a gradual take-over by that species")
 }
 
 
 # Question 9
 neutral_step_speciation <- function(community,speciation_rate)  {
+  
   # call choose_two to sample two random positions in the vector
   random2 <- choose_two(length(community))
+  
   # make an individual die:
   com1 <- community[-random2[1]]
-  # assign variable with either one of 2 values with probabilities equal to speciation_rate of 1-speciation_rate
+  
+  # define a variable with either one of 2 values, one of which with probability = speciation_rate and the other with probability = 1-speciation_rate
   x <- sample(c(0,1), 1, prob = c(speciation_rate, 1-speciation_rate))
+  
   # if x = 0: replace it with a new species (with probability 'speciation_rate') or the offspring of another individual (with probability 1-'speciation_rate')
   if (x == 0){
     repeat {
@@ -140,16 +161,18 @@ neutral_step_speciation <- function(community,speciation_rate)  {
       break
     }
     }
-    append(com1, r1) # append it to the community
+    return(append(com1, r1)) # append it to the community
   }
   else {
-  append(com1, community[random2[2]]) # reproduction of another species
+  return(append(com1, community[random2[2]])) # reproduction of another species
   }
+  
 }
 
 
 # Question 10
 neutral_generation_speciation <- function(community,speciation_rate)  {
+  
   # store the value of generation length (half the number of individuals in the community (randomly rounded up or down if not a whole number))
   if ((length(community) %% 2) == 0) {# if the number of individuals is even (i.e. when divided by 2 gives a remainder of zero)
     half <- length(community)/2
@@ -159,28 +182,36 @@ neutral_generation_speciation <- function(community,speciation_rate)  {
     half2 <- half1 + sample(c(-0.1, 0.1), 1) # to randomly alternate between rounding up and down: either add or subtract 0.1 which means it'll either round up or down, respectively
     half <- round(half2)
   }
-  count = 0  # set the counter equal to zero: this will be used to break the repeat loop
-  repeat{ # run neutral_steps on the community, repeating this a number of times equal to half the size of the community
+  
+  counter = 0  # set the counter equal to zero: this will be used to break the repeat loop
+  
+  # run neutral_steps on the community, repeating this a number of times equal to half the size of the community
+  repeat{ 
     community <- neutral_step_speciation(community, speciation_rate) 
-    count = count + 1
-    if (count == half + 1){ # stop repeating once you've done this the correct number of times
+    counter = counter + 1
+    if (counter == half + 1){ # stop repeating once you've done this the correct number of times
       break
     }
   }
-  return(community) # return the final community
+  
+  # return the final community
+  return(community) 
 }
 
 
 # Question 11
 neutral_time_series_speciation <- function(community,speciation_rate,duration)  {
+  
   # make empty spp_richness vector 
   spp_richness <- c(species_richness(community)) 
-  #run neutral_generation on the community for each generation (i.e. duration)
+  
+  # run neutral_generation on the community for each generation (i.e. duration)
   for (i in 1:duration) {
     community <- neutral_generation_speciation(community, speciation_rate)
     richness = species_richness(community)
     spp_richness <- c(spp_richness, richness)
   } 
+  
   # return species richness of the final community
   return(spp_richness)
 }
@@ -206,16 +237,17 @@ question_12 <- function()  {
                         Generation = c(rep(seq(0, 200), length(2))))
   p <- ggplot(df, aes(x = Generation, y = spp_richness, colour = minmax))+ # plot graph within the R window
     geom_line()+
-    scale_fill_manual(values = c("#005AB5", "#DC3220"))+ # use colour-blind-friendly colours
     ylab('Species richness')+
     labs(colour="")+
+    scale_colour_manual(name = "Initial species richness", labels = c("Maximum", "Minimum"), values = c("#005AB5", "#DC3220"))+ # use colour blindness-friendly colours
+    theme_bw()+
     theme(axis.title = element_text(size = 10, face = "bold"),
           plot.title = element_text(hjust = 0.5, size = 15, face = "bold"),
           legend.position = "bottom",
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank())+ 
     ggtitle("Species richness across generations \nin a neutral simulation")
-  plot(p)
+    plot(p)
   
   return("Communities with low initial species richness increase in diversity over time as common species are replaced by new, unique species. 
   Communities with high initial species richness conversely lose species richness over time as speciation replaces existing unique species with new species. 
@@ -241,13 +273,23 @@ octaves <- function(abundance_vector) {
 
 # Question 15
 sum_vect <- function(x, y) {
-  diff <- length(x)-length(y) # work out the difference in length between the 2 vectors
-  if (diff > 0) { # if y is shorter than x, fill up y with zeros
+  
+  # work out the difference in length between the 2 vectors
+  diff <- length(x)-length(y) 
+  
+  # if y is shorter than x, fill up y with zeros
+  if (diff > 0) { 
     y <- c(y, rep(0, abs(diff))) }
-  if (diff < 0) { # if x is shorter, do this to x instead
+  
+  # if x is shorter, do this to x instead
+  if (diff < 0) { 
     x <- c(x, rep(0, abs(diff))) }
-  vector_sum <- x + y # now add the vectors now they're the same length (if diff == 0 will go straight to this)
-  return(vector_sum) # return the sum
+  
+  # now add the vectors now they're the same length (if diff == 0 will go straight to this)
+  vector_sum <- x + y 
+  
+  # return the sum
+  return(vector_sum) 
 }
 
 # Question 16
@@ -255,7 +297,10 @@ question_16 <- function()  {
   # clear any existing graphs
   graphics.off()
   
-  #Set starting values for temporary variables
+  
+  ## neutral model simulation
+  
+  # set starting values for temporary variables
   rich_max <- init_community_max(100)
   rich_min <- init_community_min(100)
   speciation_rate = 0.1
@@ -311,17 +356,18 @@ question_16 <- function()  {
   
   df$ranges <- factor(df$ranges, levels = unique(df$ranges))
   
-  p <- ggplot(data = df, aes(x = ranges, y = values, fill = type)) + 
-    geom_bar(stat = "identity", position = "dodge") +
-    xlab("Number of individuals per species") + 
-    ylab("Number of species") +
+  p <- ggplot(data = df, aes(x = ranges, y = values, fill = type))+ 
+    geom_bar(stat = "identity", position = "dodge")+
+    xlab("Number of individuals per species")+ 
+    ylab("Number of species")+
     ggtitle("Number of species for various \nspecies abundances for communities \nunder neutral simulation")+
+    theme_bw()+
     theme(axis.title = element_text(size = 10, face = "bold"),
           plot.title = element_text(hjust = 0.5, size = 15, face = "bold"),
           legend.position = "bottom",
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank())+ 
-    scale_fill_manual(name = "Initial diversity", labels = c("Maximum", "Minimum"), values = c("#005AB5", "#DC3220")) # colour-blind-friendly colours
+    scale_fill_manual(name = "Initial diversity", labels = c("Maximum", "Minimum"), values = c("#005AB5", "#DC3220")) # colour blindness-friendly colours
   plot(p)
   
   return ("The initial condition does not affect the final outcome because both populations tend towards the same octave number after the initial 'burn-in' period (set here as 200 generations).")
@@ -330,11 +376,15 @@ question_16 <- function()  {
 
 # Question 17
 cluster_run <- function(speciation_rate, size, wall_time, interval_rich, interval_oct, burn_in_generations, output_file_name)  {
-  start <- proc.time() # get a timer working on its own
+  
+  start <- proc.time() # get a timer going
+  
+  # define the community
   community <- init_community_min(size) # define starting community as that with minimum diversity and size given as an argument to the function
   richness <- species_richness(community) # assign species richness of this starting community to a variable
   
-  # apply neutral generations with a speciation rate given by speciation_rate for a pre-defined amount of time wall_time
+  
+  ## apply neutral generations with a speciation rate given by speciation_rate for a pre-defined amount of time wall_time
   
   # initial burn-in period:
   for (i in 1:burn_in_generations){ 
@@ -354,7 +404,7 @@ cluster_run <- function(speciation_rate, size, wall_time, interval_rich, interva
       oct[[(counter/interval_oct) + 1]] <- octaves(species_abundance(community))
       }
     final_time_min <- as.double((proc.time() - start) / 60)[3]
-    if (final_time_min >= wall_time) break
+    if (final_time_min >= wall_time) break # do this until the simulation runs out of time
   }
   
   # save simulation results in a file with name given by the input output_file_name
@@ -373,7 +423,7 @@ process_cluster_results <- function()  {
   oct_mean_sum <- c()
   oct_outputs <- list()
   
-  counter <- 0 # set counter
+  counter <- 0
   while (counter < 100){
     counter <- counter + 1
     
@@ -388,7 +438,7 @@ process_cluster_results <- function()  {
     oct_mean <- oct_sum/length(oct)
     oct_sum <- c()
     oct_mean_sum <- sum_vect(oct_mean_sum, oct_mean)
-    if (j %% 25 == 0){
+    if (counter %% 25 == 0){
       oct_outputs <- c(oct_outputs, list(oct_mean_sum / 25))
       oct_sum <- c()
       oct_mean_sum <- c()
@@ -412,23 +462,24 @@ plot_cluster_results <- function()  {
   # make dataframe for plotting:
   df <- data.frame(no_indivs = c(seq(1,length(oct_outputs[[1]])), seq(1,length(oct_outputs[[2]])), seq(1,length(oct_outputs[[3]])), seq(1,length(oct_outputs[[4]]))),
                    octaves = c(oct_outputs[[1]], oct_outputs[[2]], oct_outputs[[3]], oct_outputs[[4]]),
-                   Simulation = c(rep("Size = 500 Simulation", length(oct_outputs[[1]])), rep("Size = 1000 Simulation", length(oct_outputs[[2]])), rep("Size = 2500 Simulation", length(oct_outputs[[3]])), rep("Size = 5000 Simulation", length(oct_outputs[[4]]))))
+                   Simulation = c(rep("500", length(oct_outputs[[1]])), rep("1000", length(oct_outputs[[2]])), rep("2500", length(oct_outputs[[3]])), rep("5000", length(oct_outputs[[4]]))))
   
   df$no_indivs <- factor(df$no_indivs, levels = unique(df$no_indivs))
   df$Simulation <- factor(df$Simulation, levels = unique(df$Simulation))
   
-  p <- ggplot(df, aes(x = no_indivs, y = octaves, fill = Simulation)) +
-    geom_bar(stat = "identity") +
-    facet_grid(Sizes ~ ., scales = "free")+
-    xlab("Number of individuals per species") + 
-    ylab("Number of species") +
+  p <- ggplot(df, aes(x = no_indivs, y = octaves, fill = Simulation))+
+    geom_bar(stat = "identity")+
+    facet_grid(Simulation ~ ., scales = "free")+
+    xlab("Number of individuals per species")+ 
+    ylab("Number of species")+
     ggtitle("Number of species for various \nspecies abundances for communities \nunder neutral simulation,\nfor different simulation sizes")+
+    theme_bw()+
     theme(axis.title = element_text(size = 10, face = "bold"),
           plot.title = element_text(hjust = 0.5, size = 15, face = "bold"),
           legend.position = "bottom",
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank())+ 
-    scale_fill_manual(name = "Simulation size", labels = c("500", "1000", "2500", "5000"), values = c("#F0E442", "#0072B2", "#D55E00", "#CC79A7")) # colour-blind-friendly colours
+    scale_fill_manual(name = "Simulation size", labels = c("500", "1000", "2500", "5000"), values = c("#F0E442", "#0072B2", "#D55E00", "#CC79A7")) # colour blindness-friendly colours
   plot(p)
   
   # return a list of the data just plotted
@@ -438,6 +489,7 @@ plot_cluster_results <- function()  {
 # Question 21
 question_21 <- function()  {
   dim <- log(8)/log(3)
+  
   return(list(round(dim, 3), "The dimension of a fractal is given in the equation D = log(N)/log(S), where D is the dimension, N is the number of miniature pieces in the final figure, and S is the scaling factor. 
               The main pattern of this fractal repeats eight times so N = 8. To make a single line this fractal is repeated three times, so S = 3. Therefore, D = log(8)/log(3)."))
 }
@@ -445,6 +497,7 @@ question_21 <- function()  {
 # Question 22
 question_22 <- function()  {
   dim <- log(20)/log(3)
+  
   return(list(round(dim, 3), "The dimension of a fractal is given in the equation D = log(N)/log(S), where D is the dimension, N is the number of miniature pieces in the final figure, and S is the scaling factor. 
   The overall cube has six faces each with eight smaller squares on it. Hence the overall cube is made up of 20 smaller cubes, so N = 20. To make a single line this fractal is repeated three times, so S = 3. Therefore, D = log(20)/log(3)."))
   }
@@ -664,7 +717,7 @@ Challenge_A <- function() {
           legend.position = "bottom",
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank())+ 
-    scale_fill_manual(name = "Initial diversity", labels = c("Maximum", "Minimum"), values = c("#005AB5", "#DC3220")) # colour-blind-friendly colours
+    scale_fill_manual(name = "Initial diversity", labels = c("Maximum", "Minimum"), values = c("#005AB5", "#DC3220")) # colour blindness-friendly colours
   plot(p)
 
   return("The point labelled 'X' on the graph is my estimate of where the system reaches dynamic equilibrium: at roughly 29 generations.")
@@ -720,11 +773,11 @@ Challenge_B <- function() {
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank())+ 
     labs(fill = "Initial diversity")+
-    scale_colour_viridis(discrete = TRUE, name = "Initial diversity") # colour-blind-friendly palette
+    scale_colour_viridis(discrete = TRUE, name = "Initial diversity") # colour blindness-friendly palette
   plot(p)
 }
 
-# Challenge question C - also have a look at once have run simulations on HPC --> TO FINISH ONCE HAVE RUN STUFF ON HPC!!
+# Challenge question C
 Challenge_C <- function() {
   # clear any existing graphs
   graphics.off()
@@ -739,32 +792,34 @@ Challenge_C <- function() {
   # read in outputs and work out mean octaves for each species abundance octave
   while(counter < 100){
     counter <- counter + 1
-    outputs <- paste("eab21_result", i, ".rda", sep = "") # read in and load outputs
+    outputs <- paste("eab21_result", counter, ".rda", sep = "") # read in and load outputs
     load(outputs)
-    mean_spp_richness <- sum_vect(mean_oct, richness)
+    mean_spp_richness <- sum_vect(mean_spp_richness, richness)
     if (counter %% 25 == 0){
-      mean_spp_richness_all <- c(mean_spp_richness_all, list(mean_richness / 25))
-      mean_richness <- c()
+      mean_spp_richness_all <- c(mean_spp_richness_all, list(mean_spp_richness / 25))
+      mean_spp_richness <- c()
     }
   }
   
   ## plot: graph of mean species richness against simulation generation 
   
-  df <- data.frame(generation = c(seq(1,4001), seq(1,8001), seq(1,20001), seq(1,40001)),
-                   richness = c(mean_spp_richness_all[[1]], mean_spp_richness_all[[2]], mean_spp_richness_all[[3]], mean_spp_richness_all[[4]]),
-                   simulation = c(rep("Community size = 500", 4001), rep("Community size = 1000", 8001), rep("Community size = 2500", 20001), rep("Community size = 5000", 40001)))
+  df <- data.frame(Generation = c(seq(1,4001), seq(1,8001), seq(1,20001), seq(1,40001)),
+                   Richness = c(mean_spp_richness_all[[1]], mean_spp_richness_all[[2]], mean_spp_richness_all[[3]], mean_spp_richness_all[[4]]),
+                   Simulation = c(rep("Community size = 500", 4001), rep("Community size = 1000", 8001), rep("Community size = 2500", 20001), rep("Community size = 5000", 40001)))
   
-  p <- ggplot(df, aes(x = generation, y = richness, colour = simulation)) + 
+  p <- ggplot(df, aes(x = Generation, y = Richness, colour = Simulation)) + 
     geom_line() +
-    facet_wrap(Sizes ~ ., scales = "free")+
+    facet_wrap(Simulation ~ ., scales = "free")+
     xlab("Generation") + 
     ylab("Mean species richness")+
     ggtitle("Mean species richness against simulation generation")+
+    theme_bw()+
     theme(axis.title = element_text(size = 10, face = "bold"),
           plot.title = element_text(hjust = 0.5, size = 15, face = "bold"),
           legend.position = "bottom",
           panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank())
+          panel.grid.minor = element_blank())+
+    guides(color=guide_legend(nrow=2, byrow=TRUE))
   plot(p)
 }
 
@@ -821,16 +876,18 @@ Challenge_D <- function() {
   counter <- 0 # set counter
   while (counter < 100){
     counter <- counter + 1
+  
+    # generate octaves for a coalescence simulation (using J = max initial community size and v = my personal speciation rate)
+    oct <- octaves(coalescence(J = 5000, v = 0.0024267)) 
     
     # Work out mean value across all the data for each abundance octave and for each simulation size
     for (i in 1:length(oct)){
-      oct <- octaves(coalescence(J = 5000, v = 0.0024267)) # generate octaves for a coalescence simulation (using J = max initial community size and v = my personal speciation rate)
       oct_sum <- sum_vect(oct_sum, oct[[i]]) # for each octave, sum its contents
     }
     oct_mean <- oct_sum/length(oct)
     oct_sum <- c()
     sum_size <- sum_vect(sum_size, oct_mean)
-    if (j %% 25 == 0){
+    if (counter %% 25 == 0){
       oct_outputs_coal <- c(oct_outputs_coal, list(sum_size / 25))
       oct_sum <- c()
       sum_size <- c()
@@ -838,21 +895,22 @@ Challenge_D <- function() {
     # store time taken for this in hours
     time_coal <- (proc.time() - start)
     time_coal <- time_coal / 3600 
-  
+  }
   
   ## Simulations using the cluster
   
-  load("oct_outputs.rda")
-  i <- 79
-  sum_abundance <- c( )
-  fileName <- paste("eab21_result", i, ".rda", sep = "")
-  load(fileName)
-  # Obtain mean octaves for each abundance octave
-  for (j in 1:length(oct)){
-    sum_abundance <- sum_vect(sum_abundance, oct[[j]])
-  }
-  oct_mean <- sum_abundance/length(oct)
+  # need to work out average octaves for only simulation = size 5000 - just need to get it to do what you're doing above
   
+  #load("oct_outputs.rda")
+  oct_c5000_sum <- c( )
+  oct_cluster_5000 <- paste("eab21_result", 75, ".rda", sep = "")
+  load(oct_cluster_5000)
+  # Obtain mean octaves for each abundance octave
+  for (i in 1:length(oct)){
+     oct_c5000_sum <- sum_vect(oct_c5000_sum, oct[[i]])
+   }
+   oct_c5000 <- oct_c5000_sum/length(oct)
+  #--> this doesn't look right...?
   
   # plot: to check that results from the cluster agree with those from coalescence
   
@@ -874,13 +932,13 @@ Challenge_D <- function() {
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank())+
     panel.grid.minor = element_blank()+ 
-    scale_fill_manual(values = c("#F0E442", "#0072B2")) # colour-blind-friendly colours
-    scale_colour_viridis(discrete = TRUE)# colour-blind-friendly palette
+    scale_fill_manual(values = c("#F0E442", "#0072B2")) # colour blindness-friendly colours
+    scale_colour_viridis(discrete = TRUE)# colour blindness-friendly palette
   plot(p)
   
   return(paste("The coalescence simulation takes", time_coal[3], "hours to run, while running an equivalent set of simulations on the cluster takes", final_time_min/60, "hours to run even though they produce the same results. 
                The coalescence simulation is much quicker because it involves simulating only the lineages which are present in the final community."))
-  }
+
   
 }
 
@@ -1258,7 +1316,7 @@ Challenge_F <- function() {
     return(endpoint)
   }
   
-  # define vector of colour-blind friendly colours
+  # define vector of colour blindness-friendly colours
   colours = c("#88CCEE", "#CC6677", "#DDCC77", "#117733", "#332288", "#AA4499", 
               "#44AA99", "#999933", "#882255", "#661100", "#6699CC", "#888888")
   
