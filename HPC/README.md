@@ -12,7 +12,7 @@ bash version 5.0.17
 
 R:
 - ggplot2: to create plots
-- viridis: to make colour-blind-friendly plots
+- viridis: to make colour blindness-friendly plots
 
 ### **Usage**
 

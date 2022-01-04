@@ -110,6 +110,7 @@ neutral_time_series <- function(community,duration)  {
 
 # Question 8
 question_8 <- function() {
+  
   # clear any existing graphs
   graphics.off() 
   
@@ -218,6 +219,7 @@ neutral_time_series_speciation <- function(community,speciation_rate,duration)  
 
 # Question 12
 question_12 <- function()  {
+  
   # clear any existing graphs
   graphics.off() 
   
@@ -294,6 +296,7 @@ sum_vect <- function(x, y) {
 
 # Question 16
 question_16 <- function()  {
+  
   # clear any existing graphs
   graphics.off()
   
@@ -418,6 +421,7 @@ cluster_run <- function(speciation_rate, size, wall_time, interval_rich, interva
 
 # Question 20 
 process_cluster_results <- function()  {
+  
   # create empty lists for output variables
   oct_sum <- c()
   oct_mean_sum <- c()
@@ -450,6 +454,7 @@ process_cluster_results <- function()  {
 }
 
 plot_cluster_results <- function()  {
+  
   # clear any existing graphs and plot your graph within the R window
   graphics.off()
   
@@ -489,7 +494,6 @@ plot_cluster_results <- function()  {
 # Question 21
 question_21 <- function()  {
   dim <- log(8)/log(3)
-  
   return(list(round(dim, 3), "The dimension of a fractal is given in the equation D = log(N)/log(S), where D is the dimension, N is the number of miniature pieces in the final figure, and S is the scaling factor. 
               The main pattern of this fractal repeats eight times so N = 8. To make a single line this fractal is repeated three times, so S = 3. Therefore, D = log(8)/log(3)."))
 }
@@ -497,13 +501,13 @@ question_21 <- function()  {
 # Question 22
 question_22 <- function()  {
   dim <- log(20)/log(3)
-  
   return(list(round(dim, 3), "The dimension of a fractal is given in the equation D = log(N)/log(S), where D is the dimension, N is the number of miniature pieces in the final figure, and S is the scaling factor. 
   The overall cube has six faces each with eight smaller squares on it. Hence the overall cube is made up of 20 smaller cubes, so N = 20. To make a single line this fractal is repeated three times, so S = 3. Therefore, D = log(20)/log(3)."))
   }
 
 # Question 23
 chaos_game <- function()  {
+  
   # clear any existing graphs
   graphics.off()
   
@@ -522,9 +526,10 @@ chaos_game <- function()  {
        type = "p",
        xlim = c(0,4),
        ylim = c(0,4),
-       xlab = "x",
-       ylab = "y",
-       main = "Chaos game")
+       xlab = "",
+       ylab = "",
+       main = "Chaos game",
+       axes = F)
   text(0, 0.3, labels = "A")
   text(2.8, 4, labels = "B")
   text(4, 0.8, labels = "C")
@@ -555,16 +560,20 @@ chaos_game <- function()  {
           col = "blue",
           pch = 1)
   }
+  
   return("This creates a fractal bounded between A, B, and C with repeating triangles of the shape defined by the minimum convex polygon around A, B, and C.")
 }
 
 
 # Question 24
 turtle <- function(start_position, direction, length)  {
+  
   # draw a line of given start position, direction & length  
+  
   # first define the endpoint
   endpoint <- c(start_position[1] + length*cos(direction),
                 start_position[2] + length*sin(direction))
+  
   # then draw a line between the start and endpoint
   lines(c(start_position[1], endpoint[1]), c(start_position[2], endpoint[2]), type = "l")
 
@@ -576,35 +585,44 @@ turtle <- function(start_position, direction, length)  {
 elbow <- function(start_position, direction, length)  {
   # call turtle twice to draw a pair of lines that join together with a given angle between them
   endpoint <- turtle(start_position, direction, length) # first line
-  turtle(endpoint, direction-pi/4, 0.95 * length) # second line
+  return(turtle(endpoint, direction-pi/4, 0.95 * length)) # second line
 }
 
 # Question 26
 spiral <- function(start_position, direction, length)  {
+  
   # call turtle to draw the first line
   endpoint <- turtle(start_position, direction, length)
+  
   # call spiral to draw the second line
   if (length >= 0.001) 
     spiral(endpoint, direction-pi/4, 0.95*length)
+  
   return("To make the spiral function work, the if statement is needed. If it is not there, an error message is thrown because it is trying to store too much into the stack. This is because it is trying to spiral too many times due to the starting length being too small, meaning the recursion depth is too deep and the stack usage exceeds the maximum limit. The if statement thus makes it only make the spiral if the starting length is sufficiently long such that the recursion depth would be shallow enough for the stack usage limit to not be exceeded.")
 }
 
 # Question 27
 draw_spiral <- function()  {
+  
   # clear any existing graphs
   graphics.off()
+  
   # make a new plot
   plot(1, type="n", xlab="", ylab="", xlim=c(0, 8), ylim=c(0, 8), axes = F)
+  
   # call spiral
   spiral(c(2,3), pi/2, 2)
+  
   # return the same text answer from the spiral function
   return("To make the spiral function work, the if statement is needed. If it is not there, an error message is thrown because it is trying to store too much into the stack. This is because it is trying to spiral too many times due to the starting length being too small, meaning the recursion depth is too deep and the stack usage exceeds the maximum limit. The if statement thus makes it only make the spiral if the starting length is sufficiently long such that the recursion depth would be shallow enough for the stack usage limit to not be exceeded.")
 }
 
 # Question 28
 tree <- function(start_position, direction, length)  {
+  
   # call turtle to draw the first line
   endpoint <- turtle(start_position, direction, length)
+  
   # call tree twice to draw the next lines
   if (length >= 0.01) { # make the minimum length larger than for spiral so that it plots it in less than 30 seconds
     tree(endpoint, direction-pi/4, 0.65*length)
@@ -613,18 +631,23 @@ tree <- function(start_position, direction, length)  {
 }
 
 draw_tree <- function()  {
+  
   # clear any existing graphs
   graphics.off()
+  
   # make a new plot
   plot(1, type="n", xlab="", ylab="", xlim=c(0, 8), ylim=c(0, 8), axes = F)
+  
   # call tree
   tree(c(4,1), pi/2, 2)
 }
 
 # Question 29
 fern <- function(start_position, direction, length)  {
+  
   # call turtle to draw the first line
   endpoint <- turtle(start_position, direction, length)
+  
   # call fern twice to draw the next lines
   if (length >= 0.01) { # make the minimum length larger than for spiral so that it plots it in less than 30 seconds
     fern(endpoint, direction+pi/4, 0.38*length)
@@ -633,18 +656,23 @@ fern <- function(start_position, direction, length)  {
 }
 
 draw_fern <- function()  {
+  
   # clear any existing graphs
   graphics.off()
+  
   # make a new plot
   plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9), axes = F)
+  
   # call fern
   fern(c(3,1), pi/2, 1)
 }
 
 # Question 30
 fern2 <- function(start_position, direction, length, dir)  {
+  
   # call turtle to draw the first line
   endpoint <- turtle(start_position, direction, length)
+  
   # call fern twice to draw the next lines
   if (length >= 0.01) { # make the minimum length larger than for spiral so that it plots it in less than 30 seconds
     fern2(endpoint, direction, 0.87*length, -dir)
@@ -653,10 +681,13 @@ fern2 <- function(start_position, direction, length, dir)  {
 }  
   
 draw_fern2 <- function()  {
+  
   # clear any existing graphs
   graphics.off()
+  
   # make a new plot
   plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9), axes = F)
+  
   # call fern
   fern2(c(2,1), pi/2, 1, 1)
 }
@@ -665,7 +696,9 @@ draw_fern2 <- function()  {
 
 # Challenge question A
 Challenge_A <- function() {
-  graphics.off() # clear any existing graphs
+  
+  # clear any existing graphs
+  graphics.off() 
   
   # define variables to be used to simulate a community's species richness over many generations
   time <- seq(0, 200)
@@ -704,20 +737,21 @@ Challenge_A <- function() {
                    CI_lower = c(CI_lower_max, CI_lower_min),
                    minmax = c(rep("Maximum intial diversity", 201), rep("Minimum initial diversity", 201)))
 
-  p <- ggplot(data = df, aes(x = time, y = species_no, colour = minmax)) +
+  p <- ggplot(data = df, aes(x = time, y = species_no, colour = minmax))+
     geom_point()+
-    geom_ribbon(aes(ymin = CI_lower, ymax = CI_upper), alpha = 0.2) +
-    annotate("text", label = "X", x = 29, y = 25, size = 5, colour = "black", fontface = "bold") +
-    ggtitle("Mean species richness with \n97.2% confidence interval") +
-    xlab("Generation") +
-    ylab("Mean number of species") + 
+    geom_ribbon(aes(ymin = CI_lower, ymax = CI_upper), alpha = 0.2)+
+    annotate("text", label = "X", x = 29, y = 25, size = 5, colour = "black", fontface = "bold")+
+    ggtitle("Mean species richness with \n97.2% confidence interval")+
+    xlab("Generation")+
+    ylab("Mean number of species")+ 
     labs(colour="")+
+    theme_bw()+
     theme(axis.title = element_text(size = 10, face = "bold"),
           plot.title = element_text(hjust = 0.5, size = 15, face = "bold"),
           legend.position = "bottom",
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank())+ 
-    scale_fill_manual(name = "Initial diversity", labels = c("Maximum", "Minimum"), values = c("#005AB5", "#DC3220")) # colour blindness-friendly colours
+    scale_colour_manual(name = "Initial diversity", labels = c("Maximum", "Minimum"), values = c("#005AB5", "#DC3220")) # colour blindness-friendly colours
   plot(p)
 
   return("The point labelled 'X' on the graph is my estimate of where the system reaches dynamic equilibrium: at roughly 29 generations.")
@@ -725,6 +759,7 @@ Challenge_A <- function() {
 
 # Challenge question B
 Challenge_B <- function() {
+  
   # clear any existing graphs
   graphics.off() 
   
@@ -767,6 +802,7 @@ Challenge_B <- function() {
     ggtitle("Average time series for a range of different \nstarting communities under neutral simulation")+
     xlab("Generation")+
     ylab("Number of species")+
+    theme_bw()+
     theme(axis.title = element_text(size = 10, face = "bold"),
           plot.title = element_text(hjust = 0.5, size = 15, face = "bold"),
           legend.position = "bottom",
@@ -774,11 +810,12 @@ Challenge_B <- function() {
           panel.grid.minor = element_blank())+ 
     labs(fill = "Initial diversity")+
     scale_colour_viridis(discrete = TRUE, name = "Initial diversity") # colour blindness-friendly palette
-  plot(p)
+  return(plot(p))
 }
 
 # Challenge question C
 Challenge_C <- function() {
+  
   # clear any existing graphs
   graphics.off()
   
@@ -805,26 +842,28 @@ Challenge_C <- function() {
   
   df <- data.frame(Generation = c(seq(1,4001), seq(1,8001), seq(1,20001), seq(1,40001)),
                    Richness = c(mean_spp_richness_all[[1]], mean_spp_richness_all[[2]], mean_spp_richness_all[[3]], mean_spp_richness_all[[4]]),
-                   Simulation = c(rep("Community size = 500", 4001), rep("Community size = 1000", 8001), rep("Community size = 2500", 20001), rep("Community size = 5000", 40001)))
+                   Simulation = c(rep("500", 4001), rep("1000", 8001), rep("2500", 20001), rep("5000", 40001)))
   
   p <- ggplot(df, aes(x = Generation, y = Richness, colour = Simulation)) + 
     geom_line() +
     facet_wrap(Simulation ~ ., scales = "free")+
     xlab("Generation") + 
     ylab("Mean species richness")+
-    ggtitle("Mean species richness against simulation generation")+
+    ggtitle("Mean species richness \nagainst simulation generation")+
     theme_bw()+
     theme(axis.title = element_text(size = 10, face = "bold"),
           plot.title = element_text(hjust = 0.5, size = 15, face = "bold"),
           legend.position = "bottom",
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank())+
-    guides(color=guide_legend(nrow=2, byrow=TRUE))
-  plot(p)
+    guides(color=guide_legend(nrow=2, byrow=TRUE))+
+    scale_colour_manual(name = "Simulation size", labels = c("500", "1000", "2500", "5000"), values = c("#F0E442", "#0072B2", "#D55E00", "#CC79A7")) # colour blindness-friendly colours
+  return(plot(p))
 }
 
 # Challenge question D
 Challenge_D <- function() {
+  
   # clear any existing graphs
   graphics.off()
   
@@ -861,8 +900,7 @@ Challenge_D <- function() {
   }
   
   
-  
-  ## Simulations using coalescence
+  ## simulation using coalescence
   
   start <- proc.time() # start timing
   
@@ -896,50 +934,45 @@ Challenge_D <- function() {
     time_coal <- (proc.time() - start)
     time_coal <- time_coal / 3600 
   }
+  oct_outputs_coal <- c(oct_outputs_coal[[1]], oct_outputs_coal[[2]], oct_outputs_coal[[3]], oct_outputs_coal[[4]])
   
-  ## Simulations using the cluster
   
-  # need to work out average octaves for only simulation = size 5000 - just need to get it to do what you're doing above
+  ## simulation using the cluster
   
-  #load("oct_outputs.rda")
-  oct_c5000_sum <- c( )
-  oct_cluster_5000 <- paste("eab21_result", 75, ".rda", sep = "")
+  oct_c5000_sum <- c()
+  oct_cluster_5000 <- paste("eab21_result76.rda", sep = "") # to load in a simulation with community size = 5000
   load(oct_cluster_5000)
   # Obtain mean octaves for each abundance octave
   for (i in 1:length(oct)){
      oct_c5000_sum <- sum_vect(oct_c5000_sum, oct[[i]])
    }
    oct_c5000 <- oct_c5000_sum/length(oct)
-  #--> this doesn't look right...?
   
-  # plot: to check that results from the cluster agree with those from coalescence
+   
+  ## plot: to check that results from the cluster agree with those from coalescence
   
-  df <- data.frame(no_indivs = c(seq(1,length(oct_outputs)), seq(1,length(oct_outputs_coal))),
-                   Abundance = c(oct_outputs, oct_outputs_coal),
-                   Method = c(rep("Cluster", length(oct_outputs)), rep("Coalescence", length(oct_outputs_coal))))
+  df <- data.frame(no_indivs = c(seq(1,length(oct_c5000)), seq(1,length(oct_outputs_coal))),
+                   Abundance = c(oct_c5000, oct_outputs_coal),
+                   Method = c(rep("Cluster", length(oct_c5000)), rep("Coalescence", length(oct_outputs_coal))))
 
   df$no_indivs <- factor(df$no_indivs, levels = unique(df$no_indivs))
-  df$Simulation <- factor(df$Simulation, levels = unique(df$Simulation))
+  df$Method <- factor(df$Method, levels = unique(df$Method))
   
-  p <- ggplot(df, aes(x = no_indivs, y = Abundance, fill = Method)) + 
-    geom_bar(stat = "identity", position = "dodge") + 
-    xlab("Number of individuals per species") + 
-    ylab("Number of species") +
+  p <- ggplot(df, aes(x = no_indivs, y = Abundance, fill = Method))+ 
+    geom_bar(stat = "identity")+ 
+    xlab("Number of individuals per species")+ 
+    ylab("Number of species")+
     ggtitle("Number of species for various \nspecies abundances for communities \nunder neutral simulation using either \ncoalescence or the cluster")+
+    theme_bw()+
     theme(axis.title = element_text(size = 10, face = "bold"),
           plot.title = element_text(hjust = 0.5, size = 15, face = "bold"),
           legend.position = "bottom",
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank())+
-    panel.grid.minor = element_blank()+ 
     scale_fill_manual(values = c("#F0E442", "#0072B2")) # colour blindness-friendly colours
-    scale_colour_viridis(discrete = TRUE)# colour blindness-friendly palette
   plot(p)
   
-  return(paste("The coalescence simulation takes", time_coal[3], "hours to run, while running an equivalent set of simulations on the cluster takes", final_time_min/60, "hours to run even though they produce the same results. 
-               The coalescence simulation is much quicker because it involves simulating only the lineages which are present in the final community."))
-
-  
+  return(paste("The coalescence simulation takes", signif(time_coal[3],3), "hours (3sf) to run, while running an equivalent set of simulations on the cluster takes", signif(final_time_min/60,3), "hours (3sf) to run even though they produce the same results. The coalescence simulation is much quicker because it involves simulating only the lineages which are present in the final community."))
 }
 
 
@@ -947,6 +980,7 @@ Challenge_D <- function() {
 
 # Challenge question E
 Challenge_E <- function() {
+  
   # clear any existing graphs
   graphics.off()
   
@@ -972,9 +1006,10 @@ Challenge_E <- function() {
          type = "p",
          xlim = c(0,4),
          ylim = c(0,4),
-         xlab = "x",
-         ylab = "y",
-         main = "Chaos game")
+         xlab = "",
+         ylab = "",
+         main = "Chaos game",
+         axes = F)
     text(0, 0.3, labels = "A")
     text(2.8, 4, labels = "B")
     text(4, 0.8, labels = "C")
@@ -1020,9 +1055,10 @@ Challenge_E <- function() {
        type = "p",
        xlim = c(0,4),
        ylim = c(0,4),
-       xlab = "x",
-       ylab = "y",
-       main = "Chaos game")
+       xlab = "",
+       ylab = "",
+       main = "Chaos game",
+       axes = F)
   text(0, 0.3, labels = "A")
   text(2.8, 4, labels = "B")
   text(4, 0.8, labels = "C")
@@ -1055,8 +1091,8 @@ Challenge_E <- function() {
     }
   }
   
-  # return description of what happens when change the starting values of X:
-  print("Despite different starting values of X, each time the plot creates the same fractal bounded between A, B, and C with repeating triangles of the shape defined by the minimum convex polygon around A, B, and C. The further away from A, B, or C the starting value of X is, the less dense the fractal is (i.e. it takes more iterations to form it) and the more random points there are scattered aronnd the fractal. The plot with the different-coloured points for the first few iterations shows that the first few points are outside of the final fractal shape; this is before the algorithm converges on that final fractal.")
+  # print description of what happens when change the starting values of X:
+  print("Despite different starting values of X, the plot creates the same fractal bounded between A, B, and C, with repeating triangles of the shape defined by the minimum convex polygon around A, B, and C, each time. The further away from A, B, or C the starting value of X is, the less dense the fractal is (i.e. it takes more iterations to form it) and the more random points there are scattered aronnd the fractal. The plot with the different-coloured points for the first few iterations shows that the first few points are outside of the final fractal shape; this is before the algorithm converges on that final fractal.")
   
   
   #########################################################################################################################
@@ -1084,12 +1120,13 @@ Challenge_E <- function() {
        type = "p",
        xlim = c(0,4),
        ylim = c(0,4),
-       xlab = "x",
-       ylab = "y",
-       main = "Chaos game:\nclassic Sierpinski\nGasket")
-  text(0, 0.3, labels = "A")
-  text(2, 3.6, labels = "B")
-  text(4, 0.3, labels = "C")
+       xlab = "",
+       ylab = "",
+       main = "Chaos game:\nclassic Sierpinski\nGasket",
+       axes = F)
+  text(0, 0.5, labels = "A")
+  text(2, 3.8, labels = "B")
+  text(4, 0.5, labels = "C")
   lines(X[1], # add a very small point for X in blue
         X[2],
         type = "p",
@@ -1139,14 +1176,15 @@ Challenge_E <- function() {
        df$X2,
        type = "p",
        xlim = c(0,4),
-       ylim = c(0,4),
-       xlab = "x",
-       ylab = "y",
-       main = "Chaos game:\nsquare")
-  text(0, 0.3, labels = "A")
-  text(0, 4.2, labels = "B")
-  text(4, 4.2, labels = "C")
-  text(4, 0.3, labels = "D")
+       ylim = c(0,5),
+       xlab = "",
+       ylab = "",
+       main = "Chaos game:\nsquare",
+       axes = F)
+  text(0.5, 0, labels = "A")
+  text(0, 4.5, labels = "B")
+  text(4, 4.5, labels = "C")
+  text(4, 0, labels = "D")
   lines(X[1], # add a very small point for X in blue
         X[2],
         type = "p",
@@ -1182,6 +1220,7 @@ Challenge_E <- function() {
 
 # Challenge question F
 Challenge_F <- function() {
+  
   # clear any existing graphs
   graphics.off()
   
@@ -1194,7 +1233,7 @@ Challenge_F <- function() {
   time_taken_tree <- list()
   time_taken_fern1 <- list()
   time_taken_fern2 <- list()
-
+  
   ##tree:
   tree2 <- function(start_position, direction, length, e)  {
     # call turtle to draw the first line
@@ -1280,15 +1319,16 @@ Challenge_F <- function() {
   ## plot: to visualise how how varying e affects time taken
   
   df <- data.frame(plant = c(rep("tree", 3), rep("fern1", 3), rep("fern2", 3)),
-                   threshold = as.character(c(rep(e, 3))),
+                   Threshold = as.character(c(rep(e, 3))),
                    time_taken = c(time_taken_tree[[1]], time_taken_tree[[2]], time_taken_tree[[3]], time_taken_fern1[[1]], time_taken_fern1[[2]], time_taken_fern1[[3]], time_taken_fern2[[1]], time_taken_fern2[[2]], time_taken_fern2[[3]]))
   
-  p <- ggplot(df, aes(x = plant, y = time_taken, fill = threshold))+
+  p <- ggplot(df, aes(x = plant, y = time_taken, fill = Threshold))+
     geom_bar(position = "stack", stat = "identity")+
     scale_fill_viridis(discrete = TRUE)+
     xlab('Plant')+
     ylab('Time taken (s)')+
-    ggtitle("Time taken to generate various\ntypesof fractals for varying\nline size thresholds")+
+    theme_bw()+
+    ggtitle("Time taken to generate various\ntypes of fractals for varying\nline size thresholds")+
     theme(axis.title = element_text(size = 10, face = "bold"),
           plot.title = element_text(hjust = 0.5, size = 15, face = "bold"),
           legend.position = "bottom",
@@ -1313,7 +1353,7 @@ Challenge_F <- function() {
     lines(c(start_position[1], endpoint[1]), c(start_position[2], endpoint[2]), type = "l", col = colour)
     
     # return the endpoint of the line as a vector
-    return(endpoint)
+    endpoint
   }
   
   # define vector of colour blindness-friendly colours
@@ -1354,7 +1394,7 @@ Challenge_F <- function() {
   
   draw_fern5 <- function()  {
     # make a new plot
-    plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9))
+    plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9), axes = F)
     # call fern
     fern5(c(3,1), pi/2, 1)
   }
@@ -1374,7 +1414,7 @@ Challenge_F <- function() {
   
   draw_fern6 <- function()  {
     # make a new plot
-    plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9))
+    plot(1, type="n", xlab="", ylab="", xlim=c(0, 4), ylim=c(0, 9), axes = F)
     # call fern
     fern6(c(2,1), pi/2, 1, 1)
   }
@@ -1386,7 +1426,7 @@ Challenge_F <- function() {
   draw_fern6()
   
   
-  print("These plots illustrate the different levels of the fractals, with each level having a different colour.")
+  return("These plots illustrate the different levels of the fractals, with each level having a different colour.")
 }
 
 # Challenge question G should be written in a separate file that has no dependencies on any functions here.

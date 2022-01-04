@@ -31,7 +31,7 @@ set.seed(iter)
 # create a filename to store results
 cluster_run(speciation_rate = speciation_rate, 
             size = size, 
-            wall_time = 690, 
+            wall_time = 690, # 11.5 x 60 (wall time in shell script set to 12:00:00 because usually takes a little longer than expected on the cluster because jobs don't necessarily start running at the same time)
             interval_rich = 1,
             interval_oct = size / 10, 
             burn_in_generations = 8 * size, 
