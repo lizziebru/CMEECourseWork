@@ -10,8 +10,11 @@ username <- "eab21"
 
 # don't worry about comments for this challenge - the number of characters used will be counted starting from here
 
-t=function(s,d,l){e=c(s[1]+l*cos(d),s[2]+l*sin(d));lines(c(s[1],e[1]),c(s[2],e[2]),type="l");return(e)};f=function(s,d,l,r){e=t(s,d,l);if(l>=0.01){f(e,d,0.87*l,-r);f(e,d+r*pi/4, 0.38*l,r)}};p=function(){plot.new();f(c(2,1),pi/2,1,1)}
-
+t=function(s,d,l){e=c(s[1]+l*cos(d),s[2]+l*sin(d));lines(c(s[1],e[1]),c(s[2],e[2]),type="l");return(e)};f=function(s,d,l,r){e=t(s,d,l);if(l>=0.01){f(e,d,0.87*l,-r);f(e,d+r*pi/4, 0.38*l,r)}};p=function(){plot(1,type="n",xlab="",ylab="",xlim=c(0,4),ylim=c(0,9),axes=F);f(c(2,1),pi/2,1,1)}
+f=function(s,d,l,r){e=c(s[1]+l*cos(d),s[2]+l*sin(d));lines(c(s[1],e[1]),c(s[2],e[2]),type="l");if(l>=0.01){f(e,d,0.87*l,-r);f(e,d+r*pi/4, 0.38*l,r)}};p=function(){plot(1,type="n",xlab="",ylab="",xlim=c(0,4),ylim=c(0,9),axes=F);f(c(2,1),pi/2,1,1)}
+f=function(s,d,l,r){e=c(s[1]+l*cos(d),s[2]+l*sin(d));lines(c(s[1],e[1]),c(s[2],e[2]),type="l");if(l>=0.01){f(e,d,0.87*l,-r);f(e,d+r*pi/4, 0.38*l,r)}};p=function(){plot.new();plot.window(c(0,4),c(0,9));f(c(2,1),pi/2,1,1)}
+f=function(s,d,l,r){e=c(s[1]+l*cos(d),s[2]+l*sin(d));lines(c(s[1],e[1]),c(s[2],e[2]));if(l>=0.01){f(e,d,0.87*l,-r);f(e,d+r*pi/4, 0.38*l,r)}};p=function(){plot.new();plot.window(c(0,4),c(0,9));f(c(2,1),pi/2,1,1)}
+f=function(s,d,l){e=c(s[1]+l*cos(d),s[2]+l*sin(d));lines(c(s[1],e[1]),c(s[2],e[2]));if(l>=0.01){f(e,d,0.87*l);f(e,d+pi/4, 0.38*l)}};p=function(){plot.new();plot.window(c(0,4),c(0,9));f(c(2,1),pi/2,1)}
 
 # what it used to be:
 
