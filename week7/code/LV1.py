@@ -12,7 +12,7 @@ import matplotlib.pylab as p
  # define a function that returns growth rate of consumer & resource popn at any given timestep
  # (i.e. basically just writes the equations into one readable format for further analysis)_
 def dCR_dt(pops, t=0):
-
+    """Return growth rate of consumer and resource population at a given timestep t"""
     R = pops[0]
     C = pops[1]
     dRdt = r * R - a * R * C

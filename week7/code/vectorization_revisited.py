@@ -11,6 +11,7 @@ import matplotlib.pylab as p
 
 # calculating a new array c in which each entry is the product of the two corresponding entries in a and b
 def loop_product(a, b): # define a loop-based function to calculate this
+    """Return a new array in which each entry is the product of the 2 corresponding entries in arguments a and b"""
     N = len(a)
     c = np.zeros(N)
     for i in range(N):
@@ -19,6 +20,7 @@ def loop_product(a, b): # define a loop-based function to calculate this
 
 
 def vect_product(a, b): # define a vectorized function to calculate this
+    """Return a new array in which each entry is the product of the 2 corresponding entries in arguments a and b, but this time in a more vectorized way"""
     return np.multiply(a, b) # multiply function from numpy = vectorized implementation of the elementwise product that we've explicitly written in the function loop_product
 
 

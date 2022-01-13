@@ -91,9 +91,7 @@ mat.reshape((4,1)) # un-flattens it to dimensions (4,1)
 
 mat.reshape((1,4)) # the same but with different dimensions
 
-mat.reshape((3,1)) # ditto
-
-mat.reshape((3,1))
+#mat.reshape((3,1)) # ditto
 # gives an error bc the total no. of elements has to stay the same!
 
 

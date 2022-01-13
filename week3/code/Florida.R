@@ -21,7 +21,8 @@ head(ats)
 plot(ats)
 
 # compute the correlation coefficient between years & temp and store it
-require(ggpubr)
+install.packages('ggpubr') # feedback said there was an error and ggpubr wasn't installed before so have added this in
+library(ggpubr)
 ats_cor <- cor(ats$Year, ats$Temp, method = c("pearson")) # use pearson: bc it should be pearson/spearman bc they correlate normally distributed data and pearson is most appropriate for measurements taken from an interval scale vs spearman is better for measurements taken from ordinal scales
 ats_cor
 

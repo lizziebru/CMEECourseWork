@@ -16,6 +16,7 @@ print(i)
 i = 1
 x = 0
 def a_function(y):
+    """Add one to variable 'x' 'y' times and return x"""
     x = 0
     for i in range(y):
         x += 1
@@ -43,6 +44,7 @@ print("Before calling a_function, outside the function, the value of _a_global i
 print("Before calling a_function, outside the function, the value of _b_global is", _b_global)
 
 def a_function():
+    """Define a local variable. If it is greater than or equal to four, add five and assign to a new local variable. Also define another local variable."""
     _a_global = 4 # a local variable
     
     if _a_global >= 4:
@@ -59,7 +61,8 @@ a_function()
 print("After calling a_function, outside the function, the value of _a_global is (still)", _a_global)
 print("After calling a_function, outside the function, the value of _b_global is (still)", _b_global)
 
-print("After calling a_function, outside the function, the value of _a_local is ", _a_local)
+#print("After calling a_function, outside the function, the value of _a_local is ", _a_local)
+# this line returns an error because _a_local was only defined as a local variable inside the function a_function so does not exist globally
 
 ## --> what happens in the function stays in the function (i.e. overwriting _a_global)
 ## --> _a_local doesn't persist outside the function (hence the NameError at the end)
@@ -70,6 +73,7 @@ print("After calling a_function, outside the function, the value of _a_local is 
 _a_global = 10
 
 def a_function():
+    """Define a local variable and print its value as well as that of a previously-defined global variable"""
     _a_local = 4
     
     print("Inside the function, the value _a_local is", _a_local)
@@ -87,6 +91,7 @@ _a_global = 10
 print("Before calling a_function, outside the function, the value of _a_global is", _a_global)
 
 def a_function():
+    """Use the 'global' keyword to modify global variable _a_global and assign a new variable _a_local, then print their values"""
     global _a_global
     _a_global = 5
     _a_local = 4
@@ -102,9 +107,11 @@ print("After calling a_function, outside the function, the value of _a_global no
 # the global keyword also works from inside nested functions:
 
 def a_function():
+    """Define the variable _a_global as 10 and define a nested function '_a_function2' which modifies its value using the 'global' keyword, then print the values of _a_global before and after applying the nested function"""
     _a_global = 10
 
     def _a_function2():
+        """Re-assign the value of the variable _a_global to 20 using the 'global' keyword"""
         global _a_global
         _a_global = 20
     
@@ -126,8 +133,10 @@ print("The value of a_global in main workspace / namespace now is", _a_global)
 _a_global = 10
 
 def a_function():
+    """Define a nested function '_a_function2' which reassigns the vale of a variable _a_global to 20. Print the original value of _a_global, then apply the function _a_function2 to it, then print its value after applying this function"""
 
     def _a_function2():
+        """Reassign the value of _a_global as 20"""
         global _a_global
         _a_global = 20
     

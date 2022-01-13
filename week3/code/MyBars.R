@@ -3,6 +3,8 @@
 # Desc: script demonstrating how to annotate plots
 # Date: Oct 2021
 
+library(ggplot2)
+
 # use ggplot geom text to annotate a plot:
 a <- read.table("../data/Results.txt", header = TRUE)
 

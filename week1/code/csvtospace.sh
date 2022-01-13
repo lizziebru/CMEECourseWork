@@ -21,6 +21,3 @@ fi
 sed -e 's/,/ /g' $1 >> ../results/`basename -s .csv $1`.txt #output to the results directory
 
 exit
-
-
-# USE PARAMETER EXPANSION? - READ THE PAGES HE PUT IN THE HINT!

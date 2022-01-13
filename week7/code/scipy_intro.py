@@ -11,6 +11,7 @@ import numpy as np
 import scipy as sc
 import scipy.integrate as integrate
 import matplotlib.pylab as p
+from scipy import stats
 
 # e.g. generate 10 samples from normal distribution:
 sc.stats.norm.rvs(size = 10)
@@ -65,6 +66,7 @@ print("area =", area)
  # define a function that returns growth rate of consumer & resource popn at any given timestep
  # (i.e. basically just writes the equations into one readable format for further analysis)_
 def dCR_dt(pops, t=0):
+    """Return growth rate of consumer and resource population at a given timestep t"""
 
     R = pops[0]
     C = pops[1]

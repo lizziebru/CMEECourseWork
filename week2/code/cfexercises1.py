@@ -55,6 +55,7 @@ def foo_6(x):
 ## test arguments to show that these functions work:
 
 def main(argv):
+    """Test all of the functions defined in this script using example arguments"""
     print(foo_1(14))
     print(foo_2(5,10))
     print(foo_3(89,44,61))

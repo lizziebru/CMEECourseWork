@@ -3,6 +3,8 @@
 # Desc: script demonstrating how to annotate a linear regression plot
 # Date: Oct 2021
 
+library(ggplot2)
+
 # this will show how to annotate mathematically on the axis as well as within the plot area:
 
 x <- seq(0, 100, by = 0.1)

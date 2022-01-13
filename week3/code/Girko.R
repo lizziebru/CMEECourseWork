@@ -3,6 +3,8 @@
 # Desc: script plotting Girko's law simulation
 # Date: Oct 2021
 
+require(ggplot2)
+
 ## plotting 2 dataframes together
 
 # example: draw the results of a simulation of Girko's circular law (that the eigenvalues of a matrix size N x N are approximately contained in a circle in the complex plane with radius sqrt(N))

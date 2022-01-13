@@ -4,6 +4,7 @@
 # Date: Oct 2021
 
 library(ggplot2)
+install.packages('ggpubr') # feedback showed this threw an error so ggpubr was probably not already installed on your computer
 library(ggpubr)
 
 # read in raw data

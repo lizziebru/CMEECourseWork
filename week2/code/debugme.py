@@ -4,6 +4,7 @@
 __author__ = 'Lizzie Bru (eab21@ic.ac.uk)'
 
 def buggyfunc(x):
+    """Divide the input argument by itself minus one or print an error message if this is not possible due to division by zero"""
     y = x
     for i in range(x):
         try:

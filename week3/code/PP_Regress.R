@@ -3,6 +3,7 @@
 # Desc: Practical work on visualizing regression analyses
 # Date: Nov 2021
 
+require(ggplot2)
 require(ggpubr)
 require(plyr)
 require(broom)
