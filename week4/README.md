@@ -4,6 +4,8 @@ This repository contains coursework materials from week 4 of practical work in t
 
 Specifically, this includes the [**Model Fitting using Non-linear Least-squares**](https://mhasoba.github.io/TheMulQuaBio/notebooks/20-ModelFitting-NLLS.html) chapter in the Advanced Data Analyses and Statistics section of the  [**The Multilingual Quantitative Biologist**](https://mhasoba.github.io/TheMulQuaBio/intro.html) online book.
 
+There is no additional code pushed to this repository since this week was also the Statistics in R course shared with other courses, which is not assessed.
+
 
 ### **Languages**
 
