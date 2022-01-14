@@ -30,6 +30,16 @@ If you would like to run the scripts in this project, you should clone this repo
 
 ### **Usage**
 
+[**CompileLaTeX.sh**](code/CompileLaTeX.sh)
+
+This script compiles LaTeX documents with Bibtex. It takes the LaTeX .tex file as an argument and compiles it into a PDF.
+
+
+[**DataWrangTidy.R**](code/DataWrangTidy.R)
+
+This script demonstrates how to wrangle data in R using tidyr ad dplyr. It should be run altogether and wrangle the data it imports from the 'data' directory.
+
+
 [**TreeHeight.R**](code/TreeHeight.R)
 
 This script calculates tree heights for trees provided. It should be run altogether and output the tree heights in a csv file. 
@@ -53,11 +63,6 @@ LaTeX write-up of the results of the analysis carried out in Florida.R.
 [**Florida_biblio.bib**](code/Florida_biblio.bib)
 
 This is the bibliography for Florida_writeup.tex.
-
-
-[**DataWrangTidy.R**](code/DataWrangTidy.R)
-
-This script demonstrates how to wrangle data in R using tidyr ad dplyr. It should be run altogether and wrangle the data it imports from the 'data' directory.
 
 
 [**PP_Dists.R**](code/PP_Dists.R)
