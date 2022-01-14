@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+!/usr/bin/env python3
 
 """This script aligns two DNA sequences such that they are as similar as possible"""
 __author__ = 'Lizzie Bru (eab21@ic.ac.uk)'

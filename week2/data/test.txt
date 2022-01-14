@@ -1,0 +1,1 @@
+An example text file to use to practice inputting files in Python
