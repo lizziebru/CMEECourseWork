@@ -16,12 +16,39 @@ bc
 
 ### **Contents** 
 
+Repositories for each week of the course:
+
 [**Week 1**](week1)
-- this directory contains coursework materials from week 1 of practical work, covering the following topics:
-1. [UNIX and Linux](https://mhasoba.github.io/TheMulQuaBio/notebooks/01-Unix.html#)
-2. [Shell scripting](https://mhasoba.github.io/TheMulQuaBio/notebooks/02-ShellScripting.html)
-3. [Version control with Git](https://mhasoba.github.io/TheMulQuaBio/notebooks/03-Git.html)
-4. [Scientific documents with LaTeX](https://mhasoba.github.io/TheMulQuaBio/notebooks/04-LaTeX.html)
+- this repository contains coursework materials from week 1 of practical work (introduction to UNIX and Linux, shell scripting, Git, and LaTeX) 
+
+[**Week 2**](week2)
+- this repository contains coursework materials from week 2 of practical work (Python I)
+
+[**Week 3**](week3)
+- this repository contains coursework materials from week 3 of practical work (R)
+
+[**Week 4**](week4)
+- this repository contains materials to help prepare for the Computing MiniProject, but no other contents since this week was Statistics in R shared with other courses and not assessed
+
+[**Week 5**](week5)
+- this repository does not contain any code files since this week was GIS week shared with other courses and not assessed
+
+[**Week 6**](week6)
+- this repository does not contain any code files since this week was Genomics and Bioinformatics week shared with other courses and not assessed
+
+[**Week 7**](week7)
+- this repository contains coursework materials from week 7 of practical work (Python II and Jupyter)
+
+[**MiniProject**](MiniProject)
+- this repository contains coursework materials for the Computing MiniProject
+
+[**HPC**](HPC)
+- this repository contains coursework materials for the High Performance Computing long practical
+
+[**Project**](Project)
+- this repository contains materials for my MRes project 
+
+
 
 ### **Usage**
 
