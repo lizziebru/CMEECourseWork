@@ -32,6 +32,16 @@ This is an example python script with an example of how to define and call a fun
 This script aligns two DNA sequences such that they are as similar as possible. It should be run altogether, taking an input from the [data](data) directory and outputting a text file with the best alignment and corresponding score into the [results](results) directory.
 
 
+[**align_seqs_better.py**](code/align_seqs_better.py)
+
+This groupwork script takes any two fasta sequences (in separate files) to be aligned as input, taking into account all the equally-best alignments.
+
+
+[**align_seqs_fasta.py**](code/align_seqs_fasta.py)
+
+This groupwork script takes any two fasta sequences (in separate files) to be aligned as input.
+
+
 [**basic_csv.py**](code/basic_csv.py)
 
 This script demonstrates how to handle CSVs in python. It should be run in one go and open the data file [**testcsv.csv**](data/testcsv.csv) and write another file called bodymass.csv.

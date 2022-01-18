@@ -125,6 +125,16 @@ A script demonstrating examples of how to visualize data.
 A script to illustrate how to wrangle data in R.
 
 
+[**get_TreeHeight.R**](code/get_TreeHeight.R)
+
+This groupwork R script calculates tree heights for all trees and saves output as new csv.
+
+
+[**get_TreeHeight.py**](code/get_TreeHeight.py)
+
+This groupwork Python script calculates tree heights for all trees and saves output as new csv.
+
+
 [**Girko.R**](code/Girko.R)
 
 A script plotting Girko's law simulation.
@@ -145,6 +155,11 @@ A script to illustrate how use next in loops.
 A script demonstrating how to annotate a linear regression plot.
 
 
+[**PP_Regress_loc.R**](code/PP_Regress_loc.R)
+
+This groupwork script calculates a linear regression on subsets of the data corresponding to i) Feeding Type, ii) Predator life Stage and iii) Location.
+
+
 [**preallocate.R**](code/preallocate.R)
 
 A script containing examples of using pre-allocation.
@@ -160,6 +175,11 @@ A script demonstrating the use of functions with conditionals.
 This script contains the Ricker model.
 
 
+[**run_get_TreeHeight.sh**](code/run_get_TreeHeight.sh)
+
+This groupwork Bash script runs both get_TreeHeight.R and run_get_TreeHeight.sh.
+
+
 [**sample.R**](code/sample.R)
 
 This script illustrates how sampling random numbers and using lapply and sapply works.
@@ -168,6 +188,16 @@ This script illustrates how sampling random numbers and using lapply and sapply 
 [**SQLinR.R**](code/SQLinR.R)
 
 This script demonstrates how to use SQLite to build, manipulate, and access databases easily.
+
+
+[**TAutoCorr.R**](code/TAutoCorr.R)
+
+This groupwork script calculates the correlation between pairs of years to analyse temperature trends in Florida.
+
+
+[**TAutoCorr.tex**](code/TAutoCorr.tex)
+
+This groupwork script is a latex file for compiling a report on Florida temperatures.
 
 
 [**try.R**](code/try.R)
