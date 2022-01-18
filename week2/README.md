@@ -86,6 +86,7 @@ This script makes a dictionary from tuples. It should be run altogether and retu
 
 This script contains two exercises on practicing list comprehensions and loops. It should be run altogether and print the latin names, common names, and mean body masses for each bird species two times.
 
+
 [**lc2.py**](code/lc2.py)
 
 This script contains three more exercises on practicing list comprehensions and loops. It should be run altogether and print the following lists two times:

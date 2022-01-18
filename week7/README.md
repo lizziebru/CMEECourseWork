@@ -94,7 +94,8 @@ This script illustrates how to vectorize in Python.
 
 [**oaks_debugme.py**](code/oaks_debugme.py)
 
-This script writes a function to read data on oaks.
+This script loads in data with species names and searches for oak species. It should be run in one go, reading in the input file 'TestOaksData.csv' and output a new file called 'JustOaksData.csv' containing the oak information into the data folder.
+
 
 
 ### **Author name and contact**
