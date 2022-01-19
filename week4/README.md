@@ -15,8 +15,11 @@ R version 3.6.3 (2020-02-29)
 ### **Dependencies** 
 
 minpack.lm
+
 nlstools
+
 ggplot2
+
 ggpmisc
 
 
