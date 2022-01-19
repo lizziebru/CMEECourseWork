@@ -13,13 +13,21 @@ R version 3.6.3 (2020-02-29)
 ### **Dependencies** 
 
 ggplot2
+
 ggpubr
+
 tidyr
+
 dplyr
+
 plyr
+
 broom
+
 base
+
 maps
+
 sqldf
 
 
