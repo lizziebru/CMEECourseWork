@@ -34,7 +34,12 @@ If you would like to run the scripts in this project, you should clone this repo
 
 [**oaks_debugme.py**](code/oaks_debugme.py)
 
-This script served as a debugging exercise. It is now fixed and should take the input data TestOaksData.csv and write an output of oak names to JustOaksData.csv.
+This script loads in data with species names and searches for oak species. It should be run in one go, reading in the input file 'TestOaksData.csv' and output a new file called 'JustOaksData.csv' containing the oak information into the data folder.
+
+
+[**grp_oaks_debugme.py**](code/grp_oaks_debugme.py)
+
+This groupwork script does the same and should be run in the same way as oaks_debugme.py. It now additionally excludes the header row (if it exist)s in its search for oaks in the input dataset, as well as contain column headers (Genus and species) in the output file.
 
 
 [**LV1.py**](code/LV1.py)
@@ -90,12 +95,6 @@ This script illustrates quick profiling with timeit in Python.
 [**vectorization_revisited.py**](code/vectorization_revisited.py)
 
 This script illustrates how to vectorize in Python.
-
-
-[**oaks_debugme.py**](code/oaks_debugme.py)
-
-This script loads in data with species names and searches for oak species. It should be run in one go, reading in the input file 'TestOaksData.csv' and output a new file called 'JustOaksData.csv' containing the oak information into the data folder.
-
 
 
 ### **Author name and contact**
