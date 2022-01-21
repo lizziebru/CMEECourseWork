@@ -208,6 +208,11 @@ This groupwork script calculates the correlation between pairs of years to analy
 This groupwork script is a latex file for compiling a report on Florida temperatures.
 
 
+[**TAutoCorr.pdf**](writeup/TAutoCorr.pdf)
+
+This groupwork script is the PDF of the write-up for autocorrelation in Florida weather.
+
+
 [**try.R**](code/try.R)
 
 This script illustrates the use of 'try' to catch errors.
