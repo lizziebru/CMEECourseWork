@@ -2,6 +2,11 @@
 
 This contains all coursework materials from practical work in the Computational Methods in Ecology and Evolution course at Imperial College London Silwood Park, which is guided by the [**The Multilingual Quantitative Biologist**](https://mhasoba.github.io/TheMulQuaBio/intro.html) online book.
 
+### **Link to groupwork repository**
+
+My groupwork coursework can be found in the [**Booming_Bonobos**](https://github.com/eamonnmurphy/Booming_Bonobos.git) repository.
+
+
 ### **Languages**
 
 BASH version 5.0.17(1)
